@@ -1,0 +1,19 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-title>BR Easy Post</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let brand of brands" size="6">
+          <ion-img [src]="brand.image_url" (click)="newPost(brand)"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
