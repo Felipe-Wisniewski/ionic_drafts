@@ -1,8 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { TemplateService } from './template.service';
+import { Template } from '@angular/compiler/src/render3/r3_ast';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-template',
@@ -11,7 +13,12 @@ import { TemplateService } from './template.service';
 })
 export class TemplatePage implements OnInit, OnDestroy {
 
-  idBrand: string;
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  
+  idBrand: number;
+  templates = [];
+  page = 1;
+  maxPage: number;
 
   subscription: Subscription;
 
@@ -24,19 +31,39 @@ export class TemplatePage implements OnInit, OnDestroy {
 
   getBrandId() {
     this.subscription = this.route.queryParams.subscribe(
-      (params: any) => {
-        console.log('getBrand: ' + params['id'])
-        this.idBrand = params['id'];
+      (params: any) => { this.idBrand = params['id']; });
+  }
+
+  loadTemplates(event?) {
+    this.subscription = this.templateService.getTemplates(this.page).subscribe(
+      res => {
+        this.templates = this.templates.concat(res['templates']);
+        this.maxPage = res['pages'];
+
+        if (event) {
+          console.log(`loadComplete page: ${this.page} - maxPage: ${this.maxPage}`);
+          event.target.complete();
+        }
       }
     );
   }
 
-  loadTemplates() {
-    this.subscription = this.templateService.getTemplates().subscribe(
-      (data) => {
-        console.log(data)
-      }
-    );
+  loadMore(event) {
+    console.log(`page: ${this.page}`);
+    this.page++;
+    console.log(`page:: ${this.page}`);
+
+    this.loadTemplates(event);
+
+    if (this.page === this.maxPage) {
+      console.log(`loadMore page: ${this.page} - maxPage: ${this.maxPage}`);
+      event.target.disable = true;
+    }
+  }
+  
+  toggleInfiniteScroll() {
+    console.log("toggleInfiniteScroll");
+    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
 
   ngOnDestroy() {

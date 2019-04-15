@@ -118,7 +118,7 @@
       {
          "id":22,
          "brand":"TAL MAE TAL FILHA",
-         "image_url":"https:\/\/s3-sa-east-1.amazonaws.com\/bancoimagens.com.br\/marcas\/16.jpg",
+         "image_url":"assets/mocks/talmaetalfilha.jpg",
          "list_order":"8",
          "logo_url":"https:\/\/s3-sa-east-1.amazonaws.com\/bancoimagens.com.br\/marcas_logos\/16.png",
          "color":[

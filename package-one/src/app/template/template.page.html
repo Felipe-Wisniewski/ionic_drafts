@@ -11,5 +11,20 @@
 </ion-header>
 
 <ion-content>
-  <p>{{ idBrand }}</p>
+  <h6 style="text-align:center">choose your template</h6>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let template of templates" size="4">
+          <ion-img [src]="template.json.thumbnailUrl"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll threshold="500px" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
