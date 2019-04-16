@@ -8,7 +8,7 @@
 
 <ion-content>
 
-  <ion-grid>
+  <ion-grid no-padding>
     <ion-row>
       <ion-col *ngFor="let brand of brands" size="6">
           <ion-img [src]="brand.image_url" (click)="newPost(brand)"></ion-img>

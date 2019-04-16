@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { tap, map, filter } from 'rxjs/operators';
 
 import { TemplateService } from './template.service';
-import { Template } from '@angular/compiler/src/render3/r3_ast';
-import { IonInfiniteScroll } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-template',
@@ -12,58 +12,57 @@ import { IonInfiniteScroll } from '@ionic/angular';
   styleUrls: ['./template.page.scss'],
 })
 export class TemplatePage implements OnInit, OnDestroy {
-
-  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   
-  idBrand: number;
-  templates = [];
-  page = 1;
-  maxPage: number;
-
   subscription: Subscription;
+  
+  id_brand: number;
+  // id_lang: number = null; //descobrir os id de idiomas
 
-  constructor(private templateService: TemplateService, private route: ActivatedRoute) { }
+  templates$: Observable<Object[]>;
+
+  constructor(private templateService: TemplateService, private route: ActivatedRoute) {
+    this.getBrandId();
+  }
+  
+  getBrandId() {
+    this.subscription = this.route.queryParams.subscribe(
+      (params: any) => { 
+        this.id_brand = params['id_brand']; 
+      });
+  }
 
   ngOnInit() {
-    this.getBrandId();
     this.loadTemplates();
   }
 
-  getBrandId() {
-    this.subscription = this.route.queryParams.subscribe(
-      (params: any) => { this.idBrand = params['id']; });
-  }
-
-  loadTemplates(event?) {
-    this.subscription = this.templateService.getTemplates(this.page).subscribe(
-      res => {
-        this.templates = this.templates.concat(res['templates']);
-        this.maxPage = res['pages'];
-
-        if (event) {
-          console.log(`loadComplete page: ${this.page} - maxPage: ${this.maxPage}`);
-          event.target.complete();
-        }
-      }
-    );
+  loadTemplates() {
+    this.templates$ = this.templateService.getTemplates(this.id_brand/* , this.id_lang */)
+      .pipe(
+        tap(console.log),
+        map(resp => resp['templates'])
+      );
   }
 
   loadMore(event) {
-    console.log(`page: ${this.page}`);
-    this.page++;
-    console.log(`page:: ${this.page}`);
+    setTimeout(() => {
+/*       console.log(this.page);
+      if (this.page == this.maxPage) {
+        event.target.complete();
+        return;
+      }
 
-    this.loadTemplates(event);
+      if (this.page == this.maxPage) {
+        event.target.disabled = true;
+      }
 
-    if (this.page === this.maxPage) {
-      console.log(`loadMore page: ${this.page} - maxPage: ${this.maxPage}`);
-      event.target.disable = true;
-    }
+      this.page++;
+      this.loadTemplates();
+ */
+    }, 2500);
   }
-  
-  toggleInfiniteScroll() {
-    console.log("toggleInfiniteScroll");
-    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+ 
+  segmentChanged(ev: any) {
+    console.log('Segment changed', ev);
   }
 
   ngOnDestroy() {

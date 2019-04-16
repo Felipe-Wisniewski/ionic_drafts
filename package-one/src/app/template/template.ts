@@ -1,96 +1,92 @@
-export class TemplatesResponse {
-    public templates: Template[] = null;
-    public page: number;
-    public pages: number;
-    public messages: string[] = null;
-    
-    constructor(values: Object = {}) {
-        Object.assign(this, values);
-    }
+export interface TemplatesResponse {
+    templates: Template[],
+    page: number,
+    pages: number,
+    messages: string[]
 }
 
-export class Template {
-    public id_brand: string;
-    public status: string;
-    public registration_user: string;
-    public registration_date: string;
-    public alteration_user: string;
-    public alteration_date: string;
-    public id_lang: string;
-    public id_template: string;
-    public json: Json;
-    public brand: Brand;
+export interface Template {
+    id_brand: string,
+    status: string,
+    registration_user: string,
+    registration_date: string,
+    alteration_user: string,
+    alteration_date: string,
+    id_lang: string,
+    id_template: string,
+    json: Json,
+    brand: Brand
 }
 
-export class Json {
-    public version: string;
-    public objects: Objects[] = null;
-    public background: string;
-    public lockNewObjects: boolean;
-    public name: string;
-    public thumbnailUrl: string;
-    public thumbnail: string;
+export interface Json {
+    version: string,
+    objects: Objects[],
+    background: string,
+    lockNewObjects: boolean,
+    name: string,
+    thumbnailUrl: string,
+    thumbnail: string
 }
 
-export class Brand {
-    public id: number;
-    public brand: string;
-    public image_url: string;
-    public list_order: string;
-    public logo_url: string;
-    public color: string[] = null;
-    public tag: object[] = null;
+export interface Brand {
+    id: number,
+    brand: string,
+    image_url: string,
+    list_order: string,
+    logo_url: string,
+    color: string[],
+    tag: object[]
 }
 
-export class Objects {
-    public type: string;
-    public version: string;
-    public originX: string;
-    public originY: string;
-    public left: number;
-    public top: number;
-    public width: number;
-    public height: number;
-    public fill: string;
-    public stroke: any;
-    public strokeWidth: number;
-    public strokeDashArray: any;
-    public strokeLineCap: string;
-    public strokeLineJoin: string;
-    public strokeMiterLimit: number;
-    public scaleX: number;
-    public scaleY: number;
-    public angle: number;
-    public flipX: boolean;
-    public flipY: boolean;
-    public opacity: number;
-    public shadow: any;
-    public visible: boolean;
-    public clipTo: any;
-    public backgroundColor: string;
-    public fillRule: string;
-    public paintFirst: string;
-    public globalCompositeOperation: string;
-    public transformMatrix: any;
-    public skewX: number;
-    public skewY: number;
-    public crossOrigin: string;
-    public cropX: number;
-    public cropY: number;
-    public removable: boolean;
-    public maxWidth: number;
-    public maxHeight: number;
-    public controls: string;
-    public cornerStyle: string;
-    public cornerSize: number;
-    public rotatingPointOffset: number;
-    public changeColor: boolean;
-    public changeFont: boolean;
-    public lockMovementX: boolean;
-    public lockMovementY: boolean;
-    public selectable: boolean;
-    public lockUniScaling: boolean;
-    public evented: boolean;
-    public src: string;
-    public filters: any[] = null;
+export interface Objects {
+    type: string,
+    version: string,
+    originX: string,
+    originY: string,
+    left: number,
+    top: number,
+    width: number,
+    height: number,
+    fill: string,
+    stroke: any,
+    strokeWidth: number,
+    strokeDashArray: any,
+    strokeLineCap: string,
+    strokeLineJoin: string,
+    strokeMiterLimit: number,
+    scaleX: number,
+    scaleY: number,
+    angle: number,
+    flipX: boolean,
+    flipY: boolean,
+    opacity: number,
+    shadow: any,
+    visible: boolean,
+    clipTo: any,
+    backgroundColor: string,
+    fillRule: string,
+    paintFirst: string,
+    globalCompositeOperation: string,
+    transformMatrix: any,
+    skewX: number,
+    skewY: number,
+    crossOrigin: string,
+    cropX: number,
+    cropY: number,
+    removable: boolean,
+    maxWidth: number,
+    maxHeight: number,
+    controls: string,
+    cornerStyle: string,
+    cornerSize: number,
+    rotatingPointOffset: number,
+    changeColor: boolean,
+    changeFont: boolean,
+    lockMovementX: boolean,
+    lockMovementY: boolean,
+    selectable: boolean,
+    lockUniScaling: boolean,
+    evented: boolean,
+    src: string,
+    filters: any[]
 }

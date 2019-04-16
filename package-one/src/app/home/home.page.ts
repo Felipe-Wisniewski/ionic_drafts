@@ -44,7 +44,7 @@ export class HomePage implements OnInit, OnDestroy {
     
     } else {
       this.router.navigate(['template'], {
-        queryParams: { 'id': brand.id }
+        queryParams: { 'id_brand': brand.id }
       });
     }
   }
