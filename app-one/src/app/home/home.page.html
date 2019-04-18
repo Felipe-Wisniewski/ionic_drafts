@@ -12,7 +12,7 @@
   <ion-grid no-padding>
     <ion-row>
       <ion-col *ngFor="let brand of brands" size="6">
-          <ion-img [src]="brand.image_brand" (click)="newPost(brand)"></ion-img>
+          <ion-img [src]="brand.image_brand" (click)="selectBrand(brand)"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>
