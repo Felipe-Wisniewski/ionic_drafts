@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
@@ -13,7 +13,7 @@ export class TemplatesPostsPage implements OnDestroy {
   cod_brand: string;
   subscription: Subscription;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.getBrandId();
   }
 
@@ -23,6 +23,22 @@ export class TemplatesPostsPage implements OnDestroy {
         this.cod_brand = params['cod_brand'];
       }
     );
+  }
+
+  onClickTemplates() {
+    this.router.navigate(['/templates'], {
+      queryParams: {
+        'cod_brand': this.cod_brand
+      }
+    });
+  }
+
+  onClickPosts() {
+    this.router.navigate(['/templates'], {
+      queryParams: {
+        'cod_brand': this.cod_brand
+      }
+    });
   }
 
   ngOnDestroy() {

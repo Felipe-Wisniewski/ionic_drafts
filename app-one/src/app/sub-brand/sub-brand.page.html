@@ -1,9 +1,18 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>sub-brand</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+  </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<p>{{ cod_sub_brand }}</p>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col *ngFor="let brand of subBrands" size="6">
+          <ion-img [src]="brand.image_brand" (click)="onClickSubBrand(brand)"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

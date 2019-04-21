@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { Subscription } from 'rxjs';
 
@@ -12,11 +12,12 @@ import { Subscription } from 'rxjs';
 export class SubBrandPage implements OnDestroy {
 
   sub_marca: string[];
-  subs: any[];
-  subBrands: any[];
+  brands: any[];
+  subBrands: Object[] = [];
+
   subscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private storage: Storage) {
+  constructor(private route: ActivatedRoute, private storage: Storage, private router: Router) {
     this.getSubBrandsId();
     this.getBrandsStorage();
   }
@@ -26,33 +27,34 @@ export class SubBrandPage implements OnDestroy {
       params => {
         let sbs = params['sub_marca'];
         this.sub_marca = sbs.split(",");
-        console.log(`sub_marca: ${this.sub_marca}`);
       }
     );
   }
 
   getBrandsStorage() {
     this.storage.get('brands').then((it) => {
-      console.log(`getBrandsStorage it: ${it}`);
-      this.subs = it;
+      this.brands = it;
       this.getSubBrand();
     });
   }
 
   getSubBrand() {
-    console.log(`getSubBrand subs: ${this.subs}`);
-    for (let i=0; i < this.subs.length; i++) {
-      console.log('1');
+    for (let i=0; i < this.brands.length; i++) {
       for (let j=0; j < this.sub_marca.length; ) {
-        console.log('2');
-        if (this.subs[i].cod_brand === this.sub_marca[j]) {
-          console.log(`if: ${this.subs[i]}`)
-          this.subBrands.push(this.subs[i]);
-          j++
+        if (this.brands[i].cod_brand == this.sub_marca[j]) {
+          this.subBrands.push(this.brands[i]);
         }  
+        j++;
       }
     }
-    console.log(`subBrands: ${this.subBrands}`);
+  }
+
+  onClickSubBrand(brand) {
+    this.router.navigate(['templates-posts'], {
+      queryParams: {
+        'cod_brand': brand.cod_brand 
+      }
+    });
   }
 
   ngOnDestroy() {
