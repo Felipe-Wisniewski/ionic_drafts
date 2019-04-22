@@ -1,47 +1,26 @@
-import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-templates-posts',
   templateUrl: './templates-posts.page.html',
   styleUrls: ['./templates-posts.page.scss'],
 })
-export class TemplatesPostsPage implements OnDestroy {
+export class TemplatesPostsPage implements OnInit {
 
-  cod_brand: string;
-  subscription: Subscription;
+  desc_brand: string;
+  logo_brand: string;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
-    this.getBrandId();
+  constructor(private storage: Storage) { }
+
+  ngOnInit(): void {
+    this.getLogoBrand();
   }
 
-  getBrandId() {
-    this.subscription = this.route.queryParams.subscribe(
-      params => {
-        this.cod_brand = params['cod_brand'];
-      }
-    );
-  }
-
-  onClickTemplates() {
-    this.router.navigate(['/templates'], {
-      queryParams: {
-        'cod_brand': this.cod_brand
-      }
+  getLogoBrand() {
+    this.storage.get('brand').then((it) => {
+      this.logo_brand = it.logo_brand;
+      this.desc_brand = it.desc_brand;
     });
-  }
-
-  onClickPosts() {
-    this.router.navigate(['/templates'], {
-      queryParams: {
-        'cod_brand': this.cod_brand
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

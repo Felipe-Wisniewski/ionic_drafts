@@ -1,15 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>BR Easy Post</ion-title>
-    
-    <!-- <ion-button>
-      <ion-icon slot="icon-only" name="star"></ion-icon>
-    </ion-button> -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid no-padding>
+  <ion-grid class="grid-max-width">
     <ion-row>
       <ion-col *ngFor="let brand of brands" size="6">
           <ion-img [src]="brand.image_brand" (click)="selectBrand(brand)"></ion-img>

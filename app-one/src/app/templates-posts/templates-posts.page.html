@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>templates-posts</ion-title>
+    <ion-title>{{ desc_brand }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
   </ion-buttons>
@@ -8,17 +8,17 @@
 </ion-header>
 
 <ion-content>
-  <div>
-    <div>
-      <h5>{{ cod_brand }}</h5>
+  <div class="container">
+    <div  class="div-img">
+      <ion-img class="logo_brand" [src]="logo_brand" alt="Logo brand"></ion-img>
     </div>
     <div>
-      <ion-button expand="full" (click)="onClickTemplates()">
-        TEMPLATES
+      <ion-button expand="full" [routerLink]="['/templates']">
+        CRIAR A PARTIR DE TEMPLATE
       </ion-button>
-      <ion-button expand="full" (click)="onClickPosts()">
-        POSTS
+      <ion-button expand="full" [routerLink]="['/posts']">
+        ESCOLHER ENTRE IMAGENS PRONTAS
       </ion-button>
     </div>
-  </div>  
+  </div>
 </ion-content>

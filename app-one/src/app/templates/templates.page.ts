@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-templates',
@@ -13,14 +13,16 @@ export class TemplatesPage implements OnInit {
 
   subscription: Subscription;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private storage: Storage) { }
 
   ngOnInit() {
-    this.subscription = this.route.queryParams.subscribe(
-      (queryParams: any) => {
-        this.cod_brand = queryParams['cod_brand'];
-      }
-    );
+    this.getBrandId();
+  }
+
+  getBrandId() {
+    this.storage.get('cod_brand').then((it) => {
+      this.cod_brand = it;
+    });
   }
 
 }

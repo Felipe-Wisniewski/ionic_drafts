@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid no-padding>
+  <ion-grid class="grid-max-width">
     <ion-row>
       <ion-col *ngFor="let brand of subBrands" size="6">
           <ion-img [src]="brand.image_brand" (click)="onClickSubBrand(brand)"></ion-img>

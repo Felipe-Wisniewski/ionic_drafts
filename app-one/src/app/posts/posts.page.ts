@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { Storage } from '@ionic/storage';
+import { PostsService } from './posts.service';
+import { Observable } from 'rxjs';
+import { Post } from './post';
 
 @Component({
   selector: 'app-posts',
@@ -10,17 +12,35 @@ import { ActivatedRoute } from '@angular/router';
 export class PostsPage implements OnInit {
   
   cod_brand: string;
+  posts$: Observable<Post[]>;
 
-  subscription: Subscription;
-
-  constructor(private route: ActivatedRoute) { }
+  constructor(private storage: Storage, private postsService: PostsService) { }
 
   ngOnInit() {
-    this.subscription = this.route.queryParams.subscribe(
-      (queryParams: any) => {
-        this.cod_brand = queryParams['cod_brand'];
-      }
-    );
+    this.getBrandId();
   }
 
+  getBrandId() {
+    this.storage.get('brand').then((it) => {
+      this.cod_brand = it.cod_brand;
+      console.log(it);
+      this.getPosts();
+    });
+  }
+
+  getPosts() {
+    this.posts$ = this.postsService.getPosts(this.cod_brand);
+  }
+
+  onClickPost(postId) {
+    console.log(postId);
+  }
+
+  segmentChanged($event) {
+    console.log($event);
+  }
+
+  loadMore($event) {
+    console.log($event);
+  }
 }

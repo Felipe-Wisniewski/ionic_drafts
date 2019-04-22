@@ -7,6 +7,32 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-searchbar></ion-searchbar>
+
 <ion-content>
-  <p>{{ cod_brand }}</p>
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="post">
+      <ion-label>POST</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="story">
+      <ion-label>STORIE</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-grid class="grid-max-width"> 
+    <ion-row *ngIf="posts$ | async as posts ; else loading">
+      <ion-col no-padding *ngFor="let post of posts" size="4">
+        <ion-img [src]="post.post_url_thumb" (click)="onClickPost(post.id)"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll threshold="250px" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ng-template loadingSpinner="crescent" #loading>
+    <ion-spinner></ion-spinner>
+  </ng-template>
 </ion-content>
+
