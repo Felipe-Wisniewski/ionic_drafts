@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Observable, Subject, empty } from 'rxjs';
+
 import { PostsService } from './posts.service';
-import { Observable } from 'rxjs';
 import { Post } from './post';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-posts',
@@ -12,7 +14,10 @@ import { Post } from './post';
 export class PostsPage implements OnInit {
   
   cod_brand: string;
+  desc_brand: string;
+
   posts$: Observable<Post[]>;
+  error$ = new Subject<boolean>();
 
   constructor(private storage: Storage, private postsService: PostsService) { }
 
@@ -23,21 +28,29 @@ export class PostsPage implements OnInit {
   getBrandId() {
     this.storage.get('brand').then((it) => {
       this.cod_brand = it.cod_brand;
-      console.log(it);
+      this.desc_brand = it.desc_brand;
+
       this.getPosts();
     });
   }
 
   getPosts() {
-    this.posts$ = this.postsService.getPosts(this.cod_brand);
-  }
-
-  onClickPost(postId) {
-    console.log(postId);
+    this.posts$ = this.postsService.getPosts(this.cod_brand)
+      .pipe(
+        catchError(error => {
+          console.error(error);
+          this.error$.next(true);
+          return empty();
+        })
+      );
   }
 
   segmentChanged($event) {
-    console.log($event);
+    console.log($event.detail);
+  }
+
+  selectPost(post) {
+    console.log(post);
   }
 
   loadMore($event) {

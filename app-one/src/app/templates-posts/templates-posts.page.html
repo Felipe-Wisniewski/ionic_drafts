@@ -3,15 +3,18 @@
     <ion-title>{{ desc_brand }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
-  </ion-buttons>
+    </ion-buttons>
+    <!-- adicionar botoes Feed e Gallery -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="container">
+    <!-- acertar tamanho e posicao do logo -->
     <div  class="div-img">
       <ion-img class="logo_brand" [src]="logo_brand" alt="Logo brand"></ion-img>
     </div>
+    <!-- aumentar os botoes e centralizar melhor -->
     <div>
       <ion-button expand="full" [routerLink]="['/templates']">
         CRIAR A PARTIR DE TEMPLATE

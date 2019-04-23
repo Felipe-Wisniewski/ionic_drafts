@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { Storage } from '@ionic/storage';
 import { Subscription } from 'rxjs';
 
 import { HomeService } from './home.service';
-import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +12,7 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage implements OnInit, OnDestroy {
 
+  //tipar marca
   brands: any;
   subscription: Subscription;
 
@@ -28,12 +28,12 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   selectBrand(brand) {
-    if (brand.sub_marca == null) {
-      this.storage.set('brand', brand);
+    this.storage.set('brand', brand);
+
+    if (brand.sub_marca == null) {  
       this.router.navigate(['templates-posts']);
 
     } else {
-      this.storage.set('sub_marca', brand.sub_marca);
       this.router.navigate(['sub-brand']);
     }
   }

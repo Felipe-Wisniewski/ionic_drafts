@@ -1,28 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>posts</ion-title>
+    <ion-title>{{ desc_brand }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
-  </ion-buttons>
+    </ion-buttons>
+    <!-- adicionar botoes Feed e Gallery -->
   </ion-toolbar>
 </ion-header>
 
+<!-- desenvolver busca -->
 <ion-searchbar></ion-searchbar>
 
 <ion-content>
+  
+  <!-- desenvolver filtragem post/storie -->
   <ion-segment (ionChange)="segmentChanged($event)">
     <ion-segment-button value="post">
       <ion-label>POST</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="story">
+    <ion-segment-button value="storie">
       <ion-label>STORIE</ion-label>
     </ion-segment-button>
   </ion-segment>
 
+  <br>
+
   <ion-grid class="grid-max-width"> 
-    <ion-row *ngIf="posts$ | async as posts ; else loading">
+    <ion-row *ngIf="posts$ | async as posts ; else loadingError">
+      <!-- adicionar um padding na coluna do meio -->
       <ion-col no-padding *ngFor="let post of posts" size="4">
-        <ion-img [src]="post.post_url_thumb" (click)="onClickPost(post.id)"></ion-img>
+        <!-- adicionar placeholder -->
+        <ion-img [src]="post.post_url_thumb" (click)="selectPost(post)"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -31,8 +39,15 @@
     <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <ng-template loadingSpinner="crescent" #loading>
-    <ion-spinner></ion-spinner>
+  <ng-template #loadingError>
+    <div *ngIf="error$ | async; else loading">
+      Erro ao carregar as imagens. Tente novamente mais tarde.
+    </div>
+    <!-- centralizar spinner -->
+    <ng-template #loading>
+      <ion-spinner loadingSpinner="crescent"></ion-spinner>
+    </ng-template>
   </ng-template>
+
 </ion-content>
 

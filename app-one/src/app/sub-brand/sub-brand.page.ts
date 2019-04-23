@@ -10,6 +10,7 @@ import { Storage } from '@ionic/storage';
 export class SubBrandPage implements OnInit {
 
   sub_marca: string[];
+  brand: string;
   brands: any[];
   subBrands: Object[] = [];
 
@@ -21,8 +22,9 @@ export class SubBrandPage implements OnInit {
   }
 
   getSubBrandsId() {
-    this.storage.get('sub_marca').then((it) => {
-      this.sub_marca = it.split(",");
+    this.storage.get('brand').then((it) => {
+      this.sub_marca = it.sub_marca.split(",");
+      this.brand = it.desc_brand;
     });
   }
 
@@ -44,8 +46,8 @@ export class SubBrandPage implements OnInit {
     }
   }
 
-  onClickSubBrand(brand) {
-    this.storage.set('cod_brand', brand.cod_brand);
+  selectBrand(brand) {
+    this.storage.set('brand', brand);
     this.router.navigate(['templates-posts']);
   }
 }

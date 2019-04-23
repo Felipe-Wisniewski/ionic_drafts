@@ -1,8 +1,9 @@
-import { tap, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { Storage } from '@ionic/storage';
+import { tap, map } from 'rxjs/operators';
+
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

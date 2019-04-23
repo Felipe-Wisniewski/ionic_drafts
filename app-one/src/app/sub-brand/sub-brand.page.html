@@ -1,17 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>sub-brand</ion-title>
+    <ion-title>{{ brand }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
-  </ion-buttons>
+    </ion-buttons>
+    <!-- adicionar botoes Feed e Gallery -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-grid class="grid-max-width">
     <ion-row>
+      <!-- adicionar apenas uma coluna -->
       <ion-col *ngFor="let brand of subBrands" size="6">
-          <ion-img [src]="brand.image_brand" (click)="onClickSubBrand(brand)"></ion-img>
+          <ion-img [src]="brand.image_brand" (click)="selectBrand(brand)"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>

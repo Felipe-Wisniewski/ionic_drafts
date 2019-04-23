@@ -16,7 +16,7 @@ export class PostsService {
 
   constructor(private http: HttpClient) { }
 
-  getPosts(id) {
+  getPosts(id: string) {
     return this.http.get<Post[]>(`${this.url}?id_brand=${id}`)
       .pipe(
         map(resp => resp['posts'])
