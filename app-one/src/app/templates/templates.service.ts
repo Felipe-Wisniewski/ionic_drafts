@@ -15,13 +15,16 @@ export class TemplatesService {
 
   constructor(private http: HttpClient) { }
 
-  //filtro id_lang
-  /* getTemplates(id: string) {
-    return this.http.get<Object[]>(`${this.url}?id_brand=${id}&id_lang=1&status=A`)
+  //filtro id_lang + page
+  /* getTemplates(id: string, page: number) {
+    return this.http.get<Object[]>(`${this.url}?id_brand=${id}&page=${page}&id_lang=1&status=A`)
       .pipe(
         map(resp => resp['templates'])
       );
   } */
+  //http://br-ws.calcadosbeirario.com.br/api/v2/templates?id_brand=3&page=1&id_lang=1&status=A
+
+
   getTemplates(id: string) {
     return this.http.get<Object[]>(this.url)
       .pipe(
@@ -29,5 +32,5 @@ export class TemplatesService {
         map(resp => resp['templates'])
       );
   }
-  //http://br-ws.calcadosbeirario.com.br/api/v2/templates?id_brand=3&id_lang=1&status=A
+  
 }

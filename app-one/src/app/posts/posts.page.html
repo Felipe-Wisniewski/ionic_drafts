@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar primary>
     <ion-title>{{ desc_brand }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
@@ -14,7 +14,7 @@
 <ion-content>
   
   <!-- desenvolver filtragem post/storie -->
-  <ion-segment (ionChange)="segmentChanged($event)">
+  <ion-segment (ionChange)="selectPostStorie($event)">
     <ion-segment-button value="post">
       <ion-label>POST</ion-label>
     </ion-segment-button>
@@ -30,7 +30,7 @@
       <!-- adicionar um padding na coluna do meio -->
       <ion-col no-padding *ngFor="let post of posts" size="4">
         <!-- adicionar placeholder -->
-        <ion-img [src]="post.post_url_thumb" (click)="selectPost(post)"></ion-img>
+        <ion-img [src]="post.post_url_thumb" alt="{{ post.id }}" (click)="selectPost(post)"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -4,7 +4,7 @@ import { Observable, Subject, empty } from 'rxjs';
 
 import { PostsService } from './posts.service';
 import { Post } from './post';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-posts',
@@ -41,19 +41,39 @@ export class PostsPage implements OnInit {
           console.error(error);
           this.error$.next(true);
           return empty();
-        })
+        }),
+        //filtrar por post/storie
+        //get passando a página
+        tap(console.log)
       );
   }
 
-  segmentChanged($event) {
-    console.log($event.detail);
+  selectPostStorie($event) {
+    switch($event.detail.value) {
+      case "post": {
+        console.log($event.detail.value);
+        break;
+      }
+      case "storie": {
+        console.log($event.detail.value);
+        break;
+      }
+      default: {
+        break;
+      }    
+    }
   }
 
   selectPost(post) {
     console.log(post);
   }
 
-  loadMore($event) {
-    console.log($event);
+  loadMore(iScroll) {
+    console.log("begin");
+
+    setTimeout(() => {
+      console.log("end");
+      iScroll.target.complete();
+    }, 2500);
   }
 }

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable, Subject, empty } from 'rxjs';
+import { IonInfiniteScroll } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { TemplatesService } from './templates.service';
-import { catchError, tap, filter } from 'rxjs/operators';
+import { catchError, tap, filter, delay } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-templates',
@@ -14,14 +16,14 @@ export class TemplatesPage implements OnInit {
   cod_brand: string;
   desc_brand: string;
 
-  templates: Object[];
-  t_post: Object[];
-  t_storie: Object[];
-
-  templates$: Observable<Object[]>;
+  response$: Observable<Object[]>;
   error$ = new Subject<boolean>();
 
-  constructor(private storage: Storage, private templatesService: TemplatesService) { }
+  templates: Object[];
+  t_post: Object[] = [];
+  t_storie: Object[] = [];
+
+  constructor(private storage: Storage, private templatesService: TemplatesService, private router: Router) { }
 
   ngOnInit() {
     this.getBrandId();
@@ -37,44 +39,49 @@ export class TemplatesPage implements OnInit {
   }
 
   getTemplates() {
-    this.templates$ = this.templatesService.getTemplates(this.cod_brand)
-      .pipe(
+    this.response$ = this.templatesService.getTemplates(this.cod_brand).pipe(
         catchError(error => {
+          console.error(error);
           this.error$.next(true);
           return empty();
         }),
         tap(t => {
-          console.log(t);
-          this.t_post = t.filter(it => it['layout'] == 'post');
-          console.log(this.t_post);
-          this.t_storie = t.filter(it => it['layout'] == 'storie');
-          console.log(this.t_storie);
+          let post = t.filter(it => it['layout'] == 'post');
+          let storie = t.filter(it => it['layout'] == 'storie');
+          this.t_post = this.t_post.concat(post);
+          this.t_storie = this.t_storie.concat(storie);
+          this.templates = this.t_post;
         })
       );
   }
 
-  segmentChanged($event) {
-    switch($event) {
-      case 'post':
+  selectPostStorie($event) {
+    switch($event.detail.value) {
+      case "post": {
         this.templates = this.t_post;
-      case 'storie':
+        break;
+      }
+      case "storie": {
         this.templates = this.t_storie;
+        break;
+      }
+      default: {
+        break;
+      }    
     }
-    /* 
-    if ($event.detail.value == "post") {
-      this.templates = this.t_post;
-      console.log("POST");
-    } else {
-      this.templates = this.t_storie;
-      console.log("STORIE");
-    } */
   }
 
   selectTemplate(template) {
-
+    this.storage.set('template', template);
+    this.router.navigate(['products']);
   }
 
-  loadMore($event) {
+  loadMore(iScroll) {
+    console.log("begin");
 
+    setTimeout(() => {
+      console.log("end");
+      iScroll.target.complete();
+    }, 2500);
   }
 }
