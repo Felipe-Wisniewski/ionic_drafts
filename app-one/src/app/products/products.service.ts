@@ -1,29 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { tap, map } from 'rxjs/operators';
+
 import { environment } from 'src/environments/environment';
-import { tap, delay, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  private urlProducts = environment.URL_API + 'products';
-  private url = this.urlProducts;
-
-  pages = 0;
+  private url = environment.URL_API + 'products';
+  static pages;
 
   constructor(private http: HttpClient) { }
 
   getProducts(id: string, page: number) {
-    if (page == this.pages) {
-      return null;
-    }
+    console.log(`page: ${page} / pages: ${ProductsService.pages}`);
+    
     return this.http.get<Object[]>(`${this.url}?id_brand=${id}&page=${page}&size=30`)
       .pipe(
-        tap(resp => this.pages = resp['pages']),
+        tap(resp => ProductsService.pages = resp['pages']),
         map(resp => resp['products'])
       );
   }
   // http://br-ws.calcadosbeirario.com.br/api/products?id_brand=3&page=1&size=30
+  
 }

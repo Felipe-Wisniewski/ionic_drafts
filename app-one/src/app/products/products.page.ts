@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { ProductsService } from './products.service';
-import { pipe, Observable, Subject, empty } from 'rxjs';
+import { pipe, Observable, Subject, empty, Subscription } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 @Component({
@@ -9,14 +9,15 @@ import { tap, catchError } from 'rxjs/operators';
   templateUrl: './products.page.html',
   styleUrls: ['./products.page.scss'],
 })
-export class ProductsPage implements OnInit {
+export class ProductsPage implements OnInit, OnDestroy {
 
   desc_brand: string;
   sub_marcas: string[];
   cod_brand: string;
-  page: number;
+  page: number = 0;
 
-  response$: Observable<Object[]>;
+  loading = false;
+  subscription: Subscription[] = [];
   error$ = new Subject<boolean>();
 
   products = [];
@@ -44,19 +45,20 @@ export class ProductsPage implements OnInit {
     });
   }
 
-  //remover response$
   getProducts() {
-    this.response$ = this.productsService.getProducts(this.cod_brand, this.page).pipe(
-      catchError(error => {
-        console.error(error);
-        this.error$.next(true);
-        return empty();
-      }),
-      tap(p => {
+    this.subscription.push(this.productsService.getProducts(this.cod_brand, this.page)
+      .pipe(
+        catchError(error => {
+          console.error(error);
+          this.error$.next(true);
+          return empty();
+        })
+      )
+      .subscribe(p => {
         for(const prod of p) {
-          console.log(this.products.length);
           this.products.push(prod);
         }
+        this.loading = true;
       })
     );
   }
@@ -67,10 +69,16 @@ export class ProductsPage implements OnInit {
 
   loadMore(iScroll) {
     setTimeout(() => {
-      this.page++;
-      this.getProducts();
-      console.log("end");
+      if (this.page < ProductsService.pages) {
+        this.page++;
+        this.getProducts();
+      }
       iScroll.target.complete();
-    }, 2500);
+    }, 3500);
+  }
+
+  ngOnDestroy() {
+    console.log(`ProductsPage OnDestroy`);
+    this.subscription.forEach(s => s.unsubscribe());
   }
 }
