@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Observable, Subject, empty } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 import { PostsService } from './posts.service';
 import { Post } from './post';
-import { catchError, tap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-posts',

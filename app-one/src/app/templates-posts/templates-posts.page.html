@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>{{ desc_brand }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
@@ -16,11 +16,11 @@
     </div>
     <!-- aumentar os botoes e centralizar melhor -->
     <div>
-      <ion-button expand="full" [routerLink]="['/templates']">
+      <ion-button class="button button-large" expand="full" [routerLink]="['/templates']">
         CRIAR A PARTIR DE TEMPLATE
       </ion-button>
-      <ion-button expand="full" [routerLink]="['/posts']">
-        ESCOLHER ENTRE IMAGENS PRONTAS
+      <ion-button class="button button-large" expand="full" [routerLink]="['/posts']">
+        ESCOLHER IMAGENS PRONTAS
       </ion-button>
     </div>
   </div>

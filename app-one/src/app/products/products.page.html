@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>{{ desc_brand }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
@@ -9,20 +9,21 @@
 </ion-header>
 
 <!-- desenvolver busca -->
-<ion-searchbar></ion-searchbar>
+<ion-searchbar [(ngModel)]="searchProd" (ionChange)="searchProduct()"></ion-searchbar>
 
 <ion-content> 
   <ion-grid class="grid-max-width"> 
     <ion-row *ngIf="loading ; else loadingError">
       <!-- adicionar um padding na coluna do meio -->
       <ion-col *ngFor="let product of products" size="4">
-        <!-- adicionar placeholder -->
+        <!-- adicionar placeholder/spinner -->
         <ion-img [src]="product.image_url" (click)="selectProduct(product)"></ion-img>
+        <ion-label text-center>Ref: {{ product.id_ref }}</ion-label>
       </ion-col>
     </ion-row>
   </ion-grid>
   
-  <ion-infinite-scroll threshold="40%" (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll threshold="50%" (ionInfinite)="loadMore($event)">
     <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
   
@@ -34,4 +35,5 @@
       <ion-spinner loadingSpinner="crescent"></ion-spinner>
     </ng-template>
   </ng-template>
+  <!-- adicionar fab-button -->
 </ion-content>

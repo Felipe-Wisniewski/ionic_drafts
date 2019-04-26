@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar primary>
+  <ion-toolbar color="primary">
     <ion-title>{{ desc_brand }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
@@ -10,21 +10,17 @@
 
 <!-- desenvolver busca -->
 <ion-searchbar></ion-searchbar>
+<!-- desenvolver filtragem post/storie -->
+<ion-segment (ionChange)="selectPostStorie($event)">
+  <ion-segment-button value="post">
+    <ion-label>POST</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="storie">
+    <ion-label>STORIE</ion-label>
+  </ion-segment-button>
+</ion-segment>
 
 <ion-content>
-  
-  <!-- desenvolver filtragem post/storie -->
-  <ion-segment (ionChange)="selectPostStorie($event)">
-    <ion-segment-button value="post">
-      <ion-label>POST</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="storie">
-      <ion-label>STORIE</ion-label>
-    </ion-segment-button>
-  </ion-segment>
-
-  <br>
-
   <ion-grid class="grid-max-width"> 
     <ion-row *ngIf="posts$ | async as posts ; else loadingError">
       <!-- adicionar um padding na coluna do meio -->
@@ -48,6 +44,5 @@
       <ion-spinner loadingSpinner="crescent"></ion-spinner>
     </ng-template>
   </ng-template>
-
 </ion-content>
 

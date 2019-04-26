@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>BR Easy Post</ion-title>
     <!-- adicionar botoes Feed e Gallery -->
   </ion-toolbar>
@@ -9,7 +9,7 @@
   <ion-grid class="grid-max-width">
     <ion-row>
       <!-- adicionar um padding na coluna do meio -->
-      <ion-col no-padding *ngFor="let brand of brands" size="6">
+      <ion-col *ngFor="let brand of brands" size="6">
           <ion-img [src]="brand.image_brand" (click)="selectBrand(brand)"></ion-img>
       </ion-col>
     </ion-row>

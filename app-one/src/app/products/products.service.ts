@@ -15,14 +15,19 @@ export class ProductsService {
   constructor(private http: HttpClient) { }
 
   getProducts(id: string, page: number) {
-    console.log(`page: ${page} / pages: ${ProductsService.pages}`);
-    
     return this.http.get<Object[]>(`${this.url}?id_brand=${id}&page=${page}&size=30`)
       .pipe(
         tap(resp => ProductsService.pages = resp['pages']),
         map(resp => resp['products'])
       );
   }
+
+
+
+
   // http://br-ws.calcadosbeirario.com.br/api/products?id_brand=3&page=1&size=30
+
+  //adicionar search
+  // http://br-ws.calcadosbeirario.com.br/api/products?id_brand=3&search=221
   
 }
