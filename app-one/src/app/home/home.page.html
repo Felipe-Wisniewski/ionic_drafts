@@ -1,19 +1,27 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>BR Easy Post</ion-title>
-    <!-- adicionar botoes Feed e Gallery -->
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/follow']">
+        <ion-icon slot="icon-only" name="grid"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/gallery']">
+        <ion-icon slot="icon-only" name="photos"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid class="grid-max-width">
+  <ion-grid class="grid-max-width" *ngIf="brands$ | async as brands ; else loading">
     <ion-row>
-      <!-- adicionar um padding na coluna do meio -->
-      <ion-col *ngFor="let brand of brands" size="6">
+      <ion-col class="grid-col" *ngFor="let brand of brands" size="6">
           <ion-img [src]="brand.image_brand" (click)="selectBrand(brand)"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <!-- adicionar spinner e observable pra brands -->
+  <ng-template #loading>
+    <ion-spinner loadingSpinner="crescent"></ion-spinner>
+  </ng-template>
 </ion-content>

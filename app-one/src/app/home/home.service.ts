@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, catchError } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 
@@ -18,10 +18,12 @@ export class HomeService {
   constructor(private http: HttpClient, private storage: Storage) { }
 
   getBrands() {
-    return this.http.get(this.url)
+    return this.http.get<any[]>(this.url)
       .pipe(
+        catchError(error => console.error(error)),
         tap(resp => this.storage.set('brands', resp['brands'])),
         map(resp => resp['brands'].filter(b => b.home))
       );
   }
+  //tipar retorno e adicionar um alert error
 }

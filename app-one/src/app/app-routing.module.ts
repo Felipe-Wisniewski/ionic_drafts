@@ -9,6 +9,8 @@ const routes: Routes = [
   { path: 'posts', loadChildren: './posts/posts.module#PostsPageModule' },
   { path: 'editor', loadChildren: './editor/editor.module#EditorPageModule' },
   { path: 'products', loadChildren: './products/products.module#ProductsPageModule' },
+  { path: 'follow', loadChildren: './follow/follow.module#FollowPageModule' },
+  { path: 'gallery', loadChildren: './gallery/gallery.module#GalleryPageModule' },
 
 ];
 
