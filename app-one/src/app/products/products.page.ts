@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Subscription } from 'rxjs';
 import { ProductsService } from './products.service';
-import { Subject, empty, Subscription } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -11,19 +10,16 @@ import { catchError } from 'rxjs/operators';
 })
 export class ProductsPage implements OnInit, OnDestroy {
 
-  searchProd: string = "";
-  search = [];
-
   desc_brand: string;
   sub_marcas: string[];
   cod_brand: string;
-  page: number = 0;
-
-  loading = false;
-  subProducts$: Subscription[] = [];
-  error$ = new Subject<boolean>();
+  
+  page: number = 1;
+  loaded = false;
+  subscription$: Subscription[] = [];
 
   products = [];
+  search: string = "";
 
   constructor(private storage: Storage, private productsService: ProductsService) { }
 
@@ -38,39 +34,31 @@ export class ProductsPage implements OnInit, OnDestroy {
       if (brand.sub_marca != null || brand.sub_marca != undefined) {
         this.sub_marcas = brand.sub_marca.split(",");
         this.cod_brand = this.sub_marcas[0];
-        this.page++;
-        this.getProducts();
       } else {
         this.cod_brand = brand.cod_brand;
-        this.page++;
-        this.getProducts();
       }
+      this.getProducts();
     });
   }
 
   getProducts() {
-    this.subProducts$.push(this.productsService.getProducts(this.cod_brand, this.page)
-      .pipe(
-        catchError(error => {
-          console.error(error);
-          this.error$.next(true);
-          return empty();
-        })
-      )
-      .subscribe(p => {p.forEach(prod => {
+    this.subscription$.push(this.productsService.getProducts(this.cod_brand, this.page, this.search)
+      .subscribe(p => {
+        p.forEach(prod => {
           this.products.push(prod);          
         });
-        this.loading = true;
+        this.loaded = true;
       })
     );
   }
 
   searchProduct() {
-    console.log(this.searchProd);
+    this.page = 1;
+    this.products = [];
+    this.getProducts();
   }
 
   selectProduct(product) {
-    console.log(this.subProducts$);
     console.log(product);
   }
 
@@ -85,6 +73,6 @@ export class ProductsPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subProducts$.forEach(s => s.unsubscribe());
+    this.subscription$.forEach(s => s.unsubscribe());
   }
 }

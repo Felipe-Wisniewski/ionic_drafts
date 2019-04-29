@@ -1,12 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>{{ brand }}</ion-title>
+    <ion-title>{{ title }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/follow']">
-        <ion-icon slot="icon-only" name="paper"></ion-icon>
+        <ion-icon slot="icon-only" name="grid"></ion-icon>
       </ion-button>
       <ion-button [routerLink]="['/gallery']">
         <ion-icon slot="icon-only" name="photos"></ion-icon>
@@ -15,13 +15,17 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- centralizar banner no meio da tela -->
 <ion-content>
-  <ion-grid class="grid-max-width">
+  <ion-grid class="grid-max-width" *ngIf="subs$ | async as subs ; else loading">
     <ion-row>
-      <!-- adicionar apenas uma coluna -->
-      <ion-col *ngFor="let brand of subBrands" size="6.1">
-          <ion-img [src]="brand.image_brand" (click)="selectBrand(brand)"></ion-img>
+      <ion-col class="grid-col" *ngFor="let sub of subs" size="6">
+        <ion-img [src]="sub.image_url" (click)="selectBrand(sub)"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ng-template #loading>
+    <ion-spinner loadingSpinner="crescent"></ion-spinner>
+  </ng-template>
 </ion-content>

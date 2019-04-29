@@ -1,26 +1,63 @@
-import { Post } from './post';
-import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { AlertController } from '@ionic/angular';
+import { empty } from 'rxjs';
+import { map, catchError, tap } from 'rxjs/operators';
+
+import { Post } from './post';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
 
-  private urlBrands: string = environment.URL_API  + 'posts';
-  private postsMock: string = 'assets/mocks/posts.json';
+  // postsMock = 'assets/mocks/posts.json';
+  private url: string =  environment.URL_API  + 'posts';  
+  static pages;
 
-  private url: string =  this.urlBrands;
+  constructor(private http: HttpClient, private alertController: AlertController) { }
 
-  constructor(private http: HttpClient) { }
+  getPosts(id: string, page: number, search: string) {
+    if (search == "") {
+      return this.loadPosts(id, page);
+    } else {
+      return this.searchPosts(id, page, search);
+    }
+  }
 
-  getPosts(id: string) {
-    return this.http.get<Post[]>(`${this.url}?id_brand=${id}`)
+  private loadPosts(id: string, page: number) {
+    return this.http.get<Post[]>(`${this.url}?id_brand=${id}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`)
       .pipe(
+        catchError(error => {
+          console.error(error);
+          this.presentAlert();
+          return empty();
+        }),
+        tap(resp => PostsService.pages = resp['pages']),
         map(resp => resp['posts'])
       );
   }
-  //http://br-ws.calcadosbeirario.com.br/api/posts?id_brand=3
+
+  private searchPosts(id: string, page: number, search: string) {
+    return this.http.get<Post[]>(`${this.url}?id_brand=${id}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`)
+      .pipe(
+        catchError(error => {
+          console.error(error);
+          this.presentAlert();
+          return empty();
+        }),
+        tap(resp => PostsService.pages = resp['pages']),
+        map(resp => resp['posts'])
+      );
+  }
+
+  private async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Erro',
+      message: 'Erro ao carregar as imagens.',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
 }

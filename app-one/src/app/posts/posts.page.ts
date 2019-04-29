@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Observable, Subject, empty } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 import { PostsService } from './posts.service';
 import { Post } from './post';
@@ -12,13 +11,17 @@ import { Post } from './post';
   templateUrl: './posts.page.html',
   styleUrls: ['./posts.page.scss'],
 })
-export class PostsPage implements OnInit {
+export class PostsPage implements OnInit, OnDestroy {
   
-  cod_brand: string;
   desc_brand: string;
+  cod_brand: string;
+  
+  page: number = 1;
+  loaded = false;
+  subscription$: Subscription[] = [];
 
-  posts$: Observable<Post[]>;
-  error$ = new Subject<boolean>();
+  posts: Post[] = [];
+  search: string = "";
 
   constructor(private storage: Storage, private postsService: PostsService) { }
 
@@ -27,28 +30,32 @@ export class PostsPage implements OnInit {
   }
 
   getBrandId() {
-    this.storage.get('brand').then((it) => {
-      this.cod_brand = it.cod_brand;
-      this.desc_brand = it.desc_brand;
-
+    this.storage.get('brand').then((brand) => {
+      this.desc_brand = brand.desc_brand;
+      this.cod_brand = brand.cod_brand;
       this.getPosts();
     });
   }
 
   getPosts() {
-    this.posts$ = this.postsService.getPosts(this.cod_brand)
-      .pipe(
-        catchError(error => {
-          console.error(error);
-          this.error$.next(true);
-          return empty();
-        }),
-        //filtrar por post/storie
-        //get passando a página
-        tap(console.log)
-      );
+    this.subscription$.push(this.postsService.getPosts(this.cod_brand, this.page, this.search)
+      .subscribe(p => { 
+        console.log(p);
+        p.forEach(post => {
+          this.posts.push(post);
+        });
+        this.loaded = true;
+      })
+    );
   }
 
+  searchPosts() {
+    this.page = 1;
+    this.posts = [];
+    this.getPosts();
+  }
+
+//filtrar por post/storie
   selectPostStorie($event) {
     switch($event.detail.value) {
       case "post": {
@@ -64,17 +71,26 @@ export class PostsPage implements OnInit {
       }    
     }
   }
-
+  
   selectPost(post) {
     console.log(post);
   }
 
-  loadMore(iScroll) {
-    console.log("begin");
+  loadErrorImg(event) {
+    event.target.src = 'assets/img/placeholder.png';
+  }
 
+  loadMore(iScroll) {
     setTimeout(() => {
-      console.log("end");
+      if (this.page < PostsService.pages) {
+        this.page++;
+        this.getPosts();
+      }
       iScroll.target.complete();
-    }, 2500);
+    }, 3500);
+  }
+
+  ngOnDestroy() {
+    this.subscription$.forEach(s => s.unsubscribe());
   }
 }

@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
 
 import { HomeService } from './home.service';
+import { Brand } from './brand';
 
 @Component({
   selector: 'app-home',
@@ -12,8 +13,7 @@ import { HomeService } from './home.service';
 })
 export class HomePage implements OnInit {
 
-  //tipar marca
-  brands$: Observable<any[]>;
+  brands$: Observable<Brand[]>;
 
   constructor(private homeService: HomeService, private storage: Storage, private router: Router) { }
 
@@ -25,15 +25,13 @@ export class HomePage implements OnInit {
     this.brands$ = this.homeService.getBrands();
   }
 
-  //definir lógica de submarcas banco x api
   selectBrand(brand) {
     this.storage.set('brand', brand);
 
-    if (brand.sub_marca == null) {  
-      this.router.navigate(['templates-posts']);
-
-    } else {
+    if (brand.sub_brand) {  
       this.router.navigate(['sub-brand']);
+    } else {
+      this.router.navigate(['templates-posts']);
     }
   }
 }

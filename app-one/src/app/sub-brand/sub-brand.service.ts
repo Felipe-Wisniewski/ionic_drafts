@@ -1,35 +1,31 @@
-import { Brand } from './brand';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { catchError, map } from 'rxjs/operators';
 import { empty } from 'rxjs';
-import { tap, map, catchError } from 'rxjs/operators';
-
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HomeService {
+export class SubBrandService {
 
-  // brandsMock = 'assets/mocks/brands.json';
-  private url: string =  environment.URL_API  + 'brands';
+  // subBrandsMock = 'assets/mocks/sub_brands.json'
 
-  constructor(private http: HttpClient, private storage: Storage, private alertController: AlertController) { }
+  constructor(private http: HttpClient, private alertController: AlertController) { }
 
-  getBrands() {
-    return this.http.get<Brand[]>('assets/mocks/brands.json')
+  // request para api enviando o id_brand e retornando as sub_brands
+  getSubBrands(id: number) {
+    return this.http.get<any[]>('assets/mocks/sub_brands.json')
       .pipe(
         catchError(error => {
           console.error(error);
           this.presentAlert();
           return empty();
         }),
-        map(resp => resp['brands'])
+        map(resp => resp['sub_brands'])
       );
   }
-  
+
   private async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Erro',

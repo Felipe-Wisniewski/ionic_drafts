@@ -1,26 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
+import { Brand } from './../home/brand';
+
 @Component({
   selector: 'app-templates-posts',
   templateUrl: './templates-posts.page.html',
   styleUrls: ['./templates-posts.page.scss'],
 })
-export class TemplatesPostsPage implements OnInit {
+export class TemplatesPostsPage {
 
-  desc_brand: string;
-  logo_brand: string;
+  title: string;
+  logo: string;
 
-  constructor(private storage: Storage) { }
-
-  ngOnInit(): void {
-    this.getLogoBrand();
-  }
-
-  getLogoBrand() {
-    this.storage.get('brand').then((it) => {
-      this.logo_brand = it.logo_brand;
-      this.desc_brand = it.desc_brand;
+  constructor(private storage: Storage) { 
+    this.storage.get('brand').then((brand) => {
+      this.logo = brand.logo_url;
+      this.title = brand.brand;
     });
   }
 }

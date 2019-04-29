@@ -1,27 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable, Subject, empty } from 'rxjs';
-import { IonInfiniteScroll } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
-import { TemplatesService } from './templates.service';
-import { catchError, tap, filter, delay } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
+import { Subscription } from 'rxjs';
+
+import { TemplatesService } from './templates.service';
 
 @Component({
   selector: 'app-templates',
   templateUrl: './templates.page.html',
   styleUrls: ['./templates.page.scss'],
 })
-export class TemplatesPage implements OnInit {
+export class TemplatesPage implements OnInit, OnDestroy {
 
-  cod_brand: string;
-  desc_brand: string;
+  id_brand: number;
+  title: string;
 
-  response$: Observable<Object[]>;
-  error$ = new Subject<boolean>();
+  subscription$: Subscription[] = [];
+  loaded = false;
 
   templates: Object[];
-  t_post: Object[] = [];
-  t_storie: Object[] = [];
+  temp_post: Object[] = [];
+  temp_storie: Object[] = [];
 
   constructor(private storage: Storage, private templatesService: TemplatesService, private router: Router) { }
 
@@ -30,39 +29,35 @@ export class TemplatesPage implements OnInit {
   }
 
   getBrandId() {
-    this.storage.get('brand').then((it) => {
-      this.cod_brand = it.cod_brand;
-      this.desc_brand = it.desc_brand;
+    this.storage.get('brand').then((brand) => {
+      this.id_brand = brand.id;
+      this.title = brand.brand;
 
       this.getTemplates();
     });
   }
 
   getTemplates() {
-    this.response$ = this.templatesService.getTemplates(this.cod_brand).pipe(
-        catchError(error => {
-          console.error(error);
-          this.error$.next(true);
-          return empty();
-        }),
-        tap(t => {
-          let post = t.filter(it => it['layout'] == 'post');
-          let storie = t.filter(it => it['layout'] == 'storie');
-          this.t_post = this.t_post.concat(post);
-          this.t_storie = this.t_storie.concat(storie);
-          this.templates = this.t_post;
-        })
-      );
+    this.subscription$.push(this.templatesService.getTemplates(this.id_brand)
+      .subscribe(t => {
+        let post = t.filter(it => it['layout'] == 'post');
+        let storie = t.filter(it => it['layout'] == 'storie');
+        this.temp_post = this.temp_post.concat(post);
+        this.temp_storie = this.temp_storie.concat(storie);
+        this.templates = this.temp_post;
+        this.loaded = true;
+      })
+    );
   }
 
   selectPostStorie($event) {
     switch($event.detail.value) {
       case "post": {
-        this.templates = this.t_post;
+        this.templates = this.temp_post;
         break;
       }
       case "storie": {
-        this.templates = this.t_storie;
+        this.templates = this.temp_storie;
         break;
       }
       default: {
@@ -76,6 +71,10 @@ export class TemplatesPage implements OnInit {
     this.router.navigate(['products']);
   }
 
+  loadErrorImg(event) {
+    event.target.src = 'assets/img/placeholder.png';
+  }
+
   loadMore(iScroll) {
     console.log("begin");
 
@@ -83,5 +82,9 @@ export class TemplatesPage implements OnInit {
       console.log("end");
       iScroll.target.complete();
     }, 2500);
+  }
+
+  ngOnDestroy() {
+    this.subscription$.forEach(s => s.unsubscribe());
   }
 }

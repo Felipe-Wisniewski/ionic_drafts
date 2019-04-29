@@ -1,12 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>{{ desc_brand }}</ion-title>
+    <ion-title>{{ title }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/follow']">
-        <ion-icon slot="icon-only" name="paper"></ion-icon>
+        <ion-icon slot="icon-only" name="grid"></ion-icon>
       </ion-button>
       <ion-button [routerLink]="['/gallery']">
         <ion-icon slot="icon-only" name="photos"></ion-icon>
@@ -19,7 +19,7 @@
   <div class="container">
     <!-- acertar tamanho e posicao do logo -->
     <div  class="div-img">
-      <ion-img class="logo_brand" [src]="logo_brand" alt="Logo brand"></ion-img>
+      <ion-img class="logo_brand" [src]="logo" alt="Logo brand"></ion-img>
     </div>
     <!-- aumentar os botoes e centralizar melhor -->
     <div>

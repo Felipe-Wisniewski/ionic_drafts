@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs';
+
+import { SubBrandService } from './sub-brand.service';
 
 @Component({
   selector: 'app-sub-brand',
@@ -9,45 +12,30 @@ import { Storage } from '@ionic/storage';
 })
 export class SubBrandPage implements OnInit {
 
-  sub_marca: string[];
-  brand: string;
-  brands: any[];
-  subBrands: Object[] = [];
+  title: string;
+  id_brand: number;
+  subs$: Observable<any[]>;
 
-  constructor(private storage: Storage, private router: Router) { }
+  constructor(private storage: Storage, private subBrandService: SubBrandService, private router: Router) { }
 
   ngOnInit() {
-    this.getSubBrandsId();
-    this.getBrandsStorage();
+    this.getBrandStorage();
   }
 
-  getSubBrandsId() {
-    this.storage.get('brand').then((it) => {
-      this.sub_marca = it.sub_marca.split(",");
-      this.brand = it.desc_brand;
+  getBrandStorage() {
+    this.storage.get('brand').then((brand) => {
+      this.title = brand.brand;
+      this.id_brand = brand.id;
+      this.getSubBrands();
     });
   }
 
-  getBrandsStorage() {
-    this.storage.get('brands').then((it) => {
-      this.brands = it;
-      this.getSubBrand();
-    });
+  getSubBrands() {
+    this.subs$ = this.subBrandService.getSubBrands(this.id_brand);
   }
 
-  getSubBrand() {
-    for (let i=0; i < this.brands.length; i++) {
-      for (let j=0; j < this.sub_marca.length; ) {
-        if (this.brands[i].cod_brand == this.sub_marca[j]) {
-          this.subBrands.push(this.brands[i]);
-        }  
-        j++;
-      }
-    }
-  }
-
-  selectBrand(brand) {
-    this.storage.set('brand', brand);
+  selectBrand(sub) {
+    this.storage.set('brand', sub);
     this.router.navigate(['templates-posts']);
   }
 }

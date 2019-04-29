@@ -1,0 +1,70 @@
+{
+    "sub_brands": [
+        {
+            "id": 201,
+            "brand": "BEIRA RIO + MOLEKINHA",
+            "image_url": "assets/mocks/beirariomolekinha.jpg",
+            "list_order": "1",
+            "logo_url": "https:\/\/s3-sa-east-1.amazonaws.com\/bancoimagens.com.br\/marcas_logos\/3.png",
+            "color": [
+                "33,25,21"
+            ],
+            "tag": {
+                "es": [
+                    "#BeiraRioMolekinha"
+                ],
+                "pt": [
+                    "#BeiraRioMolekinha"
+                ],
+                "en": [
+                    "#BeiraRioMolekinha"
+                ]
+            }
+        },
+        {
+            "id": 202,
+            "brand": "MOLECA + MOLEKINHA",
+            "image_url": "assets/mocks/molecamolekinha.jpg",
+            "list_order": "2",
+            "logo_url": "https:\/\/s3-sa-east-1.amazonaws.com\/bancoimagens.com.br\/marcas_logos\/16.png",
+            "color": [
+                "71,26,58"
+            ],
+            "tag": {
+                "es": [
+                    "#MolecaMolekinha"
+                ],
+                "pt": [
+                    "#MolecaMolekinha"
+                ],
+                "en": [
+                    "#MolecaMolekinha"
+                ]
+            }
+        },
+        {
+            "id": 203,
+            "brand": "VIZZANO + MOLEKINHA",
+            "image_url": "assets/mocks/vizzanomolekinha.jpg",
+            "list_order": "3",
+            "logo_url": "https:\/\/s3-sa-east-1.amazonaws.com\/bancoimagens.com.br\/marcas_logos\/1.png",
+            "color": [
+                ""
+            ],
+            "tag": {
+                "es": [
+                    "#VizzanoMolekinha"
+                ],
+                "pt": [
+                    "#VizzanoMolekinha"
+                ],
+                "en": [
+                    "#VizzanoMolekinha"
+                ]
+            }
+        }
+    ],
+    "page": 1,
+    "pages": 1,
+    "messages": []
+}

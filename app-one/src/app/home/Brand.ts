@@ -4,6 +4,7 @@ export interface Brand {
     image_url: string,
     list_order: string,
     logo_url: string,
-    color: string[],
-    tag: string[]
+    sub_brand: boolean,
+    color: any,
+    tag: any
 }
