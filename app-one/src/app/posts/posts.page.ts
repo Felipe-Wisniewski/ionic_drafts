@@ -13,8 +13,9 @@ import { Post } from './post';
 })
 export class PostsPage implements OnInit, OnDestroy {
   
-  desc_brand: string;
-  cod_brand: string;
+  title: string;
+  id_brand: number;
+  id_sub?: number;
   
   page: number = 1;
   loaded = false;
@@ -31,16 +32,17 @@ export class PostsPage implements OnInit, OnDestroy {
 
   getBrandId() {
     this.storage.get('brand').then((brand) => {
-      this.desc_brand = brand.desc_brand;
-      this.cod_brand = brand.cod_brand;
+      this.title = brand.brand;
+      this.id_brand = brand.id_brand;
+      this.id_sub = brand.id_sub;
+      console.log(`id_sub -> ${this.id_sub}`);
       this.getPosts();
     });
   }
 
   getPosts() {
-    this.subscription$.push(this.postsService.getPosts(this.cod_brand, this.page, this.search)
+    this.subscription$.push(this.postsService.getPosts(this.id_brand, this.id_sub, this.page, this.search)
       .subscribe(p => { 
-        console.log(p);
         p.forEach(post => {
           this.posts.push(post);
         });

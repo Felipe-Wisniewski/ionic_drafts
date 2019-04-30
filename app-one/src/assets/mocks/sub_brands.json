@@ -1,11 +1,13 @@
 {
     "sub_brands": [
         {
-            "id": 201,
+            "id_brand": 99,
+            "id_sub": 201,
             "brand": "BEIRA RIO + MOLEKINHA",
             "image_url": "assets/mocks/beirariomolekinha.jpg",
             "list_order": "1",
             "logo_url": "https:\/\/s3-sa-east-1.amazonaws.com\/bancoimagens.com.br\/marcas_logos\/3.png",
+            "sub_brand": false,
             "color": [
                 "33,25,21"
             ],
@@ -22,11 +24,13 @@
             }
         },
         {
-            "id": 202,
+            "id_brand": 99,
+            "id_sub": 202,
             "brand": "MOLECA + MOLEKINHA",
             "image_url": "assets/mocks/molecamolekinha.jpg",
             "list_order": "2",
             "logo_url": "https:\/\/s3-sa-east-1.amazonaws.com\/bancoimagens.com.br\/marcas_logos\/16.png",
+            "sub_brand": false,
             "color": [
                 "71,26,58"
             ],
@@ -43,11 +47,13 @@
             }
         },
         {
-            "id": 203,
+            "id_brand": 99,
+            "id_sub": 203,
             "brand": "VIZZANO + MOLEKINHA",
             "image_url": "assets/mocks/vizzanomolekinha.jpg",
             "list_order": "3",
             "logo_url": "https:\/\/s3-sa-east-1.amazonaws.com\/bancoimagens.com.br\/marcas_logos\/1.png",
+            "sub_brand": false,
             "color": [
                 ""
             ],

@@ -13,6 +13,7 @@ import { TemplatesService } from './templates.service';
 export class TemplatesPage implements OnInit, OnDestroy {
 
   id_brand: number;
+  id_sub?: number;
   title: string;
 
   subscription$: Subscription[] = [];
@@ -30,7 +31,8 @@ export class TemplatesPage implements OnInit, OnDestroy {
 
   getBrandId() {
     this.storage.get('brand').then((brand) => {
-      this.id_brand = brand.id;
+      this.id_brand = brand.id_brand;
+      this.id_sub = brand.id_sub;
       this.title = brand.brand;
 
       this.getTemplates();
@@ -38,7 +40,7 @@ export class TemplatesPage implements OnInit, OnDestroy {
   }
 
   getTemplates() {
-    this.subscription$.push(this.templatesService.getTemplates(this.id_brand)
+    this.subscription$.push(this.templatesService.getTemplates(this.id_brand, this.id_sub)
       .subscribe(t => {
         let post = t.filter(it => it['layout'] == 'post');
         let storie = t.filter(it => it['layout'] == 'storie');

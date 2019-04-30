@@ -10,10 +10,13 @@ import { ProductsService } from './products.service';
 })
 export class ProductsPage implements OnInit, OnDestroy {
 
-  desc_brand: string;
+  title: string;
+
+  id_brand: number;
+  id_sub: number;
+
   sub_marcas: string[];
-  cod_brand: string;
-  
+    
   page: number = 1;
   loaded = false;
   subscription$: Subscription[] = [];
@@ -29,20 +32,20 @@ export class ProductsPage implements OnInit, OnDestroy {
 
   getBrandId() {
     this.storage.get('brand').then((brand) => {
-      this.desc_brand = brand.desc_brand;
+      this.title = brand.brand;
 
-      if (brand.sub_marca != null || brand.sub_marca != undefined) {
+      if (brand.id_sub != null || brand.id_sub != undefined) {
         this.sub_marcas = brand.sub_marca.split(",");
-        this.cod_brand = this.sub_marcas[0];
+        this.id_brand = parseInt(this.sub_marcas[0]);
       } else {
-        this.cod_brand = brand.cod_brand;
+        this.id_brand = brand.cod_brand;
       }
       this.getProducts();
     });
   }
 
   getProducts() {
-    this.subscription$.push(this.productsService.getProducts(this.cod_brand, this.page, this.search)
+    this.subscription$.push(this.productsService.getProducts(this.id_brand, this.page, this.search)
       .subscribe(p => {
         p.forEach(prod => {
           this.products.push(prod);          

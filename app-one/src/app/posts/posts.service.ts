@@ -18,16 +18,25 @@ export class PostsService {
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
-  getPosts(id: string, page: number, search: string) {
-    if (search == "") {
-      return this.loadPosts(id, page);
+  getPosts(id_brand: number, id_sub: number, page: number, search: string) {
+    if (id_sub == null || id_sub == undefined) {
+      if (search == "") {
+        return this.loadPostsBrand(id_brand, page);
+      } else {
+        return this.searchPostsBrand(id_brand, page, search);
+      } 
+      
     } else {
-      return this.searchPosts(id, page, search);
+      if (search == "") {
+        return this.loadPostsSubBrand(id_brand, id_sub, page);
+      } else {
+        return this.searchPostsSubBrand(id_brand, id_sub, page, search);
+      }
     }
   }
 
-  private loadPosts(id: string, page: number) {
-    return this.http.get<Post[]>(`${this.url}?id_brand=${id}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`)
+  private loadPostsBrand(id_brand: number, page: number) {
+    return this.http.get<Post[]>(`${this.url}?id_brand=${id_brand}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`)
       .pipe(
         catchError(error => {
           console.error(error);
@@ -39,8 +48,34 @@ export class PostsService {
       );
   }
 
-  private searchPosts(id: string, page: number, search: string) {
-    return this.http.get<Post[]>(`${this.url}?id_brand=${id}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`)
+  private searchPostsBrand(id_brand: number, page: number, search: string) {
+    return this.http.get<Post[]>(`${this.url}?id_brand=${id_brand}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`)
+      .pipe(
+        catchError(error => {
+          console.error(error);
+          this.presentAlert();
+          return empty();
+        }),
+        tap(resp => PostsService.pages = resp['pages']),
+        map(resp => resp['posts'])
+      );
+  }
+
+  private loadPostsSubBrand(id_brand: number, id_sub: number, page: number) {
+    return this.http.get<Post[]>(`${this.url}?id_brand=${id_brand}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`)
+      .pipe(
+        catchError(error => {
+          console.error(error);
+          this.presentAlert();
+          return empty();
+        }),
+        tap(resp => PostsService.pages = resp['pages']),
+        map(resp => resp['posts'])
+      );
+  }
+
+  private searchPostsSubBrand(id_brand: number, id_sub: number, page: number, search: string) {
+    return this.http.get<Post[]>(`${this.url}?id_brand=${id_brand}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`)
       .pipe(
         catchError(error => {
           console.error(error);

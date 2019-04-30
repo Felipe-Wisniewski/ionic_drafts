@@ -16,7 +16,7 @@ export class ProductsService {
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
-  getProducts(id: string, page: number, search: string) {
+  getProducts(id: number, page: number, search: string) {
     if (search == "") {
       return this.loadProducts(id, page);
     } else {
@@ -24,7 +24,7 @@ export class ProductsService {
     }
   }
 
-  private loadProducts(id: string, page: number) {
+  private loadProducts(id: number, page: number) {
     return this.http.get<any[]>(`${this.url}?id_brand=${id}&page=${page}&size=30`)
       .pipe(
         catchError(error => {
@@ -37,7 +37,7 @@ export class ProductsService {
       );
   }
 
-  private searchProducts(id: string, page: number, search: string) {
+  private searchProducts(id: number, page: number, search: string) {
     return this.http.get<any[]>(`${this.url}?id_brand=${id}&page=${page}&search=${search}`)
       .pipe(
         catchError(error => {

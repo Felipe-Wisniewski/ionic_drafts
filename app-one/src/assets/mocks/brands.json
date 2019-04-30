@@ -1,7 +1,7 @@
 {
     "brands": [
         {
-            "id": 3,
+            "id_brand": 3,
             "brand": "BEIRA RIO",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/3.jpg",
             "list_order": "1",
@@ -20,7 +20,7 @@
             }
         },
         {
-            "id": 16,
+            "id_brand": 16,
             "brand": "MOLECA",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/16.jpg",
             "list_order": "2",
@@ -39,7 +39,7 @@
             }
         },
         {
-            "id": 1,
+            "id_brand": 1,
             "brand": "VIZZANO",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/1.jpg",
             "list_order": "3",
@@ -58,7 +58,7 @@
             }
         },
         {
-            "id": 17,
+            "id_brand": 17,
             "brand": "MOLEKINHA",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/17.jpg",
             "list_order": "4",
@@ -77,7 +77,7 @@
             }
         },
         {
-            "id": 19,
+            "id_brand": 19,
             "brand": "MOLEKINHO",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/19.jpg",
             "list_order": "5",
@@ -93,7 +93,7 @@
             }
         },
         {
-            "id": 9,
+            "id_brand": 9,
             "brand": "MODARE",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/9.jpg",
             "list_order": "6",
@@ -109,7 +109,7 @@
             }
         },
         {
-            "id": 20,
+            "id_brand": 20,
             "brand": "ACTVITTA",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/20.jpg",
             "list_order": "7",
@@ -121,7 +121,7 @@
             "tag": []
         },
         {
-            "id": 99,
+            "id_brand": 99,
             "brand": "TAL MAE - TALFILHA",
             "image_url": "assets/mocks/talmaetalfilha.jpg",
             "list_order": "8",

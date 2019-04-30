@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>{{ desc_brand }}</ion-title>
+    <ion-title>{{ title }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -31,7 +31,6 @@
   <ion-grid class="grid-max-width" *ngIf="loaded ; else loading"> 
     <ion-row>
       <ion-col class="grid-col" *ngFor="let post of posts" size="4">
-        <!-- adicionar placeholder -->
         <ion-img [src]="post.post_url_thumb"  (ionError)="loadErrorImg($event)" (click)="selectPost(post)"></ion-img>
       </ion-col>
     </ion-row>
@@ -41,7 +40,6 @@
     <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
   
-  <!-- centralizar spinner -->
   <ng-template #loading>
     <ion-spinner loadingSpinner="crescent"></ion-spinner>
   </ng-template>
