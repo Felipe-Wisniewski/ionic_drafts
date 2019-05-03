@@ -20,9 +20,10 @@
 <ion-content> 
   <ion-grid class="grid-max-width" *ngIf="loaded ; else loading"> 
     <ion-row>
-      <ion-col class="grid-col" *ngFor="let product of products" size="4">
-        <ion-img [src]="product.image_url" (click)="selectProduct(product)"></ion-img>
-        <ion-label>Ref: {{ product.id_ref }}</ion-label>
+      <ion-col *ngFor="let product of products; let i = index" size="4">
+        <ion-item-divider>
+          <ion-img [src]="product.image_url" (click)="selectProduct($event)"></ion-img>
+        </ion-item-divider>
       </ion-col>
     </ion-row>
   </ion-grid>

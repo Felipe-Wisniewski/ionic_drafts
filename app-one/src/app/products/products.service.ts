@@ -17,15 +17,24 @@ export class ProductsService {
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
   getProducts(id_brand: number, id_sub: number, page: number, search: string) {
-    if (search == "") {
-      return this.loadProducts(id_brand, page);
+    if (id_sub == null || id_sub == undefined) {
+      if (search == "") {
+        return this.loadProducts(id_brand, page);
+      } else {
+        return this.searchProducts(id_brand, page, search);
+      } 
+      
     } else {
-      return this.searchProducts(id_brand, page, search);
+      if (search == "") {
+        return this.loadProductsSubBrand(id_sub, page);
+      } else {
+        return this.searchProductsSubBrand(id_sub, page, search);
+      }
     }
   }
 
-  private loadProducts(id: number, page: number) {
-    return this.http.get<any[]>(`${this.url}?id_brand=${id}&page=${page}&size=30`)
+  private loadProducts(id_brand: number, page: number) {
+    return this.http.get<any[]>(`${this.url}?id_brand=${id_brand}&page=${page}&size=30`)
       .pipe(
         catchError(error => {
           console.error(error);
@@ -37,8 +46,8 @@ export class ProductsService {
       );
   }
 
-  private searchProducts(id: number, page: number, search: string) {
-    return this.http.get<any[]>(`${this.url}?id_brand=${id}&page=${page}&search=${search}`)
+  private searchProducts(id_brand: number, page: number, search: string) {
+    return this.http.get<any[]>(`${this.url}?id_brand=${id_brand}&page=${page}&search=${search}`)
       .pipe(
         catchError(error => {
           console.error(error);
@@ -48,6 +57,34 @@ export class ProductsService {
         tap(resp => ProductsService.pages = resp['pages']),
         map(resp => resp['products'])
       );
+  }
+
+//desenvolver - aguardando api
+  private loadProductsSubBrand(id_sub, page) {
+    return this.http.get<any[]>('assets/mocks/products.json')
+    .pipe(
+      catchError(error => {
+        console.error(error);
+        this.presentAlert();
+        return empty();
+      }),
+      tap(resp => ProductsService.pages = resp['pages']),
+      map(resp => resp['products'])
+    );
+  }
+  
+//desenvolver - aguardando api
+  private searchProductsSubBrand(id_sub, page, search) {
+    return this.http.get<any[]>('assets/mocks/products.json')
+    .pipe(
+      catchError(error => {
+        console.error(error);
+        this.presentAlert();
+        return empty();
+      }),
+      tap(resp => ProductsService.pages = resp['pages']),
+      map(resp => resp['products'])
+    );
   }
 
   private async presentAlert() {

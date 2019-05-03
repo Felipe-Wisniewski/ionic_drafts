@@ -12,9 +12,11 @@ export class ProductsPage implements OnInit, OnDestroy {
 
   title: string;
 
-  id_brand: number;
-  id_sub: number;
+  id_brand?: number;
+  id_sub?: number;
   num_prod: number;
+  selected_products: number[] = [];
+  selected: boolean = false;
 
   page: number = 1;
   loaded = false;
@@ -38,12 +40,8 @@ export class ProductsPage implements OnInit, OnDestroy {
     this.storage.get('brand').then((brand) => {
       console.log(brand);
       this.title = brand.brand;
-
-      if (brand.id_sub != null || brand.id_sub != undefined) {
-        this.id_sub = brand.id_sub;
-      } else {
-        this.id_brand = brand.id_brand;
-      }
+      this.id_sub = brand.id_sub;
+      this.id_brand = brand.id_brand;
 
       this.getProducts();
     });  
@@ -66,8 +64,10 @@ export class ProductsPage implements OnInit, OnDestroy {
     this.getProducts();
   }
 
-  selectProduct(product) {
-    console.log(product);
+  selectProduct(event) {
+    console.log(event);
+    // console.log(`Id - ${id_prod} , Index - ${index}`);
+    // this.selected = !this.selected;
   }
 
   loadMore(iScroll) {
