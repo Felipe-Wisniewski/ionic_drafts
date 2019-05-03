@@ -36,7 +36,7 @@ export class TemplatesService {
   }
 
   getTemplatesSubBrands(id_brand: number, id_sub: number) {
-    return this.http.get<any[]>('assets/mocks/templates.json')
+    return this.http.get<any[]>('assets/mocks/templates_subs.json')
       .pipe(
         catchError(error => {
           console.error(error);

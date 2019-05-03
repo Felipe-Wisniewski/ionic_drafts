@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-
-import { Brand } from './../home/brand';
 
 @Component({
   selector: 'app-templates-posts',

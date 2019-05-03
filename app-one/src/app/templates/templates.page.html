@@ -15,11 +15,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-segment (ionChange)="selectPostStorie($event)">
+<ion-segment style="padding-top: 5px" [(ngModel)]="layout" (ionChange)="selectPostStorie()">
   <ion-segment-button value="post">
     <ion-label>POST</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="storie">
+  <ion-segment-button value="story">
     <ion-label>STORIE</ion-label>
   </ion-segment-button>
 </ion-segment>
@@ -30,7 +30,7 @@
     <ion-row>
       <ion-col class="template" *ngFor="let template of templates" size="4">
         <ion-img [src]="template.json.thumbnailUrl" (ionError)="loadErrorImg($event)" (click)="selectTemplate(template)"></ion-img>
-        <ion-label>{{ template.json.name }}</ion-label>
+        <ion-label style="font-size: 10px">{{ template.json.name }}</ion-label>
       </ion-col>
     </ion-row>
   </ion-grid>

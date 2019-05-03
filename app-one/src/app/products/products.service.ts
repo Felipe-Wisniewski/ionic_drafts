@@ -16,11 +16,11 @@ export class ProductsService {
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
-  getProducts(id: number, page: number, search: string) {
+  getProducts(id_brand: number, id_sub: number, page: number, search: string) {
     if (search == "") {
-      return this.loadProducts(id, page);
+      return this.loadProducts(id_brand, page);
     } else {
-      return this.searchProducts(id, page, search);
+      return this.searchProducts(id_brand, page, search);
     }
   }
 

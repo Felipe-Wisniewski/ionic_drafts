@@ -28,7 +28,7 @@ export class HomePage implements OnInit {
   selectBrand(brand) {
     this.storage.set('brand', brand);
 
-    if (brand.sub_brand) {  
+    if (brand.id_destaque != null || brand.id_destaque != undefined) {  
       this.router.navigate(['sub-brand']);
     } else {
       this.router.navigate(['templates-posts']);

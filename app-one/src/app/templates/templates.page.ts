@@ -12,16 +12,17 @@ import { TemplatesService } from './templates.service';
 })
 export class TemplatesPage implements OnInit, OnDestroy {
 
-  id_brand: number;
-  id_sub?: number;
   title: string;
+  id_brand?: number;
+  id_sub?: number;
+  layout: string;
 
   subscription$: Subscription[] = [];
   loaded = false;
 
   templates: Object[];
-  temp_post: Object[] = [];
-  temp_storie: Object[] = [];
+  templates_post: Object[] = [];
+  templates_story: Object[] = [];
 
   constructor(private storage: Storage, private templatesService: TemplatesService, private router: Router) { }
 
@@ -31,35 +32,35 @@ export class TemplatesPage implements OnInit, OnDestroy {
 
   getBrandId() {
     this.storage.get('brand').then((brand) => {
+      this.title = brand.brand;
       this.id_brand = brand.id_brand;
       this.id_sub = brand.id_sub;
-      this.title = brand.brand;
-
       this.getTemplates();
     });
   }
 
   getTemplates() {
     this.subscription$.push(this.templatesService.getTemplates(this.id_brand, this.id_sub)
-      .subscribe(t => {
-        let post = t.filter(it => it['layout'] == 'post');
-        let storie = t.filter(it => it['layout'] == 'storie');
-        this.temp_post = this.temp_post.concat(post);
-        this.temp_storie = this.temp_storie.concat(storie);
-        this.templates = this.temp_post;
+      .subscribe(tpts => {
+        let post = tpts.filter(t => t['layout'] == 'post');
+        let story = tpts.filter(t => t['layout'] == 'story');
+        this.templates_post = this.templates_post.concat(post);
+        this.templates_story = this.templates_story.concat(story);
+        this.templates = this.templates_post;
         this.loaded = true;
+        this.layout = "post"
       })
     );
   }
 
-  selectPostStorie($event) {
-    switch($event.detail.value) {
+  selectPostStorie() {
+    switch(this.layout) {
       case "post": {
-        this.templates = this.temp_post;
+        this.templates = this.templates_post;
         break;
       }
-      case "storie": {
-        this.templates = this.temp_storie;
+      case "story": {
+        this.templates = this.templates_story;
         break;
       }
       default: {
@@ -77,9 +78,9 @@ export class TemplatesPage implements OnInit, OnDestroy {
     event.target.src = 'assets/img/placeholder.png';
   }
 
+  //desenvolver scroll
   loadMore(iScroll) {
     console.log("begin");
-
     setTimeout(() => {
       console.log("end");
       iScroll.target.complete();

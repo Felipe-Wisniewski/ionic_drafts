@@ -14,8 +14,8 @@ import { Post } from './post';
 export class PostsPage implements OnInit, OnDestroy {
   
   title: string;
-  id_brand: number;
-  id_sub?: number;
+  id_brand: number = 0;
+  id_sub: number = 0;
   
   page: number = 1;
   loaded = false;
@@ -35,6 +35,8 @@ export class PostsPage implements OnInit, OnDestroy {
       this.title = brand.brand;
       this.id_brand = brand.id_brand;
       this.id_sub = brand.id_sub;
+      console.log(brand);
+      console.log(`id_brand -> ${this.id_brand}`);
       console.log(`id_sub -> ${this.id_sub}`);
       this.getPosts();
     });

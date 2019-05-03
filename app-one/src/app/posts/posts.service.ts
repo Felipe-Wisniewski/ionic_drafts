@@ -28,9 +28,9 @@ export class PostsService {
       
     } else {
       if (search == "") {
-        return this.loadPostsSubBrand(id_brand, id_sub, page);
+        return this.loadPostsSubBrand(id_sub, page);
       } else {
-        return this.searchPostsSubBrand(id_brand, id_sub, page, search);
+        return this.searchPostsSubBrand(id_sub, page, search);
       }
     }
   }
@@ -61,8 +61,8 @@ export class PostsService {
       );
   }
 
-  private loadPostsSubBrand(id_brand: number, id_sub: number, page: number) {
-    return this.http.get<Post[]>(`${this.url}?id_brand=${id_brand}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`)
+  private loadPostsSubBrand(id_sub: number, page: number) {
+    return this.http.get<Post[]>(`${this.url}?id_sub=${id_sub}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`)
       .pipe(
         catchError(error => {
           console.error(error);
@@ -74,8 +74,8 @@ export class PostsService {
       );
   }
 
-  private searchPostsSubBrand(id_brand: number, id_sub: number, page: number, search: string) {
-    return this.http.get<Post[]>(`${this.url}?id_brand=${id_brand}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`)
+  private searchPostsSubBrand(id_sub: number, page: number, search: string) {
+    return this.http.get<Post[]>(`${this.url}?id_sub=${id_sub}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`)
       .pipe(
         catchError(error => {
           console.error(error);
