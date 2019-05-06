@@ -10,11 +10,14 @@ import { NavController } from '@ionic/angular';
 export class HomePage {
 
   images: GridImg[] = [];
+  imagesSelected: GridImg[] = [];
+  maxSelect: number = 2;
   isSelected: boolean = false;
+  teste: any;
 
   constructor(public navCtrl: NavController) {
     for(let i = 0; i < 30; i++) {
-      this.images.push(new GridImg('assets/placeholder.png'));
+      this.images.push(new GridImg(i, 'assets/placeholder.png'));
     }
   }
 
@@ -22,11 +25,24 @@ export class HomePage {
   }
 
   selectImg(image) {
-    console.log(image);
-    this.isSelected = !this.isSelected;
+
+    if (this.maxSelect <= this.imagesSelected.length) {
+      // this.isSelected = !this.isSelected;
+      for (let i = 0; i < this.imagesSelected.length; i++) {
+        if (this.imagesSelected[i].id == image.id) {
+          this.imagesSelected.splice(i, 1);
+          console.log(`idx ${i}`);
+          console.log(this.imagesSelected[i]);
+          console.log(image);
+        }
+      }
+    } else {
+      this.imagesSelected.push(image);
+    }
+    console.log(this.imagesSelected);
   }
 
   checkPlatform() {
-    
+    console.log(this.imagesSelected);
   }
 }

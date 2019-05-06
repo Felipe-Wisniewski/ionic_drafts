@@ -1,4 +1,8 @@
+import { Feed } from './feed';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FollowService } from './follow.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-follow',
@@ -7,9 +11,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FollowPage implements OnInit {
 
-  constructor() { }
+  feed$: Observable<Feed[]>;
+
+  constructor(private followService: FollowService) { }
 
   ngOnInit() {
+    this.getFeed();
   }
 
+  getFeed() {
+    this.feed$ = this.followService.getFeed();
+  }
+
+  onClick(link) {
+    console.log(link);
+  }
 }

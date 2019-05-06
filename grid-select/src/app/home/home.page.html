@@ -5,17 +5,15 @@
 </ion-header>
 
 <ion-content>
-
   <ion-grid>
     <ion-row>
       <ion-col *ngFor="let image of images" size="4">
-
-        <ion-img [src]="image.img" (click)="selectImg($event)"></ion-img>
-
-        </ion-col>
+        <button class="selected" (click)="selectImg(image)" [disabled]="isSelected">
+          <ion-img [src]="image.img"></ion-img>
+        </button>
+      </ion-col>
     </ion-row>
   </ion-grid>
-  
 </ion-content>
 
 <ion-fab vertical="bottom" horizontal="end" slot="fixed" activated="{{ !isSelected }}">
