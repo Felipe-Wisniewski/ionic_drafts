@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>grid-select</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let image of images" size="4">
+
+        <ion-img [src]="image.img" (click)="selectImg($event)"></ion-img>
+
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" activated="{{ !isSelected }}">
+  <ion-fab-button (click)="checkPlatform()">
+    <ion-icon name="arrow-forward"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+ 
