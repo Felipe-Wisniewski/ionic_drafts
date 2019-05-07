@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
@@ -11,13 +11,11 @@ import { Brand } from './brand';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
 
   brands$: Observable<Brand[]>;
 
-  constructor(private homeService: HomeService, private storage: Storage, private router: Router) { }
-
-  ngOnInit() {
+  constructor(private homeService: HomeService, private storage: Storage, private router: Router) {
     this.loadBrands();
   }
 

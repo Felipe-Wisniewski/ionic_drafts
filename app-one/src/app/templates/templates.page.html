@@ -24,8 +24,9 @@
   </ion-segment-button>
 </ion-segment>
 
+<p class="p-choose">Escolha um template</p>
+
 <ion-content>
-  <h6 text-center>Escolha um template</h6>
   <ion-grid class="grid-max-width" *ngIf="loaded ; else loading"> 
     <ion-row>
       <ion-col class="template" *ngFor="let template of templates" size="4">

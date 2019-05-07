@@ -1,29 +1,33 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>{{ desc_brand }}</ion-title>
+    <ion-title>{{ title }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
-  </ion-buttons>
-  <ion-buttons slot="end">
-    <ion-button [routerLink]="['/follow']">
-      <ion-icon slot="icon-only" name="grid"></ion-icon>
-    </ion-button>
-    <ion-button [routerLink]="['/gallery']">
-      <ion-icon slot="icon-only" name="photos"></ion-icon>
-    </ion-button>
-  </ion-buttons>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/follow']">
+        <ion-icon slot="icon-only" name="grid"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/gallery']">
+        <ion-icon slot="icon-only" name="photos"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-searchbar [(ngModel)]="search" (ionChange)="searchProduct()"></ion-searchbar>
 
-<ion-content> 
+<p class="p-choose">Escolha até {{ numberOfproducts }} produtos</p> 
+
+<ion-content>  
   <ion-grid class="grid-max-width" *ngIf="loaded ; else loading"> 
     <ion-row>
-      <ion-col *ngFor="let product of products; let i = index" size="4">
-        <ion-item-divider>
-          <ion-img [src]="product.image_url" (click)="selectProduct($event)"></ion-img>
-        </ion-item-divider>
+      <ion-col *ngFor="let product of products" size="4">
+
+        <div (click)="selectProduct(product)" [ngClass]="{'selected': isSelected}">
+          <ion-img [src]="product?.image_url"></ion-img>
+        </div>
+
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -35,5 +39,9 @@
   <ng-template #loading>
     <ion-spinner loadingSpinner="crescent"></ion-spinner>
   </ng-template>
-  <!-- adicionar fab-button -->
 </ion-content>
+
+<ion-fab color="primary" vertical="bottom" horizontal="end" slot="fixed" activated="{{ !isSelected }}">
+  <ion-fab-button (click)="checkPlatform()">
+  <ion-icon name="arrow-forward"></ion-icon>
+</ion-fab-button>

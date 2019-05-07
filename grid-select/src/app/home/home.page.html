@@ -8,9 +8,11 @@
   <ion-grid>
     <ion-row>
       <ion-col *ngFor="let image of images" size="4">
-        <button class="selected" (click)="selectImg(image)" [disabled]="isSelected">
-          <ion-img [src]="image.img"></ion-img>
-        </button>
+        
+        <div (click)="selectImg(image)" [ngClass]="{'selected': true">
+          <ion-img [src]="image?.img"></ion-img>
+        </div>
+
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -1,849 +1,791 @@
 {
-   "templates":[
+   "templates": [
       {
-         "id_brand":"3",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"28-MAR-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"28-MAR-2019",
-         "id_lang":"1",
-         "id_template":"314",
-         "brand":{
-            "id":3,
-            "brand":"BEIRA RIO",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "3",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "28-MAR-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "28-MAR-2019",
+         "id_lang": "1",
+         "id_template": "314",
+         "brand": {
+            "id": 3,
+            "brand": "BEIRA RIO",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"MAES2EN",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/714eb1cf784fd0e9c09e3871e1d4a70e."
+         "json": {
+            "name": "MAES2EN",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/714eb1cf784fd0e9c09e3871e1d4a70e."
          }
       },
       {
-         "id_brand":"3",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"28-MAR-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"28-MAR-2019",
-         "id_lang":"1",
-         "id_template":"312",
-         "brand":{
-            "id":3,
-            "brand":"BEIRA RIO",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "3",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "28-MAR-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "28-MAR-2019",
+         "id_lang": "1",
+         "id_template": "312",
+         "brand": {
+            "id": 3,
+            "brand": "BEIRA RIO",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"MAES1EN",
-            "thumbnailUrl":"assets/mocks/template_story1.jpg"
+         "json": {
+            "name": "MAES1EN",
+            "thumbnailUrl": "assets/mocks/template_story1.jpg"
          }
       },
       {
-         "id_brand":"16",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"29-APR-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"29-APR-2019",
-         "id_lang":"1",
-         "id_template":"352",
-         "brand":{
-            "id":16,
-            "brand":"MOLECA",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "16",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "29-APR-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "29-APR-2019",
+         "id_lang": "1",
+         "id_template": "352",
+         "brand": {
+            "id": 16,
+            "brand": "MOLECA",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"It's got to be Moleca!",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/5e7f4f6eb5d5a30cc0b341dabd5eed4f."
+         "json": {
+            "name": "It's got to be Moleca!",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/5e7f4f6eb5d5a30cc0b341dabd5eed4f."
          }
       },
       {
-         "id_brand":"16",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"29-APR-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"29-APR-2019",
-         "id_lang":"1",
-         "id_template":"351",
-         "brand":{
-            "id":16,
-            "brand":"MOLECA",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "16",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "29-APR-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "29-APR-2019",
+         "id_lang": "1",
+         "id_template": "351",
+         "brand": {
+            "id": 16,
+            "brand": "MOLECA",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"It's got to be Moleca!",
-            "thumbnailUrl":"assets/mocks/template_story2.jpg"
+         "json": {
+            "name": "It's got to be Moleca!",
+            "thumbnailUrl": "assets/mocks/template_story2.jpg"
          }
       },
       {
-         "id_brand":"1",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"25-FEB-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"25-FEB-2019",
-         "id_lang":"1",
-         "id_template":"290",
-         "brand":{
-            "id":1,
-            "brand":"VIZZANO",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "1",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "25-FEB-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "25-FEB-2019",
+         "id_lang": "1",
+         "id_template": "290",
+         "brand": {
+            "id": 1,
+            "brand": "VIZZANO",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"Stiletto",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/461f5e5c3c90d85101505e282cb9b3d2."
+         "json": {
+            "name": "Stiletto",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/461f5e5c3c90d85101505e282cb9b3d2."
          }
       },
       {
-         "id_brand":"1",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"29-JAN-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"29-JAN-2019",
-         "id_lang":"1",
-         "id_template":"243",
-         "brand":{
-            "id":1,
-            "brand":"VIZZANO",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "1",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "29-JAN-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "29-JAN-2019",
+         "id_lang": "1",
+         "id_template": "243",
+         "brand": {
+            "id": 1,
+            "brand": "VIZZANO",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"ANIMAL PRINT 3",
-            "thumbnailUrl":"assets/mocks/template_story3.jpg"
+         "json": {
+            "name": "ANIMAL PRINT 3",
+            "thumbnailUrl": "assets/mocks/template_story3.jpg"
          }
       },
       {
-         "id_brand":"17",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"04-FEB-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"04-FEB-2019",
-         "id_lang":"1",
-         "id_template":"267",
-         "brand":{
-            "id":17,
-            "brand":"MOLEKINHA",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "17",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "04-FEB-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "04-FEB-2019",
+         "id_lang": "1",
+         "id_template": "267",
+         "brand": {
+            "id": 17,
+            "brand": "MOLEKINHA",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"BACK TO SCHOOL",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/cef86ceeda8e5cabecb04df0155df7c3."
+         "json": {
+            "name": "BACK TO SCHOOL",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/cef86ceeda8e5cabecb04df0155df7c3."
          }
       },
       {
-         "id_brand":"17",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"21-JAN-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"21-JAN-2019",
-         "id_lang":"1",
-         "id_template":"215",
-         "brand":{
-            "id":17,
-            "brand":"MOLEKINHA",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "17",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "21-JAN-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "21-JAN-2019",
+         "id_lang": "1",
+         "id_template": "215",
+         "brand": {
+            "id": 17,
+            "brand": "MOLEKINHA",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"Neon!",
-            "thumbnailUrl":"assets/mocks/template_story4.jpg"
+         "json": {
+            "name": "Neon!",
+            "thumbnailUrl": "assets/mocks/template_story4.jpg"
          }
       },
       {
-         "id_brand":"19",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"26-JUL-2018",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"26-JUL-2018",
-         "id_lang":"1",
-         "id_template":"89",
-         "brand":{
-            "id":19,
-            "brand":"MOLEKINHO",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "19",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "26-JUL-2018",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "26-JUL-2018",
+         "id_lang": "1",
+         "id_template": "89",
+         "brand": {
+            "id": 19,
+            "brand": "MOLEKINHO",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"Sale",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/a8672a6f5a1537552848c9114298bf10."
-         }
-      },
-	  {
-         "id_brand":"19",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"26-JUL-2018",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"26-JUL-2018",
-         "id_lang":"1",
-         "id_template":"389",
-         "brand":{
-            "id":19,
-            "brand":"MOLEKINHO",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
-               ""
-            ],
-            "tag":[
-
-            ]
-         },
-         "json":{
-            "name":"Sale",
-            "thumbnailUrl":"assets/mocks/template_story1.jpg"
+         "json": {
+            "name": "Sale",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/a8672a6f5a1537552848c9114298bf10."
          }
       },
       {
-         "id_brand":"9",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"21-MAR-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"21-MAR-2019",
-         "id_lang":"1",
-         "id_template":"303",
-         "brand":{
-            "id":9,
-            "brand":"MODARE",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "19",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "26-JUL-2018",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "26-JUL-2018",
+         "id_lang": "1",
+         "id_template": "389",
+         "brand": {
+            "id": 19,
+            "brand": "MOLEKINHO",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"Mothers",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/dd5b8e40bd409f715be889b3b25c4f27."
+         "json": {
+            "name": "Sale",
+            "thumbnailUrl": "assets/mocks/template_story1.jpg"
          }
       },
       {
-         "id_brand":"9",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"26-JUL-2018",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"26-JUL-2018",
-         "id_lang":"1",
-         "id_template":"110",
-         "brand":{
-            "id":9,
-            "brand":"MODARE",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "9",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "21-MAR-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "21-MAR-2019",
+         "id_lang": "1",
+         "id_template": "303",
+         "brand": {
+            "id": 9,
+            "brand": "MODARE",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"Modare 06 EN",
-            "thumbnailUrl":"assets/mocks/template_story2.jpg"
+         "json": {
+            "name": "Mothers",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/dd5b8e40bd409f715be889b3b25c4f27."
          }
       },
       {
-         "id_brand":"20",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"22-APR-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"22-APR-2019",
-         "id_lang":"1",
-         "id_template":"345",
-         "brand":{
-            "id":20,
-            "brand":"ACTVITTA",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "9",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "26-JUL-2018",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "26-JUL-2018",
+         "id_lang": "1",
+         "id_template": "110",
+         "brand": {
+            "id": 9,
+            "brand": "MODARE",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"Mom",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/728a35a5f6e526653fdeaa1478f3741c."
+         "json": {
+            "name": "Modare 06 EN",
+            "thumbnailUrl": "assets/mocks/template_story2.jpg"
          }
       },
       {
-         "id_brand":"20",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"22-NOV-2018",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"22-NOV-2018",
-         "id_lang":"1",
-         "id_template":"181",
-         "brand":{
-            "id":20,
-            "brand":"ACTVITTA",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "20",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "22-APR-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "22-APR-2019",
+         "id_lang": "1",
+         "id_template": "345",
+         "brand": {
+            "id": 20,
+            "brand": "ACTVITTA",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"TEMPLATE 5",
-            "thumbnailUrl":"assets/mocks/template_story3.jpg"
-         }
-      },
-	  {
-         "id_brand":"3",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"28-MAR-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"28-MAR-2019",
-         "id_lang":"1",
-         "id_template":"314",
-         "brand":{
-            "id":3,
-            "brand":"BEIRA RIO",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
-               ""
-            ],
-            "tag":[
-
-            ]
-         },
-         "json":{
-            "name":"MAES2EN",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/714eb1cf784fd0e9c09e3871e1d4a70e."
+         "json": {
+            "name": "Mom",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/728a35a5f6e526653fdeaa1478f3741c."
          }
       },
       {
-         "id_brand":"3",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"28-MAR-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"28-MAR-2019",
-         "id_lang":"1",
-         "id_template":"312",
-         "brand":{
-            "id":3,
-            "brand":"BEIRA RIO",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "20",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "22-NOV-2018",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "22-NOV-2018",
+         "id_lang": "1",
+         "id_template": "181",
+         "brand": {
+            "id": 20,
+            "brand": "ACTVITTA",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"MAES1EN",
-            "thumbnailUrl":"assets/mocks/template_story1.jpg"
+         "json": {
+            "name": "TEMPLATE 5",
+            "thumbnailUrl": "assets/mocks/template_story3.jpg"
          }
       },
       {
-         "id_brand":"16",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"29-APR-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"29-APR-2019",
-         "id_lang":"1",
-         "id_template":"352",
-         "brand":{
-            "id":16,
-            "brand":"MOLECA",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "3",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "28-MAR-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "28-MAR-2019",
+         "id_lang": "1",
+         "id_template": "314",
+         "brand": {
+            "id": 3,
+            "brand": "BEIRA RIO",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"It's got to be Moleca!",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/5e7f4f6eb5d5a30cc0b341dabd5eed4f."
+         "json": {
+            "name": "MAES2EN",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/714eb1cf784fd0e9c09e3871e1d4a70e."
          }
       },
       {
-         "id_brand":"16",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"29-APR-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"29-APR-2019",
-         "id_lang":"1",
-         "id_template":"351",
-         "brand":{
-            "id":16,
-            "brand":"MOLECA",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "3",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "28-MAR-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "28-MAR-2019",
+         "id_lang": "1",
+         "id_template": "312",
+         "brand": {
+            "id": 3,
+            "brand": "BEIRA RIO",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"It's got to be Moleca!",
-            "thumbnailUrl":"assets/mocks/template_story2.jpg"
+         "json": {
+            "name": "MAES1EN",
+            "thumbnailUrl": "assets/mocks/template_story1.jpg"
          }
       },
       {
-         "id_brand":"1",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"25-FEB-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"25-FEB-2019",
-         "id_lang":"1",
-         "id_template":"290",
-         "brand":{
-            "id":1,
-            "brand":"VIZZANO",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "16",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "29-APR-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "29-APR-2019",
+         "id_lang": "1",
+         "id_template": "352",
+         "brand": {
+            "id": 16,
+            "brand": "MOLECA",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"Stiletto",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/461f5e5c3c90d85101505e282cb9b3d2."
+         "json": {
+            "name": "It's got to be Moleca!",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/5e7f4f6eb5d5a30cc0b341dabd5eed4f."
          }
       },
       {
-         "id_brand":"1",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"29-JAN-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"29-JAN-2019",
-         "id_lang":"1",
-         "id_template":"243",
-         "brand":{
-            "id":1,
-            "brand":"VIZZANO",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "16",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "29-APR-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "29-APR-2019",
+         "id_lang": "1",
+         "id_template": "351",
+         "brand": {
+            "id": 16,
+            "brand": "MOLECA",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"ANIMAL PRINT 3",
-            "thumbnailUrl":"assets/mocks/template_story3.jpg"
+         "json": {
+            "name": "It's got to be Moleca!",
+            "thumbnailUrl": "assets/mocks/template_story2.jpg"
          }
       },
       {
-         "id_brand":"17",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"04-FEB-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"04-FEB-2019",
-         "id_lang":"1",
-         "id_template":"267",
-         "brand":{
-            "id":17,
-            "brand":"MOLEKINHA",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "1",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "25-FEB-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "25-FEB-2019",
+         "id_lang": "1",
+         "id_template": "290",
+         "brand": {
+            "id": 1,
+            "brand": "VIZZANO",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"BACK TO SCHOOL",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/cef86ceeda8e5cabecb04df0155df7c3."
+         "json": {
+            "name": "Stiletto",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/461f5e5c3c90d85101505e282cb9b3d2."
          }
       },
       {
-         "id_brand":"17",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"21-JAN-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"21-JAN-2019",
-         "id_lang":"1",
-         "id_template":"215",
-         "brand":{
-            "id":17,
-            "brand":"MOLEKINHA",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "1",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "29-JAN-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "29-JAN-2019",
+         "id_lang": "1",
+         "id_template": "243",
+         "brand": {
+            "id": 1,
+            "brand": "VIZZANO",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"Neon!",
-            "thumbnailUrl":"assets/mocks/template_story4.jpg"
+         "json": {
+            "name": "ANIMAL PRINT 3",
+            "thumbnailUrl": "assets/mocks/template_story3.jpg"
          }
       },
       {
-         "id_brand":"19",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"26-JUL-2018",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"26-JUL-2018",
-         "id_lang":"1",
-         "id_template":"89",
-         "brand":{
-            "id":19,
-            "brand":"MOLEKINHO",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "17",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "04-FEB-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "04-FEB-2019",
+         "id_lang": "1",
+         "id_template": "267",
+         "brand": {
+            "id": 17,
+            "brand": "MOLEKINHA",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"Sale",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/a8672a6f5a1537552848c9114298bf10."
-         }
-      },
-	  {
-         "id_brand":"19",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"26-JUL-2018",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"26-JUL-2018",
-         "id_lang":"1",
-         "id_template":"389",
-         "brand":{
-            "id":19,
-            "brand":"MOLEKINHO",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
-               ""
-            ],
-            "tag":[
-
-            ]
-         },
-         "json":{
-            "name":"Sale",
-            "thumbnailUrl":"assets/mocks/template_story1.jpg"
+         "json": {
+            "name": "BACK TO SCHOOL",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/cef86ceeda8e5cabecb04df0155df7c3."
          }
       },
       {
-         "id_brand":"9",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"21-MAR-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"21-MAR-2019",
-         "id_lang":"1",
-         "id_template":"303",
-         "brand":{
-            "id":9,
-            "brand":"MODARE",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "17",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "21-JAN-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "21-JAN-2019",
+         "id_lang": "1",
+         "id_template": "215",
+         "brand": {
+            "id": 17,
+            "brand": "MOLEKINHA",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"Mothers",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/dd5b8e40bd409f715be889b3b25c4f27."
+         "json": {
+            "name": "Neon!",
+            "thumbnailUrl": "assets/mocks/template_story4.jpg"
          }
       },
       {
-         "id_brand":"9",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"26-JUL-2018",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"26-JUL-2018",
-         "id_lang":"1",
-         "id_template":"110",
-         "brand":{
-            "id":9,
-            "brand":"MODARE",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "19",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "26-JUL-2018",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "26-JUL-2018",
+         "id_lang": "1",
+         "id_template": "89",
+         "brand": {
+            "id": 19,
+            "brand": "MOLEKINHO",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"Modare 06 EN",
-            "thumbnailUrl":"assets/mocks/template_story2.jpg"
+         "json": {
+            "name": "Sale",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/a8672a6f5a1537552848c9114298bf10."
          }
       },
       {
-         "id_brand":"20",
-		 "id_sub":"",
-		 "layout":"post",
-		 "products":"1",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"22-APR-2019",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"22-APR-2019",
-         "id_lang":"1",
-         "id_template":"345",
-         "brand":{
-            "id":20,
-            "brand":"ACTVITTA",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "19",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "26-JUL-2018",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "26-JUL-2018",
+         "id_lang": "1",
+         "id_template": "389",
+         "brand": {
+            "id": 19,
+            "brand": "MOLEKINHO",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"Mom",
-            "thumbnailUrl":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/728a35a5f6e526653fdeaa1478f3741c."
+         "json": {
+            "name": "Sale",
+            "thumbnailUrl": "assets/mocks/template_story1.jpg"
          }
       },
       {
-         "id_brand":"20",
-		 "id_sub":"",
-		 "layout":"story",
-		 "products":"2",
-         "status":"A",
-         "registration_user":"banco_imagens",
-         "registration_date":"22-NOV-2018",
-         "alteration_user":"banco_imagens",
-         "alteration_date":"22-NOV-2018",
-         "id_lang":"1",
-         "id_template":"181",
-         "brand":{
-            "id":20,
-            "brand":"ACTVITTA",
-            "image_url":"",
-            "list_order":"",
-            "logo_url":"",
-            "color":[
+         "id_brand": "9",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "21-MAR-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "21-MAR-2019",
+         "id_lang": "1",
+         "id_template": "303",
+         "brand": {
+            "id": 9,
+            "brand": "MODARE",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
                ""
             ],
-            "tag":[
-
-            ]
+            "tag": []
          },
-         "json":{
-            "name":"TEMPLATE 5",
-            "thumbnailUrl":"assets/mocks/template_story3.jpg"
+         "json": {
+            "name": "Mothers",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/dd5b8e40bd409f715be889b3b25c4f27."
+         }
+      },
+      {
+         "id_brand": "9",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "26-JUL-2018",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "26-JUL-2018",
+         "id_lang": "1",
+         "id_template": "110",
+         "brand": {
+            "id": 9,
+            "brand": "MODARE",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
+               ""
+            ],
+            "tag": []
+         },
+         "json": {
+            "name": "Modare 06 EN",
+            "thumbnailUrl": "assets/mocks/template_story2.jpg"
+         }
+      },
+      {
+         "id_brand": "20",
+         "id_sub": "",
+         "layout": "post",
+         "products": "1",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "22-APR-2019",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "22-APR-2019",
+         "id_lang": "1",
+         "id_template": "345",
+         "brand": {
+            "id": 20,
+            "brand": "ACTVITTA",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
+               ""
+            ],
+            "tag": []
+         },
+         "json": {
+            "name": "Mom",
+            "thumbnailUrl": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/728a35a5f6e526653fdeaa1478f3741c."
+         }
+      },
+      {
+         "id_brand": "20",
+         "id_sub": "",
+         "layout": "story",
+         "products": "2",
+         "status": "A",
+         "registration_user": "banco_imagens",
+         "registration_date": "22-NOV-2018",
+         "alteration_user": "banco_imagens",
+         "alteration_date": "22-NOV-2018",
+         "id_lang": "1",
+         "id_template": "181",
+         "brand": {
+            "id": 20,
+            "brand": "ACTVITTA",
+            "image_url": "",
+            "list_order": "",
+            "logo_url": "",
+            "color": [
+               ""
+            ],
+            "tag": []
+         },
+         "json": {
+            "name": "TEMPLATE 5",
+            "thumbnailUrl": "assets/mocks/template_story3.jpg"
          }
       }
    ],
-   "page":1,
-   "pages":2,
-   "messages":[
-
-   ]
+   "page": 1,
+   "pages": 2,
+   "messages": []
 }
