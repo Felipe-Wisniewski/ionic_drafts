@@ -15,14 +15,16 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- centralizar banner no meio da tela -->
-<!-- class="ion-align-items-center" -->
 <ion-content>
-  <ion-grid class="grid-max-width">
+  <ion-grid class="grid-sub" *ngIf="loaded ; else loading">
     <ion-row>
-      <ion-col class="grid-col" *ngFor="let sub of subs" size="6">
+      <ion-col class="col-sub" *ngFor="let sub of subs" offset="3" size="6">
         <ion-img [src]="sub.image_url" (click)="selectBrand(sub)"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ng-template #loading>
+    <ion-spinner loadingSpinner="crescent"></ion-spinner>
+  </ng-template>
 </ion-content>

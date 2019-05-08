@@ -1,4 +1,9 @@
-.template {
+.grid-template {
+    max-width: 800px;
+    padding: 0px;
+}
+
+.col-template {
     padding-top: 5px;
     padding-left: 1px;
     padding-bottom: 5px;
@@ -6,11 +11,21 @@
 }
 
 .p-choose {
-    font-size: 12px;
+    font-size: 13px;
     margin: 0px;
     padding-left: 12px;
     padding-right: 12px;
     padding-top: 1px;
     padding-bottom: 1px;
     text-align: end;
+}
+
+.selected {
+    padding: 1px;
+    background-color: red;
+}
+
+.label {
+    font-size: 10px;
+    background-color: white
 }

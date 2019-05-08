@@ -1,10 +1,12 @@
 export interface Post {
     id: number,
     id_brand: number,
+    id_subdivision: number,
     id_batch: number,
     id_material: number,
     id_color: number,
     brand: string,
+    layout: string,
     ref: string,
     material: string,
     color: string,
@@ -14,5 +16,5 @@ export interface Post {
     product_url: string,
     product_url_thumb: string,
     filter: string,
-    real_ref: string
+    real_ref: string,
 }

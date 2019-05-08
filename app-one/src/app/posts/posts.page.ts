@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { PostsService } from './posts.service';
 import { Post } from './post';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,38 +15,45 @@ import { Post } from './post';
 export class PostsPage implements OnInit, OnDestroy {
   
   title: string;
-  id_brand: number = 0;
-  id_sub: number = 0;
+  id_brand: number;
+  id_subdivision: number;
   
-  page: number = 1;
-  loaded = false;
+  layout: string;
+  isSelected = false;
+
   subscription$: Subscription[] = [];
+  loaded = false;
+  page = 1;
 
+  search = "";
   posts: Post[] = [];
-  search: string = "";
+  selectedPost: Post;
 
-  constructor(private storage: Storage, private postsService: PostsService) { }
+  constructor(private storage: Storage, private postsService: PostsService, private router: Router) { }
 
   ngOnInit() {
     this.getBrandId();
   }
 
   getBrandId() {
-    this.storage.get('brand').then((brand) => {
-      this.title = brand.brand;
-      this.id_brand = brand.id_brand;
-      this.id_sub = brand.id_sub;
-      console.log(brand);
-      console.log(`id_brand -> ${this.id_brand}`);
-      console.log(`id_sub -> ${this.id_sub}`);
+    this.storage.get('brand').then(brand => {
+      if (brand.id_subdivision == undefined) {
+        this.title = brand.brand;
+        this.id_brand = brand.id_brand;
+        this.id_subdivision = null;
+      } else {
+        this.title = brand.sub;
+        this.id_brand = null;
+        this.id_subdivision = brand.id_subdivision;
+      }     
       this.getPosts();
     });
   }
 
   getPosts() {
-    this.subscription$.push(this.postsService.getPosts(this.id_brand, this.id_sub, this.page, this.search)
-      .subscribe(p => { 
-        p.forEach(post => {
+    this.subscription$.push(this.postsService.getPosts(this.id_brand, this.id_subdivision, this.page, this.search)
+      .subscribe(_posts => { 
+        _posts.forEach(post => {
           this.posts.push(post);
         });
         this.loaded = true;
@@ -56,6 +64,7 @@ export class PostsPage implements OnInit, OnDestroy {
   searchPosts() {
     this.page = 1;
     this.posts = [];
+    this.loaded = false;
     this.getPosts();
   }
 
@@ -77,7 +86,14 @@ export class PostsPage implements OnInit, OnDestroy {
   }
   
   selectPost(post) {
-    console.log(post);
+    this.selectedPost = post;
+    this.isSelected = !this.isSelected;
+  }
+
+  navEditor() {
+    this.storage.set('post', this.selectPost).then(() => {
+      this.router.navigate(['editor']);
+    });
   }
 
   loadErrorImg(event) {

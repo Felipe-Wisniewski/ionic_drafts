@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
+import { Subdivision } from '../home/brand';
+
 @Component({
   selector: 'app-sub-brand',
   templateUrl: './sub-brand.page.html',
@@ -10,7 +12,8 @@ import { Storage } from '@ionic/storage';
 export class SubBrandPage implements OnInit {
 
   title: string;
-  subs: any[];
+  loaded: boolean = false;
+  subs: Subdivision[];
 
   constructor(private storage: Storage, private router: Router) { }
 
@@ -19,14 +22,17 @@ export class SubBrandPage implements OnInit {
   }
 
   getBrandStorage() {
-    this.storage.get('brand').then((brand) => {
+    this.storage.get('brand').then(brand => {
       this.title = brand.brand;
       this.subs = brand.subdivision;
     });
+    
+    this.loaded = true;
   }
 
   selectBrand(sub) {
-    this.storage.set('brand', sub);
-    this.router.navigate(['templates-posts']);
+    this.storage.set('brand', sub).then(() => {
+      this.router.navigate(['templates-posts'])
+    });
   }
 }

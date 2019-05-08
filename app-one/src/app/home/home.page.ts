@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
@@ -11,11 +11,13 @@ import { Brand } from './brand';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   brands$: Observable<Brand[]>;
 
-  constructor(private homeService: HomeService, private storage: Storage, private router: Router) {
+  constructor(private homeService: HomeService, private storage: Storage, private router: Router) { }
+
+  ngOnInit() {
     this.loadBrands();
   }
 
@@ -24,12 +26,11 @@ export class HomePage {
   }
 
   selectBrand(brand) {
-    this.storage.set('brand', brand);
-
-    if (brand.id_destaque != null || brand.id_destaque != undefined) {  
-      this.router.navigate(['sub-brand']);
-    } else {
-      this.router.navigate(['templates-posts']);
-    }
+    this.storage.set('brand', brand).then(it => {
+      if (it.id_destaque == null || it.id_destaque == undefined) 
+        this.router.navigate(['templates-posts']);
+      else
+        this.router.navigate(['sub-brand']);
+    });
   }
 }

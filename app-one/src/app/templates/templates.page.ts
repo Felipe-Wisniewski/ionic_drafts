@@ -13,16 +13,21 @@ import { TemplatesService } from './templates.service';
 export class TemplatesPage implements OnInit, OnDestroy {
 
   title: string;
-  id_brand?: number;
-  id_sub?: number;
+  id_brand: number;
+  id_subdivision: number;
+
   layout: string;
+  index = -1;
+  isSelected = false;
 
   subscription$: Subscription[] = [];
   loaded = false;
+  page = 1;
 
   templates: Object[];
   templates_post: Object[] = [];
   templates_story: Object[] = [];
+  selectedTemplate: any;
 
   constructor(private storage: Storage, private templatesService: TemplatesService, private router: Router) { }
 
@@ -31,24 +36,30 @@ export class TemplatesPage implements OnInit, OnDestroy {
   }
 
   getBrandId() {
-    this.storage.get('brand').then((brand) => {
-      this.title = brand.brand;
-      this.id_brand = brand.id_brand;
-      this.id_sub = brand.id_sub;
+    this.storage.get('brand').then(brand => {
+      if (brand.id_subdivision == undefined) {
+        this.title = brand.brand;
+        this.id_brand = brand.id_brand;
+        this.id_subdivision = null;
+      } else {
+        this.title = brand.sub;
+        this.id_brand = null;
+        this.id_subdivision = brand.id_subdivision;
+      } 
       this.getTemplates();
     });
   }
 
   getTemplates() {
-    this.subscription$.push(this.templatesService.getTemplates(this.id_brand, this.id_sub)
-      .subscribe(tpts => {
-        let post = tpts.filter(t => t['layout'] == 'post');
-        let story = tpts.filter(t => t['layout'] == 'story');
+    this.subscription$.push(this.templatesService.getTemplates(this.id_brand, this.id_subdivision, this.page)
+      .subscribe(temp => {
+        let post = temp.filter(t => t['layout'] == 'post');
+        let story = temp.filter(t => t['layout'] == 'story');
         this.templates_post = this.templates_post.concat(post);
         this.templates_story = this.templates_story.concat(story);
         this.templates = this.templates_post;
         this.loaded = true;
-        this.layout = "post"
+        this.layout = "post";
       })
     );
   }
@@ -69,22 +80,36 @@ export class TemplatesPage implements OnInit, OnDestroy {
     }
   }
 
-  selectTemplate(template) {
-    this.storage.set('template', template);
-    this.router.navigate(['products']);
+  selectTemplate(template, index) {
+    this.selectedTemplate = template;
+    if (this.index == index) {
+      this.isSelected = false;
+    } else {
+      this.index = index;
+      this.isSelected = true;
+    } 
+  }
+
+  navProducts() {
+    if (this.isSelected) {
+      this.storage.set('template', this.selectedTemplate).then(() => {
+        this.router.navigate(['products']);
+      });
+    }
   }
 
   loadErrorImg(event) {
     event.target.src = 'assets/img/placeholder.png';
   }
 
-  //desenvolver scroll
   loadMore(iScroll) {
-    console.log("begin");
     setTimeout(() => {
-      console.log("end");
+      if (this.page < TemplatesService.pages) {
+        this.page++;
+        this.getTemplates();
+      }
       iScroll.target.complete();
-    }, 2500);
+    }, 3500);
   }
 
   ngOnDestroy() {

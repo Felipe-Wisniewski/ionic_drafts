@@ -13,9 +13,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid class="grid-max-width" *ngIf="brands$ | async as brands ; else loading">
+  <ion-grid class="grid-home" *ngIf="brands$ | async as brands ; else loading">
     <ion-row>
-      <ion-col class="grid-col" *ngFor="let brand of brands" size="6">
+      <ion-col class="col-home" *ngFor="let brand of brands" size="6">
           <ion-img [src]="brand.image_url" (click)="selectBrand(brand)"></ion-img>
       </ion-col>
     </ion-row>

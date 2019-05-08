@@ -1,25 +1,25 @@
-import { Brand } from './brand';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { empty } from 'rxjs';
-import { tap, map, catchError } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
+import { Brand } from './brand';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
 
-  // brandsMock = 'assets/mocks/brands.json';
+  private brandsMock = 'assets/mocks/brands.json';
   private url: string =  environment.URL_API  + 'brands';
 
   constructor(private http: HttpClient, private storage: Storage, private alertController: AlertController) { }
 
   getBrands() {
-    return this.http.get<Brand[]>('assets/mocks/brands.json')
+    return this.http.get<Brand[]>(this.brandsMock)
       .pipe(
         catchError(error => {
           console.error(error);

@@ -12,70 +12,31 @@ import { environment } from '../../environments/environment';
 })
 export class PostsService {
 
-  // postsMock = 'assets/mocks/posts.json';
   private url: string =  environment.URL_API  + 'posts';  
   static pages;
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
-  getPosts(id_brand: number, id_sub: number, page: number, search: string) {
-    if (id_sub == null || id_sub == undefined) {
+  getPosts(id_brand, id_subdivision, page, search) {
+    let url;
+    if (id_brand != null || id_brand != undefined) {
       if (search == "") {
-        return this.loadPostsBrand(id_brand, page);
+        url = `${this.url}?id_brand=${id_brand}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`;
       } else {
-        return this.searchPostsBrand(id_brand, page, search);
+        url = `${this.url}?id_brand=${id_brand}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`;
       } 
-      
     } else {
       if (search == "") {
-        return this.loadPostsSubBrand(id_sub, page);
+        url = `${this.url}?id_subdivision=${id_subdivision}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`;
       } else {
-        return this.searchPostsSubBrand(id_sub, page, search);
+        url = `${this.url}?id_subdivision=${id_subdivision}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`;
       }
     }
+    return this.loadPosts(url);
   }
 
-  private loadPostsBrand(id_brand: number, page: number) {
-    return this.http.get<Post[]>(`${this.url}?id_brand=${id_brand}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`)
-      .pipe(
-        catchError(error => {
-          console.error(error);
-          this.presentAlert();
-          return empty();
-        }),
-        tap(resp => PostsService.pages = resp['pages']),
-        map(resp => resp['posts'])
-      );
-  }
-
-  private searchPostsBrand(id_brand: number, page: number, search: string) {
-    return this.http.get<Post[]>(`${this.url}?id_brand=${id_brand}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`)
-      .pipe(
-        catchError(error => {
-          console.error(error);
-          this.presentAlert();
-          return empty();
-        }),
-        tap(resp => PostsService.pages = resp['pages']),
-        map(resp => resp['posts'])
-      );
-  }
-
-  private loadPostsSubBrand(id_sub: number, page: number) {
-    return this.http.get<Post[]>(`${this.url}?id_sub=${id_sub}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`)
-      .pipe(
-        catchError(error => {
-          console.error(error);
-          this.presentAlert();
-          return empty();
-        }),
-        tap(resp => PostsService.pages = resp['pages']),
-        map(resp => resp['posts'])
-      );
-  }
-
-  private searchPostsSubBrand(id_sub: number, page: number, search: string) {
-    return this.http.get<Post[]>(`${this.url}?id_sub=${id_sub}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`)
+  private loadPosts(url) {
+    return this.http.get<Post[]>(url)
       .pipe(
         catchError(error => {
           console.error(error);
