@@ -21,8 +21,7 @@ export class HomeService {
   getBrands() {
     return this.http.get<Brand[]>(this.brandsMock)
       .pipe(
-        catchError(error => {
-          console.error(error);
+        catchError(() => {
           this.presentAlert();
           return empty();
         }),

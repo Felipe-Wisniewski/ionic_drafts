@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Subscription } from 'rxjs';
+
 import { ProductsService } from './products.service';
 
 @Component({
@@ -11,48 +14,66 @@ import { ProductsService } from './products.service';
 export class ProductsPage implements OnInit, OnDestroy {
 
   title: string;
-  id_brand?: number;
-  id_sub?: number;
+  numberOfProducts: number;
+  id_brand: number;
+  id_subdivision: number;
 
-  products = [];
-  numberOfproducts: number;
-  selectedProducts = [];
-  isSelected: boolean = false;
-
-  page: number = 1;
+  index = [];
+  isSelected = false;
+  
   subscription$: Subscription[] = [];
-
-  search: string = "";
   loaded = false;
+  page = 1;
 
-  constructor(private storage: Storage, private productsService: ProductsService) { }
+  search= "";
+  max_products: number;
+  max_products_subdivision: number;
+  relations_sub = "";
+  products = [];
+  selectedProducts = [];
+  
+  constructor(private storage: Storage, 
+    private productsService: ProductsService,
+    public toast: ToastController,
+    private router: Router) { }
 
   ngOnInit() {
-    this.getChosenTemplateBrand();
+    this.getChosenBrand();
+    this.getChosenTemplate();
   }
 
-  getChosenTemplateBrand() {
-    this.storage.get('brand').then((brand) => {
+  getChosenBrand() {
+    this.storage.get('brand').then(brand => {
       console.log(brand);
-      this.title = brand.brand;
-      this.id_brand = brand.id_brand;
-      this.id_sub = brand.id_sub;
+      if (brand.id != null || brand.id != undefined) {
+        this.title = brand.brand;
+        this.id_brand = brand.id;
+        this.id_subdivision = null;
+      } else {
+        this.title = brand.sub;
+        this.id_brand = null;
+        this.id_subdivision = brand.id_subdivision;
+      }
       this.getProducts();
     });  
+  }
 
-    this.storage.get('template').then((temp) => {
+  getChosenTemplate() {
+    this.storage.get('template').then(temp => {
       console.log(temp);
-      if (temp.id_brand == '' || temp.id_brand == null || temp.id_brand == undefined) {
-        this.numberOfproducts = temp.products;
+      if (temp.id_subdivision == undefined) {
+        this.max_products = temp.max_products;
+        this.numberOfProducts = temp.max_products;
       } else {
-        this.numberOfproducts = temp.products;
-      }
-      
+        this.max_products_subdivision = temp.max_products;
+        this.max_products = temp.max_products - 1;
+        this.numberOfProducts = temp.max_products - 1;
+      }      
     });
   }
 
   getProducts() {
-    this.subscription$.push(this.productsService.getProducts(this.id_brand, this.id_sub, this.page, this.search)
+    this.subscription$.push(this.productsService.getProducts(this.id_brand, this.id_subdivision, this.page, this.search, this.relations_sub)
       .subscribe(resp => {
         resp.forEach(prod => this.products.push(prod));
         this.loaded = true;
@@ -63,28 +84,75 @@ export class ProductsPage implements OnInit, OnDestroy {
   searchProduct() {
     this.page = 1;
     this.products = [];
+    this.index = [];
     this.getProducts();
   }
 
-  selectProduct(product) {
-    let notRepeated = true;
-    console.log(`a. - ${this.selectedProducts.length}`);
+  lastIndex = -1;
+  selectProduct(product, index) {
+    let repeated = false;
+
     for (let i = 0; i < this.selectedProducts.length; i++) {
       if (product.id == this.selectedProducts[i].id) {
         this.selectedProducts.splice(i, 1);
-        notRepeated = false;
-        console.log(`b. - ${this.selectedProducts.length}`);
-      }
+        repeated = true;
+      } 
+    }
+    
+    for (let i = 0; i < this.index.length; i++) {
+      if (index == this.index[i]) {
+        this.index[i] = -1;
+      } 
+    }
+    
+    if (this.selectedProducts.length == this.max_products) {
+      this.selectedProducts.pop();
+      this.index[this.lastIndex] = -1;
     }
 
-    if (notRepeated && this.selectedProducts.length < this.numberOfproducts) {
+    if (!repeated && this.selectedProducts.length < this.max_products) {
       this.selectedProducts.push(product);
-      // isSelected
-      console.log(`c. - ${this.selectedProducts.length}`);
+      this.index[index] = index;
+      this.lastIndex = index;
     }
 
-    console.log(`d. - ${this.selectedProducts.length}`);
-    console.log(this.selectedProducts);
+    if (this.selectedProducts.length == this.max_products) {
+      this.isSelected = true;
+    } else {
+      this.isSelected = false;
+    }
+  }
+
+  navEditor() {
+    if (this.isSelected) {
+      if (this.id_brand != null || this.id_brand != undefined) {
+        this.storage.set('products', this.selectedProducts).then(() => {
+          this.router.navigate(['editor']);
+        });  
+      } else if (this.max_products_subdivision == this.selectedProducts.length) {
+        this.storage.set('products', this.selectedProducts).then(() => {
+          this.router.navigate(['editor']);
+        });
+      } else {
+        this.max_products = this.max_products_subdivision;
+        this.relations_sub = this.selectedProducts[0].ref;
+        this.page = 1;
+        this.products = [];
+        this.index = [];
+        this.isSelected = false;
+        this.getProducts();
+      }
+    } else {
+      this.alertToast();
+    }
+  }
+
+  async alertToast() {
+    const toast = await this.toast.create({
+      message: `Selecione até ${this.max_products} produtos !`,
+      duration: 2000
+    });
+    toast.present();
   }
 
   loadMore(iScroll) {
@@ -95,6 +163,10 @@ export class ProductsPage implements OnInit, OnDestroy {
       }
       iScroll.target.complete();
     }, 3500);
+  }
+
+  loadErrorImg(event) {
+    event.target.src = 'assets/img/placeholder.png';
   }
 
   ngOnDestroy() {

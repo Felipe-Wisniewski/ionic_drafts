@@ -2,7 +2,7 @@
    "templates": [
       {
          "id_brand": "3",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -30,7 +30,7 @@
       },
       {
          "id_brand": "3",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -58,7 +58,7 @@
       },
       {
          "id_brand": "16",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -86,7 +86,7 @@
       },
       {
          "id_brand": "16",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -114,7 +114,7 @@
       },
       {
          "id_brand": "1",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -142,7 +142,7 @@
       },
       {
          "id_brand": "1",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -170,7 +170,7 @@
       },
       {
          "id_brand": "17",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -198,7 +198,7 @@
       },
       {
          "id_brand": "17",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -226,7 +226,7 @@
       },
       {
          "id_brand": "19",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -254,7 +254,7 @@
       },
       {
          "id_brand": "19",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -282,7 +282,7 @@
       },
       {
          "id_brand": "9",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -310,7 +310,7 @@
       },
       {
          "id_brand": "9",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -338,7 +338,7 @@
       },
       {
          "id_brand": "20",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -366,7 +366,7 @@
       },
       {
          "id_brand": "20",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -394,7 +394,7 @@
       },
       {
          "id_brand": "3",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -422,7 +422,7 @@
       },
       {
          "id_brand": "3",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -450,7 +450,7 @@
       },
       {
          "id_brand": "16",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -478,7 +478,7 @@
       },
       {
          "id_brand": "16",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -506,7 +506,7 @@
       },
       {
          "id_brand": "1",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -534,7 +534,7 @@
       },
       {
          "id_brand": "1",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -562,7 +562,7 @@
       },
       {
          "id_brand": "17",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -590,7 +590,7 @@
       },
       {
          "id_brand": "17",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -618,7 +618,7 @@
       },
       {
          "id_brand": "19",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -646,7 +646,7 @@
       },
       {
          "id_brand": "19",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -674,7 +674,7 @@
       },
       {
          "id_brand": "9",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -702,7 +702,7 @@
       },
       {
          "id_brand": "9",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",
@@ -730,7 +730,7 @@
       },
       {
          "id_brand": "20",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "post",
          "max_products": "1",
          "status": "A",
@@ -758,7 +758,7 @@
       },
       {
          "id_brand": "20",
-         "id_subdivision": "",
+         "id_subdivision": null,
          "layout": "story",
          "max_products": "2",
          "status": "A",

@@ -17,17 +17,15 @@
 
 <ion-searchbar [(ngModel)]="search" (ionChange)="searchProduct()"></ion-searchbar>
 
-<p class="p-choose">Escolha até {{ numberOfproducts }} produtos</p> 
+<p class="p-choose">Escolha até {{ numberOfProducts }} produtos</p> 
 
 <ion-content>  
-  <ion-grid class="grid-max-width" *ngIf="loaded ; else loading"> 
+  <ion-grid class="grid-products" *ngIf="loaded ; else loading"> 
     <ion-row>
-      <ion-col *ngFor="let product of products" size="4">
-
-        <div (click)="selectProduct(product)" [ngClass]="{'selected': isSelected}">
-          <ion-img [src]="product?.image_url"></ion-img>
+      <ion-col class="col-products" *ngFor="let product of products; let idx = index" size="4">
+        <div (click)="selectProduct(product, idx)" [ngClass]="{'selected': idx == index[idx]}">
+          <ion-img [src]="product?.image_url" (ionError)="loadErrorImg($event)"></ion-img>
         </div>
-
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -41,7 +39,7 @@
   </ng-template>
 </ion-content>
 
-<ion-fab color="primary" vertical="bottom" horizontal="end" slot="fixed" activated="{{ !isSelected }}">
-  <ion-fab-button (click)="checkPlatform()">
+<ion-fab color="primary" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="navEditor()" activated="{{ !isSelected }}">
   <ion-icon name="arrow-forward"></ion-icon>
 </ion-fab-button>

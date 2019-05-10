@@ -4,6 +4,8 @@ import { Storage } from '@ionic/storage';
 import { Subscription } from 'rxjs';
 
 import { TemplatesService } from './templates.service';
+import { ToastController } from '@ionic/angular';
+import { Template } from './template';
 
 @Component({
   selector: 'app-templates',
@@ -24,12 +26,15 @@ export class TemplatesPage implements OnInit, OnDestroy {
   loaded = false;
   page = 1;
 
-  templates: Object[];
-  templates_post: Object[] = [];
-  templates_story: Object[] = [];
-  selectedTemplate: any;
+  templates: Template[];
+  templates_post: Template[] = [];
+  templates_story: Template[] = [];
+  selectedTemplate: Template;
 
-  constructor(private storage: Storage, private templatesService: TemplatesService, private router: Router) { }
+  constructor(private storage: Storage, 
+    private templatesService: TemplatesService, 
+    public toast: ToastController, 
+    private router: Router) { }
 
   ngOnInit() {
     this.getBrandId();
@@ -37,9 +42,9 @@ export class TemplatesPage implements OnInit, OnDestroy {
 
   getBrandId() {
     this.storage.get('brand').then(brand => {
-      if (brand.id_subdivision == undefined) {
+      if (brand.id != null || brand.id != undefined) {
         this.title = brand.brand;
-        this.id_brand = brand.id_brand;
+        this.id_brand = brand.id;
         this.id_subdivision = null;
       } else {
         this.title = brand.sub;
@@ -68,10 +73,14 @@ export class TemplatesPage implements OnInit, OnDestroy {
     switch(this.layout) {
       case "post": {
         this.templates = this.templates_post;
+        this.index = -1;
+        this.isSelected = false;
         break;
       }
       case "story": {
         this.templates = this.templates_story;
+        this.index = -1;
+        this.isSelected = false;
         break;
       }
       default: {
@@ -83,6 +92,7 @@ export class TemplatesPage implements OnInit, OnDestroy {
   selectTemplate(template, index) {
     this.selectedTemplate = template;
     if (this.index == index) {
+      this.index = -1;
       this.isSelected = false;
     } else {
       this.index = index;
@@ -95,11 +105,17 @@ export class TemplatesPage implements OnInit, OnDestroy {
       this.storage.set('template', this.selectedTemplate).then(() => {
         this.router.navigate(['products']);
       });
+    } else {
+      this.alertToast();
     }
   }
 
-  loadErrorImg(event) {
-    event.target.src = 'assets/img/placeholder.png';
+  async alertToast() {
+    const toast = await this.toast.create({
+      message: 'Selecione um template !',
+      duration: 2000
+    });
+    toast.present();
   }
 
   loadMore(iScroll) {
@@ -110,6 +126,10 @@ export class TemplatesPage implements OnInit, OnDestroy {
       }
       iScroll.target.complete();
     }, 3500);
+  }
+
+  loadErrorImg(event) {
+    event.target.src = 'assets/img/placeholder.png';
   }
 
   ngOnDestroy() {

@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Subscription } from 'rxjs';
 
 import { PostsService } from './posts.service';
 import { Post } from './post';
-import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-posts',
@@ -19,6 +19,7 @@ export class PostsPage implements OnInit, OnDestroy {
   id_subdivision: number;
   
   layout: string;
+  index = -1;
   isSelected = false;
 
   subscription$: Subscription[] = [];
@@ -27,19 +28,24 @@ export class PostsPage implements OnInit, OnDestroy {
 
   search = "";
   posts: Post[] = [];
+  posts_post: Post[] = [];
+  posts_story: Post[] = [];
   selectedPost: Post;
 
-  constructor(private storage: Storage, private postsService: PostsService, private router: Router) { }
+  constructor(private storage: Storage, 
+    private postsService: PostsService, 
+    public toast: ToastController, 
+    private router: Router) { }
 
   ngOnInit() {
-    this.getBrandId();
+    this.getBrand();
   }
 
-  getBrandId() {
+  getBrand() {
     this.storage.get('brand').then(brand => {
-      if (brand.id_subdivision == undefined) {
+      if (brand.id != null || brand.id != undefined) {
         this.title = brand.brand;
-        this.id_brand = brand.id_brand;
+        this.id_brand = brand.id;
         this.id_subdivision = null;
       } else {
         this.title = brand.sub;
@@ -55,6 +61,9 @@ export class PostsPage implements OnInit, OnDestroy {
       .subscribe(_posts => { 
         _posts.forEach(post => {
           this.posts.push(post);
+
+          // desenvolver post / story
+
         });
         this.loaded = true;
       })
@@ -68,15 +77,15 @@ export class PostsPage implements OnInit, OnDestroy {
     this.getPosts();
   }
 
-//filtrar por post/storie
-  selectPostStorie($event) {
-    switch($event.detail.value) {
+//filtrar post / story
+  selectPostStorie() {
+    switch(this.layout) {
       case "post": {
-        console.log($event.detail.value);
+        console.log("post");
         break;
       }
-      case "storie": {
-        console.log($event.detail.value);
+      case "story": {
+        console.log("story");
         break;
       }
       default: {
@@ -85,19 +94,33 @@ export class PostsPage implements OnInit, OnDestroy {
     }
   }
   
-  selectPost(post) {
+  selectPost(post, index) {
     this.selectedPost = post;
-    this.isSelected = !this.isSelected;
+    if (this.index == index) {
+      this.index = -1;
+      this.isSelected = false;  
+    } else {
+      this.index = index;
+      this.isSelected = true;
+    }
   }
 
   navEditor() {
-    this.storage.set('post', this.selectPost).then(() => {
-      this.router.navigate(['editor']);
-    });
+    if (this.isSelected) {
+      this.storage.set('post', this.selectPost).then(() => {
+        this.router.navigate(['editor']);
+      });
+    } else {
+      this.alertToast();
+    }
   }
 
-  loadErrorImg(event) {
-    event.target.src = 'assets/img/placeholder.png';
+  async alertToast() {
+    const toast = await this.toast.create({
+      message: 'Selecione uma imagem !',
+      duration: 2000
+    });
+    toast.present();
   }
 
   loadMore(iScroll) {
@@ -108,6 +131,10 @@ export class PostsPage implements OnInit, OnDestroy {
       }
       iScroll.target.complete();
     }, 3500);
+  }
+  
+  loadErrorImg(event) {
+    event.target.src = 'assets/img/placeholder.png';
   }
 
   ngOnDestroy() {

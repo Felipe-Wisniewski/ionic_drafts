@@ -1,0 +1,247 @@
+{
+   "products": [
+      {
+         "id_brand": 17,
+         "id_ref": "102",
+         "ref_text": "SAPATO CASUAL INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2123-200-17763-65457.jpg",
+         "id": "1720017763654572123",
+         "ref": "2321-102-13488-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "102",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2099-566-6000-53252.jpg",
+         "id": "175666000532522099",
+         "ref": "2321-102-13488-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "102",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2083-908-5565-6.jpg",
+         "id": "17908556562083",
+         "ref": "2321-102-13488-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "566",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2099-566-7685-58815.jpg",
+         "id": "175667685588152099",
+         "ref": "2321-102-13488-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "566",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2099-566-7685-62177.jpg",
+         "id": "175667685621772099",
+         "ref": "2321-102-13488-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "908",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2083-908-5565-41.jpg",
+         "id": "179085565412083",
+         "ref": "2321-102-13488-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "566",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2099-566-16443-12098.jpg",
+         "id": "1756616443120982099",
+         "ref": "2321-102-13488-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "566",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2099-566-16443-47887.jpg",
+         "id": "1756616443478872099",
+         "ref": "2321-102-13488-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "992",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2083-992-13488-16072.jpg",
+         "id": "1799213488160722083",
+         "ref": "2321-102-13488-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "150",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2106-150-11808-66.jpg",
+         "id": "1715011808662106",
+         "ref": "2321-102-13488-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "992",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2083-992-13488-53252.jpg",
+         "id": "1799213488532522083",
+         "ref": "2083-992-13488-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "102",
+         "ref_text": "SAPATO INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2528-102-11808-66.jpg",
+         "id": "1710211808662528",
+         "ref": "2528-102-11808-66"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "146",
+         "ref_text": "TENIS INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2155-146-10041-68334.jpg",
+         "id": "1714610041683342155",
+         "ref": "2155-146-10041-68334"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "150",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2106-150-13488-46175.jpg",
+         "id": "1715013488461752106",
+         "ref": "2106-150-13488-46175"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "150",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2106-150-13488-62572.jpg",
+         "id": "1715013488625722106",
+         "ref": "2106-150-13488-62572"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "215",
+         "ref_text": "TAMANCO INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2309-215-13488-62572.jpg",
+         "id": "1721513488625722309",
+         "ref": "2309-215-13488-62572"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "176",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2106-176-13290-41.jpg",
+         "id": "1717613290412106",
+         "ref": "2106-176-13290-41"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "127",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2116-127-7800-35234.jpg",
+         "id": "171277800352342116",
+         "ref": "2116-127-7800-35234"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "127",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2116-127-7800-53252.jpg",
+         "id": "171277800532522116",
+         "ref": "2116-127-7800-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "423",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2506-423-6000-15745.jpg",
+         "id": "174236000157452506",
+         "ref": "2506-423-6000-15745"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "524",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2506-524-6000-53252.jpg",
+         "id": "175246000532522506",
+         "ref": "2506-524-6000-53252"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "524",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2506-524-11808-23146.jpg",
+         "id": "1752411808231462506",
+         "ref": "2506-524-11808-23146"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "148",
+         "ref_text": "TENIS INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2155-148-17079-29574.jpg",
+         "id": "1714817079295742155",
+         "ref": "2155-148-17079-29574"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "148",
+         "ref_text": "TENIS INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2155-148-17080-62165.jpg",
+         "id": "1714817080621652155",
+         "ref": "2155-148-17080-62165"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "114",
+         "ref_text": "SANDALIA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2308-114-18266-68174.jpg",
+         "id": "1711418266681742308",
+         "ref": "2308-114-18266-68174"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "176",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2106-176-13290-66.jpg",
+         "id": "1717613290662106",
+         "ref": "2106-176-13290-66"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "176",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2106-176-13290-52118.jpg",
+         "id": "1717613290521182106",
+         "ref": "2106-176-13290-52118"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "176",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2106-176-14058-62165.jpg",
+         "id": "1717614058621652106",
+         "ref": "2106-176-14058-62165"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "176",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2106-176-14060-17492.jpg",
+         "id": "1717614060174922106",
+         "ref": "2106-176-14060-17492"
+      },
+      {
+         "id_brand": 17,
+         "id_ref": "176",
+         "ref_text": "SAPATILHA INFANTIL",
+         "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2106-176-14060-53913.jpg",
+         "id": "1717614060539132106",
+         "ref": "2106-176-14060-53913"
+      }
+   ],
+   "page": 1,
+   "pages": 104,
+   "messages": []
+}

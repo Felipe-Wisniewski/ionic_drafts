@@ -1,10 +1,10 @@
 {
    "templates": [
       {
-         "id_brand": "",
-         "id_sub": "6",
+         "id_brand": null,
+         "id_subdivision": "6",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "28-MAR-2019",
@@ -29,10 +29,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "6",
+         "id_brand": null,
+         "id_subdivision": "6",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "28-MAR-2019",
@@ -57,10 +57,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "7",
+         "id_brand": null,
+         "id_subdivision": "7",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-APR-2019",
@@ -85,10 +85,10 @@
          }
       },
       {
-         "id_brand": "16",
-         "id_sub": "7",
+         "id_brand": null,
+         "id_subdivision": "7",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-APR-2019",
@@ -113,10 +113,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "8",
+         "id_brand": null,
+         "id_subdivision": "8",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "25-FEB-2019",
@@ -141,10 +141,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "8",
+         "id_brand": null,
+         "id_subdivision": "8",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-JAN-2019",
@@ -169,10 +169,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "6",
+         "id_brand": null,
+         "id_subdivision": "6",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "28-MAR-2019",
@@ -197,10 +197,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "6",
+         "id_brand": null,
+         "id_subdivision": "6",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "28-MAR-2019",
@@ -225,10 +225,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "7",
+         "id_brand": null,
+         "id_subdivision": "7",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-APR-2019",
@@ -253,10 +253,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "7",
+         "id_brand": null,
+         "id_subdivision": "7",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-APR-2019",
@@ -281,10 +281,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "8",
+         "id_brand": null,
+         "id_subdivision": "8",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "25-FEB-2019",
@@ -309,10 +309,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "8",
+         "id_brand": null,
+         "id_subdivision": "8",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-JAN-2019",
@@ -337,10 +337,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "6",
+         "id_brand": null,
+         "id_subdivision": "6",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "28-MAR-2019",
@@ -365,10 +365,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "6",
+         "id_brand": null,
+         "id_subdivision": "6",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "28-MAR-2019",
@@ -393,10 +393,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "7",
+         "id_brand": null,
+         "id_subdivision": "7",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-APR-2019",
@@ -421,10 +421,10 @@
          }
       },
       {
-         "id_brand": "16",
-         "id_sub": "7",
+         "id_brand": null,
+         "id_subdivision": "7",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-APR-2019",
@@ -449,10 +449,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "8",
+         "id_brand": null,
+         "id_subdivision": "8",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "25-FEB-2019",
@@ -477,10 +477,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "8",
+         "id_brand": null,
+         "id_subdivision": "8",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-JAN-2019",
@@ -505,10 +505,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "6",
+         "id_brand": null,
+         "id_subdivision": "6",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "28-MAR-2019",
@@ -533,10 +533,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "6",
+         "id_brand": null,
+         "id_subdivision": "6",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "28-MAR-2019",
@@ -561,10 +561,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "7",
+         "id_brand": null,
+         "id_subdivision": "7",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-APR-2019",
@@ -589,10 +589,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "7",
+         "id_brand": null,
+         "id_subdivision": "7",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-APR-2019",
@@ -617,10 +617,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "8",
+         "id_brand": null,
+         "id_subdivision": "8",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "25-FEB-2019",
@@ -645,10 +645,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "8",
+         "id_brand": null,
+         "id_subdivision": "8",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-JAN-2019",
@@ -673,10 +673,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "6",
+         "id_brand": null,
+         "id_subdivision": "6",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "28-MAR-2019",
@@ -701,10 +701,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "6",
+         "id_brand": null,
+         "id_subdivision": "6",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "28-MAR-2019",
@@ -729,10 +729,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "7",
+         "id_brand": null,
+         "id_subdivision": "7",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-APR-2019",
@@ -757,10 +757,10 @@
          }
       },
       {
-         "id_brand": "16",
-         "id_sub": "7",
+         "id_brand": null,
+         "id_subdivision": "7",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-APR-2019",
@@ -785,10 +785,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "8",
+         "id_brand": null,
+         "id_subdivision": "8",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "25-FEB-2019",
@@ -813,10 +813,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "8",
+         "id_brand": null,
+         "id_subdivision": "8",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-JAN-2019",
@@ -841,10 +841,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "6",
+         "id_brand": null,
+         "id_subdivision": "6",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "28-MAR-2019",
@@ -869,10 +869,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "6",
+         "id_brand": null,
+         "id_subdivision": "6",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "28-MAR-2019",
@@ -897,10 +897,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "7",
+         "id_brand": null,
+         "id_subdivision": "7",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-APR-2019",
@@ -925,10 +925,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "7",
+         "id_brand": null,
+         "id_subdivision": "7",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-APR-2019",
@@ -953,10 +953,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "8",
+         "id_brand": null,
+         "id_subdivision": "8",
          "layout": "post",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "25-FEB-2019",
@@ -981,10 +981,10 @@
          }
       },
       {
-         "id_brand": "",
-         "id_sub": "8",
+         "id_brand": null,
+         "id_subdivision": "8",
          "layout": "story",
-         "products": "2",
+         "max_products": "2",
          "status": "A",
          "registration_user": "banco_imagens",
          "registration_date": "29-JAN-2019",

@@ -1,25 +1,25 @@
-import { Feed } from './feed';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
-import { catchError, map } from 'rxjs/operators';
 import { empty } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+import { environment } from 'src/environments/environment';
+import { Feed } from './feed';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FollowService {
 
-  url: string = `${environment.URL_API}feed`;
+  private url = `${environment.URL_API}feed`;
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
   getFeed() {
     return this.http.get<Feed[]>(this.url)
       .pipe(
-        catchError(error => {
-          console.error(error);
+        catchError(() => {
           this.presentAlert();
           return empty();
         })
@@ -29,7 +29,7 @@ export class FollowService {
   private async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Erro',
-      message: 'Erro ao carregar as imagens.',
+      message: 'Erro ao carregar o feed, tente novamente mais tarde.',
       buttons: ['OK']
     });
     await alert.present();

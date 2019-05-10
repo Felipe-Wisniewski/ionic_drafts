@@ -1,6 +1,18 @@
+.grid-products {
+    max-width: 800px;
+    padding: 0px;
+}
+
+.col-products {
+    padding-top: 5px;
+    padding-left: 1px;
+    padding-bottom: 5px;
+    padding-right: 1px;
+}
+
 .selected {
-    padding: 1px;
-    background-color: red;
+    padding: 2px;
+    background-color: #b12025;
 }
 
 .p-choose {
@@ -11,4 +23,9 @@
     padding-top: 1px;
     padding-bottom: 1px;
     text-align: end;
+}
+
+.label {
+    font-size: 10px;
+    background-color: white
 }

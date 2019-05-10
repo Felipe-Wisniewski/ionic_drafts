@@ -16,12 +16,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid class="grid-max-width" *ngIf="feed$ | async as feeds ; else loading">
+  <ion-grid class="grid-follow" *ngIf="feed$ | async as feeds ; else loading">
     <ion-row>
       <ion-col *ngFor="let feed of feeds" size="auto">
-        <ion-card [href]="feed.link">
+        <ion-card (click)="onClick(feed.link)">
           <ion-img [src]="feed.picture"></ion-img>
-          <ion-card-content>
+          <ion-card-content class="card-content-follow">
             <ion-card-title>{{ feed.user }}</ion-card-title>
             <p>{{ feed.text }}</p>
           </ion-card-content>

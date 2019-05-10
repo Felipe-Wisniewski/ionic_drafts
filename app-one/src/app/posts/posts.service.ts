@@ -38,8 +38,7 @@ export class PostsService {
   private loadPosts(url) {
     return this.http.get<Post[]>(url)
       .pipe(
-        catchError(error => {
-          console.error(error);
+        catchError(() => {
           this.presentAlert();
           return empty();
         }),

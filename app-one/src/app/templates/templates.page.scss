@@ -1,3 +1,13 @@
+.p-choose {
+    font-size: 13px;
+    margin: 0px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    text-align: end;
+}
+
 .grid-template {
     max-width: 800px;
     padding: 0px;
@@ -10,22 +20,12 @@
     padding-right: 1px;
 }
 
-.p-choose {
-    font-size: 13px;
-    margin: 0px;
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    text-align: end;
-}
-
-.selected {
-    padding: 1px;
-    background-color: red;
-}
-
 .label {
     font-size: 10px;
     background-color: white
+}
+
+.selected {
+    padding: 2px;
+    background-color: #b12025;
 }
