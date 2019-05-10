@@ -49,7 +49,7 @@ export class ProductsService {
         url = this.productsFilhoMock;
       }
     }
-    console.log(url);
+    console.log(`produtos url - ${url}`);
     return this.loadProducts(url);
   }
 

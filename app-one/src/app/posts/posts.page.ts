@@ -61,7 +61,7 @@ export class PostsPage implements OnInit, OnDestroy {
       .subscribe(_posts => { 
         _posts.forEach(post => {
           this.posts.push(post);
-
+          
           // desenvolver post / story
 
         });
@@ -107,7 +107,7 @@ export class PostsPage implements OnInit, OnDestroy {
 
   navEditor() {
     if (this.isSelected) {
-      this.storage.set('post', this.selectPost).then(() => {
+      this.storage.set('post', this.selectedPost).then(() => {
         this.router.navigate(['editor']);
       });
     } else {

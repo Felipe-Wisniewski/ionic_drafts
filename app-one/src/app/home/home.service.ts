@@ -13,13 +13,12 @@ import { Brand } from './brand';
 })
 export class HomeService {
 
-  private brandsMock = 'assets/mocks/brands.json';
   private url: string =  environment.URL_API  + 'brands';
 
   constructor(private http: HttpClient, private storage: Storage, private alertController: AlertController) { }
 
   getBrands() {
-    return this.http.get<Brand[]>(this.brandsMock)
+    return this.http.get<Brand[]>(this.url)
       .pipe(
         catchError(() => {
           this.presentAlert();

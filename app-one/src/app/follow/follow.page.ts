@@ -1,4 +1,3 @@
-import { tap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -21,12 +20,10 @@ export class FollowPage implements OnInit {
   }
 
   getFeed() {
-    this.feed$ = this.followService.getFeed().pipe(
-      tap(console.log)
-    );
+    this.feed$ = this.followService.getFeed();
   }
 
   onClick(link) {
-    console.log(link);
+    window.open(link);
   }
 }
