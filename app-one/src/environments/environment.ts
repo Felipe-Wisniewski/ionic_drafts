@@ -6,7 +6,7 @@ export const environment = {
   production: false,
 
   // URL_API: 'http://br-ws.calcadosbeirario.com.br/api/'
-  URL_API: 'http://10.1.1.153/api/'
+  URL_API: 'http://10.1.1.153:8080/api/'
 };
 
 /*

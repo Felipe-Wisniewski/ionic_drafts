@@ -23,8 +23,10 @@ export class SubBrandPage implements OnInit {
 
   getBrandStorage() {
     this.storage.get('brand').then(brand => {
-      this.title = brand.brand;
-      this.subs = brand.subdivision;
+      this.title = brand.brand
+      this.subs = brand.subdivisions
+      console.log(brand)
+      console.log(brand.subdivisions)
     });
     
     this.loaded = true;

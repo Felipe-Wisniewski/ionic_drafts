@@ -5,14 +5,14 @@ export interface Brand {
     image_url: string,
     list_order: string,
     logo_url: string,
-    subdivision: Subdivision[],
+    subdivisions: Subdivision[],
     color: any,
     tag: any
 }
 
 export interface Subdivision {
     id_subdivision: number,
-    sub: string,
+    subdivision: string,
     image_url: string,
     logo_url: string
 }
