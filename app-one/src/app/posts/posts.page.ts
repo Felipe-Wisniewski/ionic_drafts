@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Subscription } from 'rxjs';
 
 import { PostsService } from './posts.service';
 import { Post } from './post';
+import { isEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-posts',
@@ -18,23 +18,21 @@ export class PostsPage implements OnInit, OnDestroy {
   id_brand: number;
   id_subdivision: number;
   
-  layout: string;
+  layout = "post";
+  page = 1;
+  search = "";
+
   index = -1;
   isSelected = false;
+  loaded = false;
+  isEmpty = false;
 
   subscription$: Subscription[] = [];
-  loaded = false;
-  page = 1;
-
-  search = "";
   posts: Post[] = [];
-  posts_post: Post[] = [];
-  posts_story: Post[] = [];
   selectedPost: Post;
 
   constructor(private storage: Storage, 
     private postsService: PostsService, 
-    public toast: ToastController, 
     private router: Router) { }
 
   ngOnInit() {
@@ -57,14 +55,16 @@ export class PostsPage implements OnInit, OnDestroy {
   }
 
   getPosts() {
-    this.subscription$.push(this.postsService.getPosts(this.id_brand, this.id_subdivision, this.page, this.search)
+    this.subscription$.push(this.postsService.getPosts(this.id_brand, this.id_subdivision, this.layout, this.page, this.search)
       .subscribe(_posts => { 
         _posts.forEach(post => {
           this.posts.push(post);
-          
-          // desenvolver post / story
-
         });
+        if (this.posts.length < 1) {
+          this.isEmpty = true;
+        }else {
+          this.isEmpty = false;
+        }
         this.loaded = true;
       })
     );
@@ -77,15 +77,22 @@ export class PostsPage implements OnInit, OnDestroy {
     this.getPosts();
   }
 
-//filtrar post / story
   selectPostStorie() {
     switch(this.layout) {
       case "post": {
-        console.log("post");
+        this.page = 1;
+        this.posts = [];
+        this.layout = "post";
+        this.loaded = false;
+        this.getPosts();
         break;
       }
       case "story": {
-        console.log("story");
+        this.page = 1;
+        this.posts = [];
+        this.layout = "story";
+        this.loaded = false;
+        this.getPosts();
         break;
       }
       default: {
@@ -111,16 +118,8 @@ export class PostsPage implements OnInit, OnDestroy {
         this.router.navigate(['editor']);
       });
     } else {
-      this.alertToast();
+      this.postsService.toast();
     }
-  }
-
-  async alertToast() {
-    const toast = await this.toast.create({
-      message: 'Selecione uma imagem !',
-      duration: 2000
-    });
-    toast.present();
   }
 
   loadMore(iScroll) {

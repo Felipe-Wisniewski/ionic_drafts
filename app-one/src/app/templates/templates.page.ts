@@ -18,17 +18,18 @@ export class TemplatesPage implements OnInit, OnDestroy {
   id_brand: number;
   id_subdivision: number;
 
-  layout: string;
+  layout = "post";
+  page = 1;
+  
   index = -1;
   isSelected = false;
+  loaded = false;
+  isEmpty = false;
 
   subscription$: Subscription[] = [];
-  loaded = false;
-  page = 1;
-
-  templates: Template[];
-  templates_post: Template[] = [];
-  templates_story: Template[] = [];
+  templates: Template[] = [];
+  // templates_post: Template[] = [];
+  // templates_story: Template[] = [];
   selectedTemplate: Template;
 
   constructor(private storage: Storage, 
@@ -56,15 +57,24 @@ export class TemplatesPage implements OnInit, OnDestroy {
   }
 
   getTemplates() {
-    this.subscription$.push(this.templatesService.getTemplates(this.id_brand, this.id_subdivision, this.page)
-      .subscribe(temp => {
-        let post = temp.filter(t => t['layout'] == 'post');
-        let story = temp.filter(t => t['layout'] == 'story');
-        this.templates_post = this.templates_post.concat(post);
-        this.templates_story = this.templates_story.concat(story);
-        this.templates = this.templates_post;
+    this.subscription$.push(this.templatesService.getTemplates(this.id_brand, this.id_subdivision, this.layout, this.page)
+      .subscribe(_templates => {
+        console.log(_templates);
+        _templates.forEach(temp => {
+          this.templates.push(temp);
+        });
+
+        if (this.templates.length < 1) {
+          this.isEmpty = true;
+        } else {
+          this.isEmpty = false;
+        }
+        // let post = temp.filter(t => t['layout'] == 'post');
+        // let story = temp.filter(t => t['layout'] == 'story');
+        // this.templates_post = this.templates_post.concat(post);
+        // this.templates_story = this.templates_story.concat(story);
+        // this.templates = this.templates_post;
         this.loaded = true;
-        this.layout = "post";
       })
     );
   }
@@ -72,15 +82,23 @@ export class TemplatesPage implements OnInit, OnDestroy {
   selectPostStorie() {
     switch(this.layout) {
       case "post": {
-        this.templates = this.templates_post;
+        this.page = 1;
+        this.templates = []
         this.index = -1;
+        this.layout = "post"
+        this.loaded = false
         this.isSelected = false;
+        this.getTemplates()
         break;
       }
       case "story": {
-        this.templates = this.templates_story;
+        this.page = 1
+        this.templates = []
         this.index = -1;
+        this.layout = "story"
+        this.loaded = false
         this.isSelected = false;
+        this.getTemplates()
         break;
       }
       default: {
@@ -100,22 +118,14 @@ export class TemplatesPage implements OnInit, OnDestroy {
     } 
   }
 
-  navProducts() {
+  openProducts() {
     if (this.isSelected) {
       this.storage.set('template', this.selectedTemplate).then(() => {
         this.router.navigate(['products']);
       });
     } else {
-      this.alertToast();
+      this.templatesService.toast("Selecione um template !");
     }
-  }
-
-  async alertToast() {
-    const toast = await this.toast.create({
-      message: 'Selecione um template !',
-      duration: 2000
-    });
-    toast.present();
   }
 
   loadMore(iScroll) {

@@ -26,9 +26,10 @@
   </ion-segment-button>
 </ion-segment>
 
-<p class="p-choose">Escolha uma image</p>
+<p *ngIf="!isEmpty" class="p-choose">Escolha uma imagem</p>
 
 <ion-content>
+  <p *ngIf="isEmpty" class="p-empty">Imagens do tipo {{ layout }} indisponíveis para esta marca.</p>
   <ion-grid class="grid-post" *ngIf="loaded ; else loading"> 
     <ion-row>
       <ion-col class="col-post" *ngFor="let post of posts; let idx = index" size="4">

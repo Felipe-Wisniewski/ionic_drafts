@@ -24,9 +24,11 @@
   </ion-segment-button>
 </ion-segment>
 
-<p class="p-choose">Escolha um template</p>
+<p *ngIf="!isEmpty" class="p-choose">Escolha um template</p>
 
 <ion-content>
+  <p *ngIf="isEmpty" class="p-empty">Templates do tipo {{ layout }} indisponíveis para esta marca.</p>
+
   <ion-grid class="grid-template" *ngIf="loaded ; else loading"> 
     <ion-row>
       <ion-col class="col-template" *ngFor="let template of templates; let idx = index" size="4">
@@ -50,6 +52,6 @@
 </ion-content>
 
 <ion-fab color="primary" vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button (click)="navProducts()" activated="{{ !isSelected }}">
+  <ion-fab-button (click)="openProducts()" activated="{{ !isSelected }}">
   <ion-icon name="arrow-forward"></ion-icon>
 </ion-fab-button>
