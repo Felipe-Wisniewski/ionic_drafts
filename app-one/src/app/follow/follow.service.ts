@@ -1,35 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
-import { catchError, map } from 'rxjs/operators';
 import { empty } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+import { environment } from 'src/environments/environment';
+import { Feed } from './feed';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SubBrandService {
+export class FollowService {
 
-  // subBrandsMock = 'assets/mocks/sub_brands.json'
+  private url = `${environment.URL_API}feed`;
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
-  // request para api enviando o id_brand e retornando as sub_brands
-  getSubBrands(id: number) {
-    return this.http.get<any[]>('assets/mocks/sub_brands.json')
+  getFeed() {
+    return this.http.get<Feed[]>(this.url)
       .pipe(
-        catchError(error => {
-          console.error(error);
+        catchError(() => {
           this.presentAlert();
           return empty();
-        }),
-        map(resp => resp['sub_brands'])
+        })
       );
   }
 
   private async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Erro',
-      message: 'Erro ao carregar as imagens.',
+      message: 'Erro ao carregar o feed, tente novamente mais tarde.',
       buttons: ['OK']
     });
     await alert.present();

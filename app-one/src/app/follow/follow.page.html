@@ -5,6 +5,9 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
+        <ion-button [routerLink]="['/follow']">
+          <ion-icon slot="icon-only" name="grid"></ion-icon>
+        </ion-button>
       <ion-button [routerLink]="['/gallery']">
         <ion-icon slot="icon-only" name="photos"></ion-icon>
       </ion-button>
@@ -13,5 +16,21 @@
 </ion-header>
 
 <ion-content>
-  <h5>Follow</h5>
+  <ion-grid class="grid-follow" *ngIf="feed$ | async as feeds ; else loading">
+    <ion-row>
+      <ion-col *ngFor="let feed of feeds" size="auto">
+        <ion-card (click)="onClick(feed.link)">
+          <ion-img [src]="feed.picture"></ion-img>
+          <ion-card-content class="card-content-follow">
+            <ion-card-title>{{ feed.user }}</ion-card-title>
+            <p>{{ feed.text }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ng-template #loading>
+    <ion-spinner loadingSpinner="crescent"></ion-spinner>
+  </ng-template>
 </ion-content>

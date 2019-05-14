@@ -11,80 +11,58 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductsService {
 
+  productsPaiMock = 'assets/mocks/products_pai.json';
+  productsFilhoMock = 'assets/mocks/products_filho.json';
   private url = environment.URL_API + 'products';
   static pages;
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
-  getProducts(id_brand: number, id_sub: number, page: number, search: string) {
-    if (id_sub == null || id_sub == undefined) {
+  getProducts(id_brand, id_subdivision, page, search, relations) {
+    let url;
+
+    if (id_brand != null || id_brand != undefined) {
       if (search == "") {
-        return this.loadProducts(id_brand, page);
+        url = `${this.url}?id_brand=${id_brand}&page=${page}&size=30`
       } else {
-        return this.searchProducts(id_brand, page, search);
+        url = `${this.url}?id_brand=${id_brand}&page=${page}&search=${search}&size=30`
       } 
-      
-    } else {
+    } 
+
+    if (id_subdivision != null || id_subdivision != undefined) {
       if (search == "") {
-        return this.loadProductsSubBrand(id_sub, page);
+        // url = `${this.url}?id_brand=${id_subdivision}&page=${page}&size=30`
+        url = this.productsPaiMock;
       } else {
-        return this.searchProductsSubBrand(id_sub, page, search);
+        // url = `${this.url}?id_brand=${id_subdivision}&page=${page}&search=${search}&size=30`
+        url = this.productsPaiMock;
       }
     }
+
+    if (relations != "") {
+      console.log(relations);
+      if (search == "") {
+        // url = `${this.url}?id_brand=${id_subdivision}&page=${page}&size=30`
+        url = this.productsFilhoMock;
+      } else {
+        // url = `${this.url}?id_brand=${id_subdivision}&page=${page}&search=${search}&size=30`
+        url = this.productsFilhoMock;
+      }
+    }
+    console.log(`produtos url - ${url}`);
+    return this.loadProducts(url);
   }
 
-  private loadProducts(id_brand: number, page: number) {
-    return this.http.get<any[]>(`${this.url}?id_brand=${id_brand}&page=${page}&size=30`)
+  private loadProducts(url) {
+    return this.http.get<any[]>(url)
       .pipe(
-        catchError(error => {
-          console.error(error);
+        catchError(() => {
           this.presentAlert();
           return empty();
         }),
         tap(resp => ProductsService.pages = resp['pages']),
         map(resp => resp['products'])
       );
-  }
-
-  private searchProducts(id_brand: number, page: number, search: string) {
-    return this.http.get<any[]>(`${this.url}?id_brand=${id_brand}&page=${page}&search=${search}`)
-      .pipe(
-        catchError(error => {
-          console.error(error);
-          this.presentAlert();
-          return empty();
-        }),
-        tap(resp => ProductsService.pages = resp['pages']),
-        map(resp => resp['products'])
-      );
-  }
-
-//desenvolver - aguardando api
-  private loadProductsSubBrand(id_sub, page) {
-    return this.http.get<any[]>('assets/mocks/products.json')
-    .pipe(
-      catchError(error => {
-        console.error(error);
-        this.presentAlert();
-        return empty();
-      }),
-      tap(resp => ProductsService.pages = resp['pages']),
-      map(resp => resp['products'])
-    );
-  }
-  
-//desenvolver - aguardando api
-  private searchProductsSubBrand(id_sub, page, search) {
-    return this.http.get<any[]>('assets/mocks/products.json')
-    .pipe(
-      catchError(error => {
-        console.error(error);
-        this.presentAlert();
-        return empty();
-      }),
-      tap(resp => ProductsService.pages = resp['pages']),
-      map(resp => resp['products'])
-    );
   }
 
   private async presentAlert() {

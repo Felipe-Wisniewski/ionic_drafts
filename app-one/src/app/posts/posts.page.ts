@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { Subscription } from 'rxjs';
 
 import { PostsService } from './posts.service';
 import { Post } from './post';
-
+import { isEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-posts',
@@ -14,40 +15,56 @@ import { Post } from './post';
 export class PostsPage implements OnInit, OnDestroy {
   
   title: string;
-  id_brand: number = 0;
-  id_sub: number = 0;
+  id_brand: number;
+  id_subdivision: number;
   
-  page: number = 1;
+  layout = "post";
+  page = 1;
+  search = "";
+
+  index = -1;
+  isSelected = false;
   loaded = false;
+  isEmpty = false;
+
   subscription$: Subscription[] = [];
-
   posts: Post[] = [];
-  search: string = "";
+  selectedPost: Post;
 
-  constructor(private storage: Storage, private postsService: PostsService) { }
+  constructor(private storage: Storage, 
+    private postsService: PostsService, 
+    private router: Router) { }
 
   ngOnInit() {
-    this.getBrandId();
+    this.getBrand();
   }
 
-  getBrandId() {
-    this.storage.get('brand').then((brand) => {
-      this.title = brand.brand;
-      this.id_brand = brand.id_brand;
-      this.id_sub = brand.id_sub;
-      console.log(brand);
-      console.log(`id_brand -> ${this.id_brand}`);
-      console.log(`id_sub -> ${this.id_sub}`);
+  getBrand() {
+    this.storage.get('brand').then(brand => {
+      if (brand.id != null || brand.id != undefined) {
+        this.title = brand.brand;
+        this.id_brand = brand.id;
+        this.id_subdivision = null;
+      } else {
+        this.title = brand.sub;
+        this.id_brand = null;
+        this.id_subdivision = brand.id_subdivision;
+      }     
       this.getPosts();
     });
   }
 
   getPosts() {
-    this.subscription$.push(this.postsService.getPosts(this.id_brand, this.id_sub, this.page, this.search)
-      .subscribe(p => { 
-        p.forEach(post => {
+    this.subscription$.push(this.postsService.getPosts(this.id_brand, this.id_subdivision, this.layout, this.page, this.search)
+      .subscribe(_posts => { 
+        _posts.forEach(post => {
           this.posts.push(post);
         });
+        if (this.posts.length < 1) {
+          this.isEmpty = true;
+        }else {
+          this.isEmpty = false;
+        }
         this.loaded = true;
       })
     );
@@ -56,18 +73,26 @@ export class PostsPage implements OnInit, OnDestroy {
   searchPosts() {
     this.page = 1;
     this.posts = [];
+    this.loaded = false;
     this.getPosts();
   }
 
-//filtrar por post/storie
-  selectPostStorie($event) {
-    switch($event.detail.value) {
+  selectPostStorie() {
+    switch(this.layout) {
       case "post": {
-        console.log($event.detail.value);
+        this.page = 1;
+        this.posts = [];
+        this.layout = "post";
+        this.loaded = false;
+        this.getPosts();
         break;
       }
-      case "storie": {
-        console.log($event.detail.value);
+      case "story": {
+        this.page = 1;
+        this.posts = [];
+        this.layout = "story";
+        this.loaded = false;
+        this.getPosts();
         break;
       }
       default: {
@@ -76,12 +101,25 @@ export class PostsPage implements OnInit, OnDestroy {
     }
   }
   
-  selectPost(post) {
-    console.log(post);
+  selectPost(post, index) {
+    this.selectedPost = post;
+    if (this.index == index) {
+      this.index = -1;
+      this.isSelected = false;  
+    } else {
+      this.index = index;
+      this.isSelected = true;
+    }
   }
 
-  loadErrorImg(event) {
-    event.target.src = 'assets/img/placeholder.png';
+  navEditor() {
+    if (this.isSelected) {
+      this.storage.set('post', this.selectedPost).then(() => {
+        this.router.navigate(['editor']);
+      });
+    } else {
+      this.postsService.toast();
+    }
   }
 
   loadMore(iScroll) {
@@ -92,6 +130,10 @@ export class PostsPage implements OnInit, OnDestroy {
       }
       iScroll.target.complete();
     }, 3500);
+  }
+  
+  loadErrorImg(event) {
+    event.target.src = 'assets/img/placeholder.png';
   }
 
   ngOnDestroy() {

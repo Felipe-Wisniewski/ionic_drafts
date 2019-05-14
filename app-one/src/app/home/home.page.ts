@@ -26,12 +26,11 @@ export class HomePage implements OnInit {
   }
 
   selectBrand(brand) {
-    this.storage.set('brand', brand);
-
-    if (brand.id_destaque != null || brand.id_destaque != undefined) {  
-      this.router.navigate(['sub-brand']);
-    } else {
-      this.router.navigate(['templates-posts']);
-    }
+    this.storage.set('brand', brand).then(it => {
+      if (it.id_highlight == null || it.id_highlight == undefined) 
+        this.router.navigate(['templates-posts']);
+      else
+        this.router.navigate(['sub-brand']);
+    });
   }
 }

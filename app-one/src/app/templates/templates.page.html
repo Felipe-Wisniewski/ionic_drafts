@@ -20,17 +20,24 @@
     <ion-label>POST</ion-label>
   </ion-segment-button>
   <ion-segment-button value="story">
-    <ion-label>STORIE</ion-label>
+    <ion-label>STORY</ion-label>
   </ion-segment-button>
 </ion-segment>
 
+<p *ngIf="!isEmpty" class="p-choose">Escolha um template</p>
+
 <ion-content>
-  <h6 text-center>Escolha um template</h6>
-  <ion-grid class="grid-max-width" *ngIf="loaded ; else loading"> 
+  <p *ngIf="isEmpty" class="p-empty">Templates do tipo {{ layout }} indisponíveis para esta marca.</p>
+
+  <ion-grid class="grid-template" *ngIf="loaded ; else loading"> 
     <ion-row>
-      <ion-col class="template" *ngFor="let template of templates" size="4">
-        <ion-img [src]="template.json.thumbnailUrl" (ionError)="loadErrorImg($event)" (click)="selectTemplate(template)"></ion-img>
-        <ion-label style="font-size: 10px">{{ template.json.name }}</ion-label>
+      <ion-col class="col-template" *ngFor="let template of templates; let idx = index" size="4">
+        <div (click)="selectTemplate(template, idx)" [ngClass]="{'selected': idx == index && isSelected}">
+          <ion-img [src]="template.json.thumbnailUrl" (ionError)="loadErrorImg($event)"></ion-img>
+          <div class="label">
+            <ion-label>{{ template.json.name }}</ion-label>
+          </div>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -39,9 +46,12 @@
     <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <!-- centralizar spinner -->
   <ng-template #loading>
     <ion-spinner loadingSpinner="crescent"></ion-spinner>
   </ng-template>
-  <!-- adicionar fa-button -->
 </ion-content>
+
+<ion-fab color="primary" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="openProducts()" activated="{{ !isSelected }}">
+  <ion-icon name="arrow-forward"></ion-icon>
+</ion-fab-button>

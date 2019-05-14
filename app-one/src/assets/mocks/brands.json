@@ -1,8 +1,8 @@
 {
     "brands": [
         {
-            "id_brand": 3,
-			"id_destaque": null,
+            "id": 3,
+			"id_highlight": null,
             "brand": "BEIRA RIO",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/3.jpg",
             "list_order": "1",
@@ -21,8 +21,8 @@
             }
         },
         {
-            "id_brand": 16,
-			"id_destaque": null,
+            "id": 16,
+			"id_highlight": null,
             "brand": "MOLECA",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/16.jpg",
             "list_order": "2",
@@ -41,8 +41,8 @@
             }
         },
         {
-            "id_brand": 1,
-			"id_destaque": null,
+            "id": 1,
+			"id_highlight": null,
             "brand": "VIZZANO",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/1.jpg",
             "list_order": "3",
@@ -61,8 +61,8 @@
             }
         },
         {
-            "id_brand": 17,
-			"id_destaque": null,
+            "id": 17,
+			"id_highlight": null,
             "brand": "MOLEKINHA",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/17.jpg",
             "list_order": "4",
@@ -81,8 +81,8 @@
             }
         },
         {
-            "id_brand": 19,
-			"id_destaque": null,
+            "id": 19,
+			"id_highlight": null,
             "brand": "MOLEKINHO",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/19.jpg",
             "list_order": "5",
@@ -98,8 +98,8 @@
             }
         },
         {
-            "id_brand": 9,
-			"id_destaque": null,
+            "id": 9,
+			"id_highlight": null,
             "brand": "MODARE",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/9.jpg",
             "list_order": "6",
@@ -115,8 +115,8 @@
             }
         },
         {
-            "id_brand": 20,
-			"id_destaque": null,
+            "id": 20,
+			"id_highlight": null,
             "brand": "ACTVITTA",
             "image_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/20.jpg",
             "list_order": "7",
@@ -128,27 +128,27 @@
             "tag": []
         },
         {
-            "id_brand": 99,
-			"id_destaque": 3,
-            "brand": "TAL MAE - TALFILHA",
+            "id": null,
+			"id_highlight": 3,
+            "brand": "TAL MÂE - TAL FILHA",
             "image_url": "assets/mocks/talmaetalfilha.jpg",
             "list_order": "8",
             "logo_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas_logos/99.png",            
 			"subdivision": [
 				{
-					"id_sub":"6",
+					"id_subdivision":"6",
 					"sub":"BEIRA RIO + MOLEKINHA",
                     "image_url":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/subdivisao/6.jpg",
                     "logo_url":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas_logos/3.png"
 				},
 				{
-					"id_sub":"7",
+					"id_subdivision":"7",
 					"sub":"MOLECA + MOLEKINHA",
                     "image_url":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/subdivisao/7.jpg",
                     "logo_url":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas_logos/16.png"
 				},
 				{
-					"id_sub":"8",
+					"id_subdivision":"8",
 					"sub":"VIZZANO + MOLEKINHA",
                     "image_url":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/subdivisao/8.jpg",
                     "logo_url":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas_logos/1.png"

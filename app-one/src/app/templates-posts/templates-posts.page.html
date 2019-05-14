@@ -16,17 +16,13 @@
 </ion-header>
 
 <ion-content>
-  <div class="container">
-    <!-- acertar tamanho e posicao do logo -->
-    <div  class="div-img">
-      <ion-img class="logo_brand" [src]="logo" alt="Logo brand"></ion-img>
-    </div>
-    <!-- aumentar os botoes e centralizar melhor -->
+  <div class="tp-container">
+    <ion-img class="tp-logo" [src]="logo" alt="Logo brand"></ion-img>
     <div>
-      <ion-button class="button button-large" expand="full" [routerLink]="['/templates']">
+      <ion-button class="tp-button" [routerLink]="['/templates']">
         CRIAR A PARTIR DE TEMPLATE
       </ion-button>
-      <ion-button class="button button-large" expand="full" [routerLink]="['/posts']">
+      <ion-button class="tp-button" [routerLink]="['/posts']">
         ESCOLHER IMAGENS PRONTAS
       </ion-button>
     </div>

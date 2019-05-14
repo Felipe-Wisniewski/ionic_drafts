@@ -1,46 +1,45 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AlertController } from '@ionic/angular';
 import { empty } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
 import { Post } from './post';
 import { environment } from '../../environments/environment';
+import { AlertsService } from '../shared/alerts.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
 
-  // postsMock = 'assets/mocks/posts.json';
   private url: string =  environment.URL_API  + 'posts';  
   static pages;
 
-  constructor(private http: HttpClient, private alertController: AlertController) { }
+  constructor(private http: HttpClient, private alert: AlertsService) { }
 
-  getPosts(id_brand: number, id_sub: number, page: number, search: string) {
-    if (id_sub == null || id_sub == undefined) {
+  getPosts(id_brand, id_subdivision, layout, page, search) {
+    let url;
+    if (id_brand != null || id_brand != undefined) {
       if (search == "") {
-        return this.loadPostsBrand(id_brand, page);
+        url = `${this.url}?id_brand=${id_brand}&layout=${layout}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`;
       } else {
-        return this.searchPostsBrand(id_brand, page, search);
+        url = `${this.url}?id_brand=${id_brand}&layout=${layout}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`;
       } 
-      
     } else {
       if (search == "") {
-        return this.loadPostsSubBrand(id_sub, page);
+        url = `${this.url}?id_subdivision=${id_subdivision}&layout=${layout}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`;
       } else {
-        return this.searchPostsSubBrand(id_sub, page, search);
+        url = `${this.url}?id_subdivision=${id_subdivision}&layout=${layout}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`;
       }
     }
+    return this.loadPosts(url);
   }
 
-  private loadPostsBrand(id_brand: number, page: number) {
-    return this.http.get<Post[]>(`${this.url}?id_brand=${id_brand}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`)
+  private loadPosts(url) {
+    return this.http.get<Post[]>(url)
       .pipe(
-        catchError(error => {
-          console.error(error);
-          this.presentAlert();
+        catchError(() => {
+          this.alertError();
           return empty();
         }),
         tap(resp => PostsService.pages = resp['pages']),
@@ -48,51 +47,12 @@ export class PostsService {
       );
   }
 
-  private searchPostsBrand(id_brand: number, page: number, search: string) {
-    return this.http.get<Post[]>(`${this.url}?id_brand=${id_brand}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`)
-      .pipe(
-        catchError(error => {
-          console.error(error);
-          this.presentAlert();
-          return empty();
-        }),
-        tap(resp => PostsService.pages = resp['pages']),
-        map(resp => resp['posts'])
-      );
+  toast() {
+    this.alert.alertToast("Selecione uma imagem !");
   }
 
-  private loadPostsSubBrand(id_sub: number, page: number) {
-    return this.http.get<Post[]>(`${this.url}?id_sub=${id_sub}&order=DESC&page=${page}&size=30&sort=DATA_INCLUSAO_ALTERACAO`)
-      .pipe(
-        catchError(error => {
-          console.error(error);
-          this.presentAlert();
-          return empty();
-        }),
-        tap(resp => PostsService.pages = resp['pages']),
-        map(resp => resp['posts'])
-      );
+  private alertError() {
+    this.alert.alertPopup("Erro ao carregar as imagens.");
   }
 
-  private searchPostsSubBrand(id_sub: number, page: number, search: string) {
-    return this.http.get<Post[]>(`${this.url}?id_sub=${id_sub}&order=DESC&page=${page}&search=${search}&sort=DATA_INCLUSAO_ALTERACAO`)
-      .pipe(
-        catchError(error => {
-          console.error(error);
-          this.presentAlert();
-          return empty();
-        }),
-        tap(resp => PostsService.pages = resp['pages']),
-        map(resp => resp['posts'])
-      );
-  }
-
-  private async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Erro',
-      message: 'Erro ao carregar as imagens.',
-      buttons: ['OK']
-    });
-    await alert.present();
-  }
 }

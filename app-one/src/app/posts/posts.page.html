@@ -17,21 +17,25 @@
 
 <ion-searchbar [(ngModel)]="search" (ionChange)="searchPosts()"></ion-searchbar>
 
-<!-- desenvolver filtragem post/storie -->
-<ion-segment (ionChange)="selectPostStorie($event)">
+<ion-segment style="padding-top: 5px" [(ngModel)]="layout" (ionChange)="selectPostStorie()">
   <ion-segment-button value="post">
     <ion-label>POST</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="storie">
-    <ion-label>STORIE</ion-label>
+  <ion-segment-button value="story">
+    <ion-label>STORY</ion-label>
   </ion-segment-button>
 </ion-segment>
 
+<p *ngIf="!isEmpty" class="p-choose">Escolha uma imagem</p>
+
 <ion-content>
-  <ion-grid class="grid-max-width" *ngIf="loaded ; else loading"> 
+  <p *ngIf="isEmpty" class="p-empty">Imagens do tipo {{ layout }} indisponíveis para esta marca.</p>
+  <ion-grid class="grid-post" *ngIf="loaded ; else loading"> 
     <ion-row>
-      <ion-col class="grid-col" *ngFor="let post of posts" size="4">
-        <ion-img [src]="post.post_url_thumb"  (ionError)="loadErrorImg($event)" (click)="selectPost(post)"></ion-img>
+      <ion-col class="col-post" *ngFor="let post of posts; let idx = index" size="4">
+        <div (click)="selectPost(post, idx)"  [ngClass]="{'selected': idx == index && isSelected}">
+          <ion-img [src]="post.post_url_thumb" (ionError)="loadErrorImg($event)"></ion-img>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -45,3 +49,7 @@
   </ng-template>
 </ion-content>
 
+<ion-fab color="primary" vertical="bottom" horizontal="end" slot="fixed" activated="{{ !isSelected }}">
+  <ion-fab-button (click)="navEditor()">
+  <ion-icon name="arrow-forward"></ion-icon>
+</ion-fab-button>
