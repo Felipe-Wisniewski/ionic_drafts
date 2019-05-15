@@ -1,11 +1,37 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Fabricjs
-    </ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Fabric</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="share"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="grid"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="photos"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <canvas id="canvas" width="527" height="527"></canvas>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <canvas class="canvas" id="canvas"></canvas>
+      </ion-col>
+      
+      <ion-col size="6">
+        <div>
+          <p>Teste...</p>
+          <p>Teste...</p>
+          <p>Teste...</p>
+          <p>Teste...</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+

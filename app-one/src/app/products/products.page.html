@@ -24,7 +24,7 @@
     <ion-row>
       <ion-col class="col-products" *ngFor="let product of products; let idx = index" size="4">
         <div (click)="selectProduct(product, idx)" [ngClass]="{'selected': idx == index[idx]}">
-          <ion-img [src]="product?.image_url" (ionError)="loadErrorImg($event)"></ion-img>
+          <ion-img [src]="product.image_url" (ionError)="loadErrorImg($event)"></ion-img>
         </div>
       </ion-col>
     </ion-row>
