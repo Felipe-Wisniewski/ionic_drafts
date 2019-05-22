@@ -1,5 +1,7 @@
 {
   "name": "grid-select",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

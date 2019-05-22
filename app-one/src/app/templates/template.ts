@@ -1,5 +1,3 @@
-import { Brand } from '../home/brand';
-
 export interface Template {
     id_brand: string,
     id_subdivision: string,
@@ -12,11 +10,9 @@ export interface Template {
     alteration_date: string,
     id_lang: string,
     id_template: string,
-    brand: Brand,
-    json: Json
-}
-
-export interface Json {
     name: string,
-    thumbnailUrl: string 
+    thumbnail_url: string, 
+    thumbnail: string,
+    validity_period_start: string,
+    validity_period_end: string
 }
