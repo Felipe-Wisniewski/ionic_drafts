@@ -12,6 +12,7 @@ export interface Template {
     name: string,
     thumbnail_url: string ,
     thumbnail: string,
+    layout: string,
     validity_period_start: null,
     validity_period_end: null
 }

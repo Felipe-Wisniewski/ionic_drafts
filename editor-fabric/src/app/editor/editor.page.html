@@ -20,18 +20,23 @@
 
 
 <ion-content>
+    <ion-row>
+      
+      <ion-col class="editor-canvas">
+        <canvas class="canvas" id="canvas"></canvas>
+      </ion-col>
+      
+      <ion-col size="6">
+        <div *ngFor="let item of items">          
+          <p></p>
+        </div>
+      </ion-col>
 
-  <h5>Editor</h5>
-  <!-- <p>{{ brand | json }}</p>
-  <br>
-  <h5>Template</h5>
-  <p>{{ template | json }}</p>
-  <br>
-  <h5>Produto(s)</h5>
-  <p>{{ products | json }}</p>
-  <br>
-  <h5>Post</h5>
-  <p>{{ post | json }}</p>
-  <br> -->
-  
+    </ion-row>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="medium">
+    <ion-title>Footer</ion-title>
+  </ion-toolbar>
+</ion-footer>
