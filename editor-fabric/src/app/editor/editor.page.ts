@@ -71,7 +71,7 @@ export class EditorPage implements OnInit {
     let widthScreen = parent.innerWidth
     let heightScreen = parent.innerHeight - (header + footer)
 
-    if (this.post.layout == 'post') {
+    if (this.post.layout != 'post') {
       if (widthScreen > heightScreen) {
         this.canvas.setDimensions({ width: heightScreen, height: heightScreen })  
       } else {
@@ -79,13 +79,11 @@ export class EditorPage implements OnInit {
       }
 
     } else {
-      //url sample
       imageBgUrl = 'https://learn.canva.com/wp-content/uploads/2018/06/Xpress-Classes-1.png'
-      if (widthScreen > heightScreen) {
-        this.canvas.setDimensions({ width: heightScreen, height: heightScreen })  
-      } else {
-        this.canvas.setDimensions({ width: widthScreen, height: widthScreen })  
-      }
+
+      let width = (1080 / 1920) * heightScreen
+      console.log(`width ${width} x height ${heightScreen} / widtBigger ${width}`)
+      this.canvas.setDimensions({ width: width, height: heightScreen })
     }
 
     fabric.Image.fromURL(imageBgUrl, (post) => {
