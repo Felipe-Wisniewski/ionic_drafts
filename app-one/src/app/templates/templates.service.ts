@@ -15,7 +15,7 @@ export class TemplatesService {
   templatesMock = 'assets/mocks/templates.json';
   templatesMockSub = 'assets/mocks/templates_subs.json';
 
-  private url: string = environment.URL_API + 'v2/templates';
+  private url: string = environment.URL_API + 'templates';
   static pages;
 
   constructor(private http: HttpClient, private alerts: AlertsService) { }

@@ -33,9 +33,9 @@
     <ion-row>
       <ion-col class="col-template" *ngFor="let template of templates; let idx = index" size="4">
         <div (click)="selectTemplate(template, idx)" [ngClass]="{'selected': idx == index && isSelected}">
-          <ion-img [src]="template.json.thumbnailUrl" (ionError)="loadErrorImg($event)"></ion-img>
+          <ion-img [src]="template.thumbnail_url" (ionError)="loadErrorImg($event)"></ion-img>
           <div class="label">
-            <ion-label>{{ template.json.name }}</ion-label>
+            <ion-label>{{ template.name }}</ion-label>
           </div>
         </div>
       </ion-col>
