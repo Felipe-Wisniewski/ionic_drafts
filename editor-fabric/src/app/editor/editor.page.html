@@ -18,36 +18,28 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
-  <ion-row>
 
-    <ion-col class="editor-canvas">
-      <canvas class="canvas" id="canvas"></canvas>
-    </ion-col>
+  <canvas class="canvas" id="canvas"></canvas>
 
-    <ion-col size="6">
-      <div *ngFor="let item of items">
-        <p></p>
-      </div>
-    </ion-col>
-
-  </ion-row>
 </ion-content>
 
+
 <ion-footer>
-  <ion-toolbar color="dark" >
-    <ion-buttons>
+  <ion-toolbar color="dark">
+    <ion-buttons class="toolbar-buttons">
 
       <ion-button>
-        <ion-icon name="open"></ion-icon>
+        <ion-icon name="images"></ion-icon>
       </ion-button>
 
       <ion-button>
-        <ion-icon name="code-working"></ion-icon>
+        <ion-icon name="add-circle-outline"></ion-icon>
       </ion-button>
       
       <ion-button>
-        <ion-icon name="code-working"></ion-icon>
+        <ion-icon name="create"></ion-icon>
       </ion-button>
 
     </ion-buttons>
