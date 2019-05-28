@@ -71,7 +71,9 @@ export class EditorPage implements OnInit {
     let widthScreen = parent.innerWidth
     let heightScreen = parent.innerHeight - (header + footer)
 
-    if (this.post.layout == 'post') {
+    console.log(document.getElementsByTagName('ion-header').item(0).clientHeight)
+
+    if (this.post.layout != 'post') {
       if (widthScreen > heightScreen) {
         this.canvas.setDimensions({ width: heightScreen, height: heightScreen })  
       } else {
@@ -79,7 +81,7 @@ export class EditorPage implements OnInit {
       }
 
     } else {
-      imageBgUrl = 'https://learn.canva.com/wp-content/uploads/2018/06/Xpress-Classes-1.png'
+      // imageBgUrl = 'https://learn.canva.com/wp-content/uploads/2018/06/Xpress-Classes-1.png'
 
       let width = (1080 / 1920) * heightScreen
       console.log(`width ${width} x height ${heightScreen}`)

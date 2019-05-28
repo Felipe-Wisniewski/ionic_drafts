@@ -1,4 +1,4 @@
-<ion-header class="modal-header">
+<ion-header>
   <ion-toolbar>
     <ion-title>home-modal</ion-title>
     <ion-buttons slot="end">
@@ -9,11 +9,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="modal-content">
+<ion-content>
 
   <ion-grid> 
     <ion-row>
-      <ion-col *ngFor="let choose of chooses" size="4">
+      <ion-col *ngFor="let choose of chooses" size="3">
         <div (click)="chooseSelected(choose)">
           <ion-img [src]="choose.image_url" (ionError)="loadErrorImg($event)"></ion-img>
         </div>

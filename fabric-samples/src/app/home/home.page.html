@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header id="header-id">
   <ion-toolbar color="primary">
     <ion-title>Editor</ion-title>
     <ion-buttons slot="start">
@@ -20,16 +20,14 @@
 
 
 <ion-content>
-  <div class="home-content">
-    <canvas class="canvas" id="canvas"></canvas>
-  </div>
+  <canvas class="canvas" id="canvas"></canvas>
 </ion-content>
 
 
-<ion-footer>
+<ion-footer id="footer-id">
   <ion-toolbar color="dark">
-    <ion-buttons class="toolbar-buttons">
 
+    <ion-buttons class="toolbar-buttons">
       <ion-button>
         <ion-icon name="images"></ion-icon>
       </ion-button>
@@ -37,11 +35,11 @@
       <ion-button (click)="presentActionSheet()">
         <ion-icon name="add-circle-outline"></ion-icon>
       </ion-button>
-      
-      <ion-button>
+
+      <ion-button (click)="onClick()">
         <ion-icon name="create"></ion-icon>
       </ion-button>
-
     </ion-buttons>
+
   </ion-toolbar>
 </ion-footer>

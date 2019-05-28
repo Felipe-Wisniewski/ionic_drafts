@@ -14,45 +14,74 @@ import { Subscription } from 'rxjs';
 export class HomePage implements OnInit, OnDestroy {
 
   canvas: Canvas
+  subscription$: Subscription[] = []
 
   logosBrand = []
   logosUser = []
   stamps = []
   icons = []
 
-  subscription$: Subscription[] = []
-
-  id_brand = 3
-  template = 'https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/backgrounds_en/3-template_brc2.png?i=10'
-  product1 = 'https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8369-205-13488-15745.jpg'
-  product2 = 'https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2123-200-17763-65457.jpg'
+  id_brand = 0
+  layout = ''
+  template = ''
+  product1 = ''
+  product2 = ''
 
   constructor(private modalController: ModalController, 
     private actionSheetController: ActionSheetController,
     private homeService: HomeService) {}
 
   ngOnInit() {
-    this.loadCanvas()
-    this.loadItems()
+    this.getChoose()
+    this.loadItemsEditor()
   }
 
-  loadCanvas() {
+  getChoose() {
+    // change layout
+    this.layout = 'post'
+
+    if (this.layout == 'post') this.template = 'https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/backgrounds_en/3-template_brc2.png?i=10'
+    if (this.layout == 'story') this.template = 'assets/img/story.png'
+
+    this.id_brand = 3
+    this.product1 = 'https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8369-205-13488-15745.jpg'
+    this.product2 = 'https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2123-200-17763-65457.jpg'
+
+    this.loadCanvasDimensions()
+  }
+
+  loadCanvasDimensions() {
     this.canvas = new fabric.Canvas('canvas')
-    
     let header = document.getElementsByTagName('ion-header').item(0).clientHeight
     let footer = document.getElementsByTagName('ion-footer').item(0).clientHeight
     let widthScreen = parent.innerWidth
     let heightScreen = parent.innerHeight - (header + footer)
     
-    if (widthScreen > heightScreen) {
-      this.canvas.setDimensions({ width: heightScreen, height: heightScreen })  
-    } else {
-      this.canvas.setDimensions({ width: widthScreen, height: widthScreen })  
-    }
+    console.log(` innerHeight: ${parent.innerHeight} - (h: ${header} + f: ${footer})`)
     
+
+
+    if (this.layout == 'post') {
+      if (widthScreen > heightScreen) {
+        this.canvas.setDimensions({ width: heightScreen, height: heightScreen })  
+      } else {
+        this.canvas.setDimensions({ width: widthScreen, height: widthScreen })  
+      }
+
+    } else {
+      let width = (1080 / 1920) * heightScreen
+      console.log(`width ${width} x height ${heightScreen}`)
+      this.canvas.setDimensions({ width: width, height: heightScreen })
+    }
+    this.setImageCanvas()
+  }
+
+  setImageCanvas() {
     //add template
     fabric.Image.fromURL(this.template, (template) => {
-      template.scaleToHeight(this.canvas.getHeight())
+      // template.scaleToHeight(this.canvas.getHeight())
+      template.width = this.canvas.getWidth()
+      template.height = this.canvas.getHeight()
       this.canvas.setOverlayImage(template, this.canvas.renderAll.bind(this.canvas))
     })
 
@@ -68,14 +97,35 @@ export class HomePage implements OnInit, OnDestroy {
 
     //produto 2
     fabric.Image.fromURL(this.product2, (product2) => {
-      product2.scale(0.4)
+      
+      product2.scaleToWidth(this.canvas.getWidth() / 2)
       product2.lockUniScaling = true
+
+      product2.on('selected', (it) => {
+        console.log(it)
+      })
 
       this.canvas.add(product2)
     })
+
+    let text = new fabric.Text('hello world', { 
+      left: 600, 
+      top: 300,
+      fontFamily: 'Comic Sans',
+      fontSize: 70 
+    })
+    this.canvas.add(text)
+
+    this.canvas.on('mouse:down', (opt) => {
+      // console.log(opt.pointer.x , opt.pointer.y)
+      
+      if (opt.target) {
+        console.log(`${opt.target.type} clicada`)
+      }
+    })
   }
 
-  loadItems() {
+  loadItemsEditor() {
     this.subscription$.push(this.homeService.getBrandsLogos(this.id_brand)
       .subscribe(_bLogos => {
         _bLogos.forEach(l => this.logosBrand.push(l))
@@ -135,6 +185,11 @@ export class HomePage implements OnInit, OnDestroy {
       }
     })
     return await modal.present()
+  }
+
+  onClick() {
+    console.log(this.canvas.getObjects())
+
   }
 
   ngOnDestroy() {
