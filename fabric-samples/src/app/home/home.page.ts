@@ -27,6 +27,9 @@ export class HomePage implements OnInit, OnDestroy {
   product1 = ''
   product2 = ''
 
+  objectIsSelected = false
+  objectSelected: any
+
   constructor(private modalController: ModalController, 
     private actionSheetController: ActionSheetController,
     private homeService: HomeService) {}
@@ -37,8 +40,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   getChoose() {
-    // change layout
-    this.layout = 'post'
+    this.layout = 'post' // change layout
 
     if (this.layout == 'post') this.template = 'https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/backgrounds_en/3-template_brc2.png?i=10'
     if (this.layout == 'story') this.template = 'assets/img/story.png'
@@ -47,82 +49,162 @@ export class HomePage implements OnInit, OnDestroy {
     this.product1 = 'https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8369-205-13488-15745.jpg'
     this.product2 = 'https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2123-200-17763-65457.jpg'
 
-    this.loadCanvasDimensions()
+    this.setCanvasDimensions()
   }
 
-  loadCanvasDimensions() {
+  setCanvasDimensions() {
     this.canvas = new fabric.Canvas('canvas')
+
     let header = document.getElementsByTagName('ion-header').item(0).clientHeight
     let footer = document.getElementsByTagName('ion-footer').item(0).clientHeight
     let widthScreen = parent.innerWidth
     let heightScreen = parent.innerHeight - (header + footer)
-    
-    console.log(` innerHeight: ${parent.innerHeight} - (h: ${header} + f: ${footer})`)
-    
-
 
     if (this.layout == 'post') {
       if (widthScreen > heightScreen) {
-        this.canvas.setDimensions({ width: heightScreen, height: heightScreen })  
+        this.canvas.setDimensions({ width: heightScreen, height: heightScreen })
       } else {
-        this.canvas.setDimensions({ width: widthScreen, height: widthScreen })  
+        this.canvas.setDimensions({ width: widthScreen, height: widthScreen })
       }
+    } 
 
-    } else {
+    if (this.layout == 'story') {
       let width = (1080 / 1920) * heightScreen
-      console.log(`width ${width} x height ${heightScreen}`)
       this.canvas.setDimensions({ width: width, height: heightScreen })
     }
-    this.setImageCanvas()
+
+    console.log(`canvas - w:${this.canvas.getWidth()} x h:${this.canvas.getHeight()}`)
+    this.setTemplateOnCanvas()
   }
 
-  setImageCanvas() {
-    //add template
+  setTemplateOnCanvas() {
     fabric.Image.fromURL(this.template, (template) => {
-      // template.scaleToHeight(this.canvas.getHeight())
-      template.width = this.canvas.getWidth()
-      template.height = this.canvas.getHeight()
+      template.scaleToHeight(this.canvas.getHeight())
+      // template.width = this.canvas.getWidth()
+      // template.height = this.canvas.getHeight()
       this.canvas.setOverlayImage(template, this.canvas.renderAll.bind(this.canvas))
     })
 
-    //produto 1
-    fabric.Image.fromURL(this.product1, (product1) => {
-      product1.scale(0.4)
-      product1.cornerStyle = 'circle'
-      product1.lockUniScaling = true
+    this.setImageOnCanvas(this.product1)
+    this.setImageOnCanvas(this.product2)
+    this.setTextOnCanvas('hello world')
 
-      this.canvas.add(product1)
-      product1.center()
-    })
+    this.getCanvasEvents()
+  }
 
-    //produto 2
-    fabric.Image.fromURL(this.product2, (product2) => {
+  setImageOnCanvas(imageUrl: string) {
+    fabric.Image.fromURL(imageUrl, (image) => {
+      image.scaleToWidth(this.canvas.getWidth() / 2)
+      image.cornerStyle = 'circle'
+      image.lockUniScaling = true
       
-      product2.scaleToWidth(this.canvas.getWidth() / 2)
-      product2.lockUniScaling = true
-
-      product2.on('selected', (it) => {
-        console.log(it)
+      image.on('selected', (it) => {
+        console.log(`selected => ${it}`)
       })
 
-      this.canvas.add(product2)
+      this.canvas.add(image).centerObject(image)
+      this.canvas.renderAll()
     })
+  }
 
-    let text = new fabric.Text('hello world', { 
-      left: 600, 
-      top: 300,
+  setTextOnCanvas(text: string) {
+    let _text = new fabric.Text(text, { 
+      left: this.canvas.getWidth() / 2, 
+      top: this.canvas.getHeight() / 2,
       fontFamily: 'Comic Sans',
-      fontSize: 70 
+      fontSize: 40,
     })
-    this.canvas.add(text)
+    this.canvas.add(_text).centerObject(_text)
+  }
 
-    this.canvas.on('mouse:down', (opt) => {
-      // console.log(opt.pointer.x , opt.pointer.y)
-      
-      if (opt.target) {
-        console.log(`${opt.target.type} clicada`)
+  getCanvasEvents() {
+    this.canvas.on({
+      'mouse:down': (obj) => {
+        if (obj.target) {
+          console.log(`mouse:down => `)
+          console.log(obj)
+          this.objectSelected = obj.target
+          this.objectIsSelected = true
+        } else {
+          this.objectSelected = null
+          this.objectIsSelected = false
+        }
+      },
+      'touch:gesture': (obj) => {
+        console.log(`touch gesture: ${obj}`)
       }
     })
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Insert',
+      translucent: true,
+      buttons: [
+        {
+          text: 'Logos brand',
+          icon: 'share',
+          handler: () => {
+            this.addModal(this.logosBrand)
+          }
+        }, 
+        {
+          text: 'Your logos',
+          icon: 'arrow-dropright-circle',
+          handler: () => {
+            this.addModal(this.logosUser)
+          }
+        }, 
+        {
+          text: 'Stamps',
+          icon: 'heart',
+          handler: () => {
+            this.addModal(this.stamps)
+          }
+        }, 
+        {
+          text: 'Icons',
+          icon: 'close',
+          handler: () => {
+            this.addModal(this.icons)
+          }
+        }
+      ]
+    });
+    await actionSheet.present()
+  }
+
+  async addModal(choose: any) {
+    const modal = await this.modalController.create({
+      component: HomeModalPage,
+      componentProps: { 
+        choose: choose
+      }
+    })
+
+    modal.onDidDismiss().then((it) => {
+      if (it.data != null || it.data != undefined) {
+        console.log(it.data['choose'])
+        let image = it.data['choose'].image_url
+        this.setImageOnCanvas(image)
+      }
+    })
+    return await modal.present()
+  }
+
+  onClick() {
+    // console.log(this.canvas.getObjects())
+    this.canvas.forEachObject((it, i) => {
+      console.log(i)
+      console.log(it)        
+      console.log(it.type)
+    })
+  }
+
+  deleteObjectOnCanvas() {
+    this.canvas.remove(this.objectSelected)
+    this.objectSelected = null
+    this.objectIsSelected = false
   }
 
   loadItemsEditor() {
@@ -142,54 +224,6 @@ export class HomePage implements OnInit, OnDestroy {
       .subscribe(_icons => {
         _icons.forEach(i => this.icons.push(i))
       }))
-  }
-
-  async presentActionSheet() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Insert',
-      translucent: true,
-      buttons: [{
-        text: 'Logos brand',
-        icon: 'share',
-        handler: () => {
-          this.addModal(this.logosBrand)
-        }
-      }, {
-        text: 'Your logos',
-        icon: 'arrow-dropright-circle',
-        handler: () => {
-          this.addModal(this.logosUser)
-        }
-      }, {
-        text: 'Stamps',
-        icon: 'heart',
-        handler: () => {
-          this.addModal(this.stamps)
-        }
-      }, {
-        text: 'Icons',
-        icon: 'close',
-        handler: () => {
-          this.addModal(this.icons)
-        }
-      }]
-    });
-    await actionSheet.present()
-  }
-
-  async addModal(choose: any) {
-    const modal = await this.modalController.create({
-      component: HomeModalPage,
-      componentProps: { 
-        choose: choose,
-      }
-    })
-    return await modal.present()
-  }
-
-  onClick() {
-    console.log(this.canvas.getObjects())
-
   }
 
   ngOnDestroy() {

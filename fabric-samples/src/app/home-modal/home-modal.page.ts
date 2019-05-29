@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
+import { testUserAgent } from '@ionic/core';
 
 @Component({
   selector: 'app-home-modal',
@@ -17,7 +18,9 @@ export class HomeModalPage implements OnInit {
   }
 
   chooseSelected(choose) {
-    console.log(choose)
+    this.modalController.dismiss({
+      choose: choose
+    })
   }
 
   closeModal() {
