@@ -30,9 +30,9 @@ export class HomePage implements OnInit, OnDestroy {
   objectIsSelected = false
   objectSelected: any
 
-  constructor(private modalController: ModalController, 
+  constructor(private modalController: ModalController,
     private actionSheetController: ActionSheetController,
-    private homeService: HomeService) {}
+    private homeService: HomeService) { }
 
   ngOnInit() {
     this.getChoose()
@@ -66,7 +66,7 @@ export class HomePage implements OnInit, OnDestroy {
       } else {
         this.canvas.setDimensions({ width: widthScreen, height: widthScreen })
       }
-    } 
+    }
 
     if (this.layout == 'story') {
       let width = (1080 / 1920) * heightScreen
@@ -97,7 +97,7 @@ export class HomePage implements OnInit, OnDestroy {
       image.scaleToWidth(this.canvas.getWidth() / 2)
       image.cornerStyle = 'circle'
       image.lockUniScaling = true
-      
+
       image.on('selected', (it) => {
         console.log(`selected => ${it}`)
       })
@@ -108,11 +108,12 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   setTextOnCanvas(text: string) {
-    let _text = new fabric.Text(text, { 
-      left: this.canvas.getWidth() / 2, 
+    let _text = new fabric.Text(text, {
+      left: this.canvas.getWidth() / 2,
       top: this.canvas.getHeight() / 2,
       fontFamily: 'Comic Sans',
       fontSize: 40,
+      lockUniScaling: true
     })
     this.canvas.add(_text).centerObject(_text)
   }
@@ -136,37 +137,51 @@ export class HomePage implements OnInit, OnDestroy {
     })
   }
 
-  async presentActionSheet() {
+  share() {
+    console.log('share')
+    // console.log(this.canvas.getObjects())
+    this.canvas.forEachObject((it, i) => {
+      console.log(i)
+      console.log(it)
+      console.log(it.type)
+    })
+  }
+
+  openChangeProduct() {
+    console.log('change product')
+  }
+
+  async openOptionsAddItems() {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Insert',
+      header: 'Insert items',
       translucent: true,
       buttons: [
         {
-          text: 'Logos brand',
-          icon: 'share',
+          text: 'Brand logos',
+          icon: 'photos',
           handler: () => {
-            this.addModal(this.logosBrand)
+            this.addItemsModal(this.logosBrand)
           }
-        }, 
+        },
         {
-          text: 'Your logos',
-          icon: 'arrow-dropright-circle',
+          text: 'Your logo',
+          icon: 'image',
           handler: () => {
-            this.addModal(this.logosUser)
+            this.addItemsModal(this.logosUser)
           }
-        }, 
+        },
         {
           text: 'Stamps',
-          icon: 'heart',
+          icon: 'pricetags',
           handler: () => {
-            this.addModal(this.stamps)
+            this.addItemsModal(this.stamps)
           }
-        }, 
+        },
         {
           text: 'Icons',
-          icon: 'close',
+          icon: 'information',
           handler: () => {
-            this.addModal(this.icons)
+            this.addItemsModal(this.icons)
           }
         }
       ]
@@ -174,10 +189,10 @@ export class HomePage implements OnInit, OnDestroy {
     await actionSheet.present()
   }
 
-  async addModal(choose: any) {
+  async addItemsModal(choose: any) {
     const modal = await this.modalController.create({
       component: HomeModalPage,
-      componentProps: { 
+      componentProps: {
         choose: choose
       }
     })
@@ -192,13 +207,42 @@ export class HomePage implements OnInit, OnDestroy {
     return await modal.present()
   }
 
-  onClick() {
-    // console.log(this.canvas.getObjects())
-    this.canvas.forEachObject((it, i) => {
-      console.log(i)
-      console.log(it)        
-      console.log(it.type)
-    })
+  async openOptionsEditText() {
+    const editTextActionSheet = await this.actionSheetController.create({
+      header: 'Text Input',
+      translucent: true,
+      buttons: [
+        {
+          text: 'Font',
+          icon: 'photos',
+          handler: () => {
+            console.log(this)
+          }
+        },
+        {
+          text: 'Font size',
+          icon: 'image',
+          handler: () => {
+            console.log(this)
+          }
+        },
+        {
+          text: 'Color',
+          icon: 'color-palette',
+          handler: () => {
+            console.log(this)
+          }
+        },
+        {
+          text: 'Opacity',
+          icon: 'information',
+          handler: () => {
+            console.log(this)
+          }
+        }
+      ]
+    });
+    await editTextActionSheet.present()
   }
 
   deleteObjectOnCanvas() {
@@ -212,14 +256,14 @@ export class HomePage implements OnInit, OnDestroy {
       .subscribe(_bLogos => {
         _bLogos.forEach(l => this.logosBrand.push(l))
       }))
-    
+
     // this.homeService.getUserLogos()
-        
+
     this.subscription$.push(this.homeService.getStamps(this.id_brand)
       .subscribe(_stamps => {
         _stamps.forEach(s => this.stamps.push(s))
       }))
-    
+
     this.subscription$.push(this.homeService.getIcons(this.id_brand)
       .subscribe(_icons => {
         _icons.forEach(i => this.icons.push(i))

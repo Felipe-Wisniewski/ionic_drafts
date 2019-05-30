@@ -15,6 +15,7 @@
     <ion-row>
       <ion-col *ngFor="let choose of chooses" size="3">
         <div (click)="chooseSelected(choose)">
+          <ion-ripple-effect></ion-ripple-effect>
           <ion-img [src]="choose.image_url" (ionError)="loadErrorImg($event)"></ion-img>
         </div>
       </ion-col>

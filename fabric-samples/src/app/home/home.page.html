@@ -1,4 +1,4 @@
-<ion-header id="header-id">
+<ion-header no-padding id="header-id">
   <ion-toolbar color="primary">
     <ion-title>Editor</ion-title>
     <ion-buttons slot="start">
@@ -6,44 +6,51 @@
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/']">
-        <ion-icon slot="icon-only" name="share"></ion-icon>
-      </ion-button>
-      <ion-button [routerLink]="['/']">
         <ion-icon slot="icon-only" name="grid"></ion-icon>
       </ion-button>
-      <ion-button [routerLink]="['/']">
+      <ion-button [routerLink]="['/gallery']">
         <ion-icon slot="icon-only" name="photos"></ion-icon>
       </ion-button>
+
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 
 <ion-content>
   <canvas class="canvas" id="canvas"></canvas>
 </ion-content>
 
-
 <ion-footer id="footer-id">
-  <ion-toolbar color="dark">
-    <ion-buttons>
+  <ion-toolbar no-padding color="dark">
 
-      <ion-button>
-        <ion-icon name="images"></ion-icon>
+    <ion-buttons class="footer-toolbar">
+
+      <!-- share -->
+      <ion-button (click)="share()">
+        <ion-icon slot="icon-only" size="large" name="share"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="presentActionSheet()">
-        <ion-icon name="add-circle-outline"></ion-icon>
+      <!-- change product -->
+      <ion-button (click)="openChangeProduct()">
+        <ion-icon slot="icon-only" size="large" name="repeat"></ion-icon>
       </ion-button>
 
-      <ion-button (click)="onClick()">
-        <ion-icon name="create"></ion-icon>
+      <!-- open modal add items -->
+      <ion-button (click)="openOptionsAddItems()">
+        <ion-icon slot="icon-only" size="large" name="add"></ion-icon>
       </ion-button>
 
-      <ion-button *ngIf="objectIsSelected" (click)="deleteObjectOnCanvas()">
-        <ion-icon name="trash"></ion-icon>
+      <!-- open modal edit text -->
+      <ion-button (click)="openOptionsEditText()">
+        <ion-icon slot="icon-only" size="large" name="text"></ion-icon>
+      </ion-button>
+
+      <!-- delete selected item -->
+      <ion-button (click)="deleteObjectOnCanvas()">
+        <ion-icon slot="icon-only" size="large" name="trash"></ion-icon>
       </ion-button>
 
     </ion-buttons>
+
   </ion-toolbar>
 </ion-footer>
