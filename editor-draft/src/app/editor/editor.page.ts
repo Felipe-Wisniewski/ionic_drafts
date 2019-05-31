@@ -1,17 +1,16 @@
-import { HomeService } from './home.service';
-import { HomeModalPage } from '../home-modal/home-modal.page';
+import { Storage } from '@ionic/storage';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Canvas } from 'fabric/fabric-impl';
-import { fabric } from 'fabric';
-import { ModalController, ActionSheetController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { ModalController, ActionSheetController } from '@ionic/angular';
+import { fabric } from 'fabric';
+import { Canvas } from 'fabric/fabric-impl';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-editor',
+  templateUrl: './editor.page.html',
+  styleUrls: ['./editor.page.scss'],
 })
-export class HomePage implements OnInit, OnDestroy {
+export class EditorPage implements OnInit, OnDestroy {
 
   canvas: Canvas
   subscription$: Subscription[] = []
@@ -30,9 +29,9 @@ export class HomePage implements OnInit, OnDestroy {
   objectIsSelected = false
   objectSelected: any
 
-  constructor(private modalController: ModalController,
-    private actionSheetController: ActionSheetController,
-    private homeService: HomeService) { }
+  constructor(private storage: Storage, 
+    private modalController: ModalController,
+    private actionSheetController: ActionSheetController) { }
 
   ngOnInit() {
     this.getChoose()
@@ -40,14 +39,11 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   getChoose() {
-    this.layout = 'post' // change layout
-
-    if (this.layout == 'post') this.template = 'https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/backgrounds_en/3-template_brc2.png?i=10'
-    if (this.layout == 'story') this.template = 'assets/img/story.png'
-
-    this.id_brand = 3
-    this.product1 = 'https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8369-205-13488-15745.jpg'
-    this.product2 = 'https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/2123-200-17763-65457.jpg'
+    this.storage.forEach((value, key, n) => {
+      console.log(key)
+      console.log(value)
+      console.log(n)
+    })
 
     this.setCanvasDimensions()
   }
@@ -151,7 +147,7 @@ export class HomePage implements OnInit, OnDestroy {
     console.log('change product')
   }
 
-  async openOptionsAddItems() {
+ /*  async openOptionsAddItems() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Insert items',
       buttons: [
@@ -186,9 +182,9 @@ export class HomePage implements OnInit, OnDestroy {
       ]
     });
     await actionSheet.present()
-  }
+  } */
 
-  async addItemsModal(choose: any) {
+  /* async addItemsModal(choose: any) {
     const modal = await this.modalController.create({
       component: HomeModalPage,
       componentProps: {
@@ -204,7 +200,7 @@ export class HomePage implements OnInit, OnDestroy {
       }
     })
     return await modal.present()
-  }
+  } */
 
   async openOptionsEditText() {
     const editTextActionSheet = await this.actionSheetController.create({
@@ -250,7 +246,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   loadItemsEditor() {
-    this.subscription$.push(this.homeService.getBrandsLogos(this.id_brand)
+    /* this.subscription$.push(this.homeService.getBrandsLogos(this.id_brand)
       .subscribe(_bLogos => {
         _bLogos.forEach(l => this.logosBrand.push(l))
       }))
@@ -265,7 +261,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.subscription$.push(this.homeService.getIcons(this.id_brand)
       .subscribe(_icons => {
         _icons.forEach(i => this.icons.push(i))
-      }))
+      })) */
   }
 
   ngOnDestroy() {
