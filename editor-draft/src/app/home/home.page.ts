@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   brand: any
   template: any
@@ -16,6 +16,10 @@ export class HomePage {
   ok = 0
 
   constructor(private storage: Storage, private router: Router) {}
+
+  ngOnInit() {
+    
+  }
 
   onClick1() {
     console.log(this.openEditor().then(() => {
@@ -57,6 +61,7 @@ export class HomePage {
 
     return await s.ready()
   }
+  
   
   // this.router.navigate(['templates-posts'])
   // this.router.navigate(['sub-brand'])
