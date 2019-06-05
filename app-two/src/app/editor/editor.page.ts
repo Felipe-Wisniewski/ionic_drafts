@@ -31,6 +31,14 @@ export class EditorPage implements OnInit, OnDestroy {
   }
 
   getChoose() {
+    this.storage.get('post').then((_post) => {
+      if (_post != null || _post != undefined) {
+        this.post = _post.post_url
+        this.layout = _post.layout
+        this.setCanvasDimensions()
+      }
+    })
+
     this.storage.get('template').then((_template) => {
       if (_template != null || _template != undefined) {
         this.layout = _template.layout
@@ -48,6 +56,7 @@ export class EditorPage implements OnInit, OnDestroy {
       } else {
         this.title = _brand.subdivision
       }
+      this.logo = _brand.logo_url
     })
 
     this.storage.get('products').then((_products) => {
@@ -60,34 +69,26 @@ export class EditorPage implements OnInit, OnDestroy {
         }
       }      
     })
-
-    this.storage.get('post').then((_post) => {
-      if (_post != null || _post != undefined) {
-        this.post = _post.post_url
-        this.layout = _post.layout
-        this.setCanvasDimensions()
-      }
-    })
   }
 
   setCanvasDimensions() {
     this.canvas = this.editorService.setCanvasDimensions(this.layout)
-    // this.canvas = new fabric.Canvas('canvas')
     this.setTemplateOnCanvas()
   }
 
   setTemplateOnCanvas() {
     if (this.template != null || this.template != undefined) {
-      this.canvas.loadFromJSON(this.template.json, this.canvas.renderAll.bind(this.canvas), (o, obj) => {
-        console.log(o)
-        console.log(obj)
+      this.canvas.loadFromJSON(this.template.json, (objJson, objFabric) => {
+        console.log('j', objJson)
+        console.log('f', objFabric)
+        this.canvas.renderAll.bind(this.canvas)
       })
     }
     
     if (this.post != null || this.post != undefined) {
+      console.log(this.post)
       fabric.Image.fromURL(this.post, (post) => {
         post.scaleToHeight(this.canvas.getHeight())
-        console.log(this.post)
         this.canvas.setOverlayImage(post, this.canvas.renderAll.bind(this.canvas))
       })
     }
