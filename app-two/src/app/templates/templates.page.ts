@@ -115,14 +115,20 @@ export class TemplatesPage implements OnInit, OnDestroy {
   }
 
   openProducts() {
-    if (this.isSelected) {
-      this.storage.set('template', this.selectedTemplate).then(() => {
-        this.router.navigate(['products'])
-      })
-
-    } else {
+    if (this.isSelected)
+      this.getTemplate()
+    else
       this.templatesService.toast("Selecione um template !")
-    }
+  }
+
+  getTemplate() {
+    this.subscription$.push(this.templatesService.getTemplate(this.selectedTemplate.id_template)
+      .subscribe(_template => {
+        this.storage.set('template', _template).then(() => {
+          this.router.navigate(['products'])
+        })
+      })
+    )
   }
 
   loadMore(iScroll) {

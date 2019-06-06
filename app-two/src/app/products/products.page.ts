@@ -59,15 +59,15 @@ export class ProductsPage implements OnInit, OnDestroy {
   }
 
   getChosenTemplate() {
-    this.storage.get('template').then(temp => {
-      if (temp.id_subdivision == null || temp.id_subdivision == undefined) {
-        this.max_products = temp.max_products
-        this.numberOfProducts = temp.max_products
+    this.storage.get('template').then(template => {
+      if (template.id_subdivision == null || template.id_subdivision == undefined) {
+        this.max_products = template.max_products
+        this.numberOfProducts = template.max_products
 
       } else {
-        this.max_products_subdivision = temp.max_products
-        this.max_products = temp.max_products - 1
-        this.numberOfProducts = temp.max_products - 1
+        this.max_products_subdivision = template.max_products
+        this.max_products = template.max_products - 1
+        this.numberOfProducts = template.max_products - 1
       }      
     })
   }

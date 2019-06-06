@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, tap, map, retry } from 'rxjs/operators';
 import { empty } from 'rxjs';
 
 import { Template } from './../model/template';
@@ -38,6 +38,17 @@ export class TemplatesService {
         }),
         tap(resp => TemplatesService.pages = resp['pages']),
         map(resp => resp['templates'])
+      )
+  }
+
+  getTemplate(id_template) {
+    return this.http.get(`${this.url}/${id_template}`)
+      .pipe(
+        catchError(() => {
+          this.alerts.alertPopup("Erro ao carregar template")
+          return empty()
+        }),
+        map(resp => resp['template'])
       )
   }
 
