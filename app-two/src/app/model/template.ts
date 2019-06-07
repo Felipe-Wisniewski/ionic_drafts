@@ -9,6 +9,8 @@ export interface Template {
     alteration_date: string,
     id_lang: string,
     id_template: string,
+    layout: string,
+    json?: JSON,
     name: string,
     thumbnail_url: string ,
     thumbnail: string,

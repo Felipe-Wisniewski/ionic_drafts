@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 import { FontFaceObserver } from 'fontfaceobserver';
 import { fabric } from 'fabric';
+import { Canvas } from 'fabric/fabric-impl';
 
 import { environment } from 'src/environments/environment';
-import { Canvas } from 'fabric/fabric-impl';
+import { Product } from '../model/product';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,33 @@ export class EditorService {
 
   url = `${environment.URL_API}` 
 
-  constructor() { }
+  constructor(private storage: Storage) { }
 
-  setCanvasDimensions(canvas, layout) {
+  async getBrandStorage() {
+    const resp = await this.storage.get('brand')
+    if (resp == null) throw Error('Error')
+    return resp
+  }
+
+  async getTemplateStorage() {
+    const resp = await this.storage.get('template')
+    if (resp == null) throw Error('Error')
+    return resp
+  }
+
+  async getPostStorage() {
+    const resp = await this.storage.get('post')
+    if (resp == null) throw Error('Error')
+    return resp
+  }
+
+  async getProductsStorage() {
+    const resp = await this.storage.get('products')
+    if (resp == null) throw Error('Error')
+    return resp
+  }
+
+  async setCanvasDimensions(canvas: Canvas, layout: string) {
     let header = document.getElementsByTagName('ion-header').item(0).clientHeight
     let footer = document.getElementsByTagName('ion-footer').item(0).clientHeight
     console.log('header', document.getElementsByTagName('ion-header').item(0).clientHeight)
@@ -41,57 +66,93 @@ export class EditorService {
       height = heightScreen
     }
 
-    console.log(`${width} x ${height}`)
-    canvas.setDimensions({ width: width, height: height })
+    // console.log(`${width} x ${height}`)
+    await canvas.setDimensions({ width: width, height: height })
   }
 
-  setTemplateOnCanvas(canvas, json) {
+  async setTemplateOnCanvas(canvas: Canvas, json) {
     const fonts = []
-
+    
     json.objects.forEach(obj => {
+      console.log('obj template', obj)
       obj.scaleX = obj.scaleX / 100 * canvas.getWidth()
       obj.scaleY = obj.scaleY / 100 * canvas.getHeight()
       obj.top = obj.top / 100 * canvas.getHeight()
       obj.left = obj.left / 100 * canvas.getWidth()
       obj.lastGoodLeft = obj.left
       obj.lastGoodTop = obj.top
-
+      
       if (!obj.selectable) {
         obj.evented = false
       }
 
-      if (obj.type == 'text') {
-        console.log('text')
+      if (obj.controls == "background") {
+        obj.visi
+      }
+
+      /* if (obj.type == 'text') {
         const font = new FontFaceObserver(obj.fontFamily)
         fonts.push(font.load().catch(err => {
           obj.fontFamily = 'Roboto'
         }))
-      }
+      } */
 
     })
-    canvas.loadFromJSON(json, canvas.renderAll.bind(canvas))
+    return canvas.loadFromJSON(json, canvas.renderAll.bind(canvas), (oJson, oFabric) => {
+      console.log('---------------------------------------')
+      console.log(oJson)
+      console.log(oFabric)
+    })
+  }
+  
+  async setProductsOnCanvas(canvas: Canvas, products: Product[]) {
+    if (products.length > 1) {
+      const prod1 = fabric.Image.fromURL(products[0].image_url, (img) => {
+        img.scaleToWidth(canvas.getWidth() / 2)
+        img.top = 0
+        img.left = 0
+      })
+      
+      const prod2 = fabric.Image.fromURL(products[1].image_url, (img) => {
+        img.scaleToWidth(canvas.getWidth() / 2)
+        img.top = canvas.getHeight() / 2
+        img.left = canvas.getWidth() / 2
+      })
+      console.log('prod1', prod1)
+      console.log('prod2', prod2)
+      await canvas.add(prod1, prod2)
+    } else {
+      const prod1 = fabric.Image.fromURL(products[0].image_url, (img) => {
+        img.scaleToWidth(canvas.getWidth())
+        img.center()
+      })
+      console.log('prod1', prod1)
+      return canvas.add(prod1)
+    }
   }
 
-  //TODO !!!!!!!!!!
-  setPostOnCanvas(canvas: Canvas, post, logo) {
-
-    let _post = fabric.Image.fromURL(post, (img) => {
+  async setPostOnCanvas(canvas: Canvas, postUrl: string, logoUrl: string) {
+    const _post = fabric.Image.fromURL(postUrl, (img) => {
       console.log(img)
       img.scaleToHeight(canvas.getHeight())
       img.scaleToWidth(canvas.getWidth())
       img.center()
     })
     
-    let _logo = fabric.Image.fromURL(logo, (img) => {
-      console.log(img)
+    const _logo = fabric.Image.fromURL(logoUrl, (img) => {
+      img.scaleToWidth(canvas.getWidth() / 4)
       img.cornerStyle = 'circle'
+      img.top = canvas.getHeight() - (img.height + 5)
+      img.left = 5 
     })
       
     canvas.add(_post, _logo)
-    canvas.renderAll()
+    await canvas.renderAll()
   }
 
-  setImageOnCanvas(canvas, url) {
+  
+
+  addImageOnCanvas(canvas: Canvas, url: string) {
     fabric.Image.fromURL(url, (img) => {
       img.scaleToWidth(canvas.getWidth() / 2)
       img.cornerStyle = 'circle'

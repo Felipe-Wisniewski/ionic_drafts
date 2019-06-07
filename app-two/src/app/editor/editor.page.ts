@@ -1,10 +1,12 @@
-import { Brand } from './../model/brand';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { Canvas } from 'fabric/fabric-impl';
 import { fabric } from 'fabric';
 
 import { EditorService } from './editor.service';
+import { Brand } from '../model/brand';
+import { Template } from '../model/template';
+import { Post } from '../model/post';
+import { Product } from '../model/product';
 
 @Component({
   selector: 'app-editor',
@@ -14,78 +16,97 @@ import { EditorService } from './editor.service';
 export class EditorPage implements OnInit, OnDestroy {
 
   canvas: Canvas
-
-  title = ''
-  logo = ''
   layout = ''
-  template: any
-  post: any
-  product_one: any
-  product_two: any
+  title = ''
+  brand: Brand
+  template: Template
+  post: Post
+  products: Product[] = []
 
-  constructor(private storage: Storage, private editorService: EditorService) { }
+  constructor(private editorService: EditorService) { }
 
   ngOnInit() {
     this.canvas = new fabric.Canvas('canvas')
-    this.getChoose()
-  }
-
-  getChoose() {
-    this.storage.get('brand').then((_brand) => {
-      if (_brand.brand != null || _brand.brand != undefined) {
-        this.title = _brand.brand
-      } else {
-        this.title = _brand.subdivision
-      }
-      this.logo = _brand.logo_url
-    })
-
-    this.storage.get('template').then((_template) => {
-      if (_template != null || _template != undefined) {
-        this.layout = _template.layout
-        this.template = _template
-        this.setCanvasDimensions()
-        this.setTemplateOnCanvas()
-      }
-    })
-
-    this.storage.get('post').then((_post) => {
-      if (_post != null || _post != undefined) {
-        this.layout = _post.layout
-        console.log(_post)
-        this.post = _post.post_url
-        this.setCanvasDimensions()
-        this.setPostOnCanvas()
-      }
-    })
-
-    this.storage.get('products').then((_products) => {
-      if (_products != null || _products != undefined) {
-        if (_products.size > 1) {
-          this.product_one = _products[0]
-          this.product_two = _products[1]
-        } else {
-          this.product_one = _products[0]
-        }
-
-      }
+    this.getSelectedChoices().then(() => {
+      this.loadCanvasDimensions()
     })
   }
 
-  setCanvasDimensions() {
-    this.editorService.setCanvasDimensions(this.canvas, this.layout)
+  async getSelectedChoices() {
+    await this.editorService.getBrandStorage()
+      .then((brand) => {
+        this.brand = brand
+        this.title = this.brand.brand
+      })
+      .catch((err) => {
+        console.log('getBrand error', err)
+      })
+
+    await this.editorService.getTemplateStorage()
+      .then((template) => {
+        this.template = template
+        this.layout = this.template.layout
+      })
+      .catch(() => {
+        this.template = null
+      })
+
+    await this.editorService.getPostStorage()
+      .then((post) => {
+        this.post = post
+        this.layout = this.post.layout
+      })
+      .catch(() => {
+        this.post = null
+      })
+
+    await this.editorService.getProductsStorage()
+      .then((products) => {
+        products.forEach(p => {
+          this.products.push(p)
+        })
+      })
+      .catch((err) => {
+        console.log('getProduct', err)
+      })
   }
 
-  setTemplateOnCanvas() {
-    this.editorService.setTemplateOnCanvas(this.canvas, this.template.json)
+  loadCanvasDimensions() {
+    this.editorService.setCanvasDimensions(this.canvas, this.layout).then(() => {
+      console.log('canvas dimensions ok')
+      this.template != null ? this.loadTemplate() : this.loadPost()
+    })
   }
 
-  setPostOnCanvas() {
-    this.editorService.setPostOnCanvas(this.canvas, this.post, this.logo)
+  loadTemplate() {
+    this.editorService.setTemplateOnCanvas(this.canvas, this.template.json).then((it) => {
+      console.log('template ok!', it)
+      this.loadProducts()
+    })
+  }
+
+  loadProducts() {
+    this.editorService.setProductsOnCanvas(this.canvas, this.products).then((it) => {
+      console.log('products ok!', it)
+      this.canvas.forEachObject((it, i) => {
+        console.log(i)
+        console.log(it)
+      })
+    })
+  }
+
+  loadPost() {
+    this.editorService.setPostOnCanvas(this.canvas, this.post.post_url, this.brand.logo_url).then(() => {
+      console.log('posts ok!')
+      this.canvas.forEachObject((it, i) => {
+        console.log(i)
+        console.log(it)
+      })
+    })
   }
 
   setImageOnCanvas() {
-    
+
   }
 
   share() {
