@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ModalController, ActionSheetController } from '@ionic/angular';
 import { Canvas } from 'fabric/fabric-impl';
 import { fabric } from 'fabric';
 
@@ -23,7 +24,9 @@ export class EditorPage implements OnInit, OnDestroy {
   post: Post
   products: Product[] = []
 
-  constructor(private editorService: EditorService) { }
+  constructor(private editorService: EditorService, 
+    private modalController: ModalController,
+    private actionSheetController: ActionSheetController) { }
 
   ngOnInit() {
     this.canvas = new fabric.Canvas('canvas')
@@ -73,39 +76,31 @@ export class EditorPage implements OnInit, OnDestroy {
 
   loadCanvasDimensions() {
     this.editorService.setCanvasDimensions(this.canvas, this.layout).then(() => {
-      console.log('canvas dimensions ok')
+      console.log('dimensions ok')
       this.template != null ? this.loadTemplate() : this.loadPost()
     })
   }
 
   loadTemplate() {
     this.editorService.setTemplateOnCanvas(this.canvas, this.template.json).then((it) => {
-      console.log('template ok!', it)
+      console.log(it)
       this.loadProducts()
     })
   }
 
   loadProducts() {
-    this.editorService.setProductsOnCanvas(this.canvas, this.products).then((it) => {
-      console.log('products ok!', it)
-      this.canvas.forEachObject((it, i) => {
-        console.log(i)
-        console.log(it)
-      })
+    this.editorService.setProductsOnCanvas(this.canvas, this.products).then((prod) => {
+      console.log('products ok!', prod)
     })
   }
 
   loadPost() {
-    this.editorService.setPostOnCanvas(this.canvas, this.post.post_url, this.brand.logo_url).then(() => {
-      console.log('posts ok!')
-      this.canvas.forEachObject((it, i) => {
-        console.log(i)
-        console.log(it)
-      })
+    this.editorService.setPostOnCanvas(this.canvas, this.post.post_url, this.brand.logo_url).then((post) => {
+      console.log('posts ok!', post)
     })
   }
 
-  setImageOnCanvas() {
+  setImageOnCanvas(imgUrl: string) {
 
   }
 
@@ -117,8 +112,59 @@ export class EditorPage implements OnInit, OnDestroy {
 
   }
 
-  openOptionsAddItems() {
+  async openOptionsAddItems() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Insert items',
+      buttons: [
+        {
+          text: 'Brand logos',
+          icon: 'photos',
+          handler: () => {
+            this.addItemsModal()
+          }
+        },
+        {
+          text: 'Your logo',
+          icon: 'image',
+          handler: () => {
+            this.addItemsModal()
+          }
+        },
+        {
+          text: 'Stamps',
+          icon: 'pricetags',
+          handler: () => {
+            this.addItemsModal()
+          }
+        },
+        {
+          text: 'Icons',
+          icon: 'information',
+          handler: () => {
+            this.addItemsModal()
+          }
+        }
+      ]
+    });
+    await actionSheet.present()
+  }
 
+  async addItemsModal() {
+    const modal = await this.modalController.create({
+      component: '',
+      componentProps: {
+        choose: 'choose'
+      }
+    })
+
+    modal.onDidDismiss().then((it) => {
+      if (it.data != null || it.data != undefined) {
+        console.log(it.data['choose'])
+        let image = it.data['choose'].image_url
+        this.setImageOnCanvas(image)
+      }
+    })
+    return await modal.present()
   }
 
   openOptionsEditText() {

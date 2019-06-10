@@ -66,15 +66,14 @@ export class EditorService {
       height = heightScreen
     }
 
-    // console.log(`${width} x ${height}`)
     await canvas.setDimensions({ width: width, height: height })
   }
 
   async setTemplateOnCanvas(canvas: Canvas, json) {
     const fonts = []
-    
+    let mainImage = null
+
     json.objects.forEach(obj => {
-      console.log('obj template', obj)
       obj.scaleX = obj.scaleX / 100 * canvas.getWidth()
       obj.scaleY = obj.scaleY / 100 * canvas.getHeight()
       obj.top = obj.top / 100 * canvas.getHeight()
@@ -83,11 +82,13 @@ export class EditorService {
       obj.lastGoodTop = obj.top
       
       if (!obj.selectable) {
+        console.log('obj !selectable')
         obj.evented = false
       }
 
       if (obj.controls == "background") {
-        obj.visi
+        console.log('obj background', obj.src)
+        mainImage = obj.src
       }
 
       /* if (obj.type == 'text') {
@@ -96,38 +97,38 @@ export class EditorService {
           obj.fontFamily = 'Roboto'
         }))
       } */
-
+      console.log("json obj -> ", obj)
     })
-    return canvas.loadFromJSON(json, canvas.renderAll.bind(canvas), (oJson, oFabric) => {
-      console.log('---------------------------------------')
-      console.log(oJson)
-      console.log(oFabric)
+    return await canvas.loadFromJSON(json, (ob, fa) => {
+      if (mainImage) {
+        console.log('oi')
+        this.addMainImage(mainImage, canvas)
+      }
     })
   }
   
   async setProductsOnCanvas(canvas: Canvas, products: Product[]) {
     if (products.length > 1) {
-      const prod1 = fabric.Image.fromURL(products[0].image_url, (img) => {
+      await fabric.Image.fromURL(products[0].image_url, (img) => {
         img.scaleToWidth(canvas.getWidth() / 2)
         img.top = 0
         img.left = 0
+        canvas.add(img)
       })
       
-      const prod2 = fabric.Image.fromURL(products[1].image_url, (img) => {
+      await fabric.Image.fromURL(products[1].image_url, (img) => {
         img.scaleToWidth(canvas.getWidth() / 2)
         img.top = canvas.getHeight() / 2
         img.left = canvas.getWidth() / 2
+        canvas.add(img)
       })
-      console.log('prod1', prod1)
-      console.log('prod2', prod2)
-      await canvas.add(prod1, prod2)
+    
     } else {
-      const prod1 = fabric.Image.fromURL(products[0].image_url, (img) => {
+      await fabric.Image.fromURL(products[0].image_url, (img) => {
         img.scaleToWidth(canvas.getWidth())
         img.center()
+        canvas.add(img)
       })
-      console.log('prod1', prod1)
-      return canvas.add(prod1)
     }
   }
 
@@ -150,7 +151,14 @@ export class EditorService {
     await canvas.renderAll()
   }
 
-  
+  addMainImage(mainImage: string, canvas: Canvas) {
+    fabric.Image.fromURL(mainImage, (img) => {
+      img.scaleToHeight(canvas.getHeight())
+      img.width = canvas.getWidth()
+      img.height = canvas.getHeight()
+      canvas.setOverlayImage(img, canvas.renderAll.bind(canvas))
+    })
+  }
 
   addImageOnCanvas(canvas: Canvas, url: string) {
     fabric.Image.fromURL(url, (img) => {

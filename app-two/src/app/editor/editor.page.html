@@ -15,14 +15,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="light">
   <canvas class="canvas" id="canvas"></canvas>
 </ion-content>
 
 <ion-footer id="footer-id">
-  <ion-toolbar no-padding color="dark">
-    <ion-buttons class="footer-toolbar">
 
+  <ion-toolbar color="dark">
+
+    <ion-buttons class="footer-buttons">
       <!-- share -->
       <ion-button (click)="share()">
         <ion-icon slot="icon-only" size="large" name="share"></ion-icon>
@@ -30,7 +31,7 @@
 
       <!-- change product -->
       <ion-button (click)="openChangeProduct()">
-        <ion-icon slot="icon-only" size="large" name="repeat"></ion-icon>
+        <ion-icon slot="icon-only" size="large" src="assets/icon/shoe.svg"></ion-icon>
       </ion-button>
 
       <!-- open modal add items -->
@@ -40,15 +41,15 @@
 
       <!-- open modal edit text -->
       <ion-button (click)="openOptionsEditText()">
-        <ion-icon slot="icon-only" size="large" name="text"></ion-icon>
+        <ion-icon slot="icon-only" size="large"  src="assets/icon/type.svg"></ion-icon>
       </ion-button>
 
       <!-- delete selected item -->
       <ion-button (click)="deleteObjectOnCanvas()">
         <ion-icon slot="icon-only" size="large" name="trash"></ion-icon>
       </ion-button>
-
     </ion-buttons>
 
   </ion-toolbar>
+
 </ion-footer>
