@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { FontFaceObserver } from 'fontfaceobserver';
 import { fabric } from 'fabric';
 import { Canvas } from 'fabric/fabric-impl';
 
@@ -12,6 +11,7 @@ import { Product } from '../model/product';
 })
 export class EditorService {
 
+  FontFaceObserver = require('fontfaceobserver')
   url = `${environment.URL_API}` 
 
   constructor(private storage: Storage) { }
@@ -19,35 +19,33 @@ export class EditorService {
   async getBrandStorage() {
     const resp = await this.storage.get('brand')
     if (resp == null) throw Error('Error')
-    return resp
+    return await resp
   }
 
   async getTemplateStorage() {
     const resp = await this.storage.get('template')
     if (resp == null) throw Error('Error')
-    return resp
+    return await resp
   }
 
   async getPostStorage() {
     const resp = await this.storage.get('post')
     if (resp == null) throw Error('Error')
-    return resp
+    return await resp
   }
 
   async getProductsStorage() {
     const resp = await this.storage.get('products')
     if (resp == null) throw Error('Error')
-    return resp
+    return await resp
   }
 
   async setCanvasDimensions(canvas: Canvas, layout: string) {
+    console.log(`header ${document.getElementsByTagName('ion-header').item(0).clientHeight} / footer ${document.getElementsByTagName('ion-footer').item(0).clientHeight}`)
     let header = document.getElementsByTagName('ion-header').item(0).clientHeight
     let footer = document.getElementsByTagName('ion-footer').item(0).clientHeight
-    console.log('header', document.getElementsByTagName('ion-header').item(0).clientHeight)
-    console.log('footer', document.getElementsByTagName('ion-footer').item(0).clientHeight)
     let widthScreen = parent.innerWidth
     let heightScreen = parent.innerHeight - (header + footer)
-
     let width = 0
     let height = 0
 
@@ -65,7 +63,6 @@ export class EditorService {
       width = (1080 / 1920) * heightScreen
       height = heightScreen
     }
-
     await canvas.setDimensions({ width: width, height: height })
   }
 
@@ -82,41 +79,37 @@ export class EditorService {
       obj.lastGoodTop = obj.top
       
       if (!obj.selectable) {
-        console.log('obj !selectable')
         obj.evented = false
       }
 
-      if (obj.controls == "background") {
-        console.log('obj background', obj.src)
-        mainImage = obj.src
+      if (obj.type == 'text') {
+        let font = new this.FontFaceObserver(obj.fontFamily)
+        fonts.push(font.load().catch(() => obj.fontFamily = 'Roboto'))
       }
-
-      /* if (obj.type == 'text') {
-        const font = new FontFaceObserver(obj.fontFamily)
-        fonts.push(font.load().catch(err => {
-          obj.fontFamily = 'Roboto'
-        }))
-      } */
+      
+      if (obj.controls == "background") {
+        mainImage = obj
+      }
       console.log("json obj -> ", obj)
     })
-    return await canvas.loadFromJSON(json, (ob, fa) => {
-      if (mainImage) {
-        console.log('oi')
-        this.addMainImage(mainImage, canvas)
-      }
-    })
+
+    await canvas.loadFromJSON(json, canvas.renderAll.bind(canvas), (obj, fab) => {
+      // canvas.sendToBack = mainImage
+      console.log(obj)
+      console.log(fab)
+    })    
   }
   
-  async setProductsOnCanvas(canvas: Canvas, products: Product[]) {
+  setProductsOnCanvas(canvas: Canvas, products: Product[]) {
     if (products.length > 1) {
-      await fabric.Image.fromURL(products[0].image_url, (img) => {
+      fabric.Image.fromURL(products[0].image_url, (img) => {
         img.scaleToWidth(canvas.getWidth() / 2)
         img.top = 0
         img.left = 0
         canvas.add(img)
       })
       
-      await fabric.Image.fromURL(products[1].image_url, (img) => {
+      fabric.Image.fromURL(products[1].image_url, (img) => {
         img.scaleToWidth(canvas.getWidth() / 2)
         img.top = canvas.getHeight() / 2
         img.left = canvas.getWidth() / 2
@@ -124,7 +117,7 @@ export class EditorService {
       })
     
     } else {
-      await fabric.Image.fromURL(products[0].image_url, (img) => {
+      fabric.Image.fromURL(products[0].image_url, (img) => {
         img.scaleToWidth(canvas.getWidth())
         img.center()
         canvas.add(img)
@@ -138,6 +131,7 @@ export class EditorService {
       img.scaleToHeight(canvas.getHeight())
       img.scaleToWidth(canvas.getWidth())
       img.center()
+      //lockMovement = true
     })
     
     const _logo = fabric.Image.fromURL(logoUrl, (img) => {

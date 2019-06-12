@@ -30,14 +30,20 @@ export class EditorPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.canvas = new fabric.Canvas('canvas')
-    this.getSelectedChoices().then(() => {
-      this.loadCanvasDimensions()
-    })
+    this.getSelectedChoices()
+      .then(() => {
+        console.log("99")
+        this.loadCanvasDimensions()
+      })
+      .then(() => {
+        console.log("100")
+      })
   }
 
   async getSelectedChoices() {
     await this.editorService.getBrandStorage()
       .then((brand) => {
+        console.log("1")
         this.brand = brand
         this.title = this.brand.brand
       })
@@ -47,6 +53,7 @@ export class EditorPage implements OnInit, OnDestroy {
 
     await this.editorService.getTemplateStorage()
       .then((template) => {
+        console.log("2")
         this.template = template
         this.layout = this.template.layout
       })
@@ -56,6 +63,7 @@ export class EditorPage implements OnInit, OnDestroy {
 
     await this.editorService.getPostStorage()
       .then((post) => {
+        console.log("3")
         this.post = post
         this.layout = this.post.layout
       })
@@ -65,6 +73,7 @@ export class EditorPage implements OnInit, OnDestroy {
 
     await this.editorService.getProductsStorage()
       .then((products) => {
+        console.log("4")
         products.forEach(p => {
           this.products.push(p)
         })
@@ -75,28 +84,27 @@ export class EditorPage implements OnInit, OnDestroy {
   }
 
   loadCanvasDimensions() {
+    console.log("5")
     this.editorService.setCanvasDimensions(this.canvas, this.layout).then(() => {
-      console.log('dimensions ok')
-      this.template != null ? this.loadTemplate() : this.loadPost()
+      console.log("6")
+      this.template != null ?  this.loadTemplate() : this.loadPost()
     })
   }
 
   loadTemplate() {
+    console.log("7")
     this.editorService.setTemplateOnCanvas(this.canvas, this.template.json).then((it) => {
+      console.log("8")
       console.log(it)
-      this.loadProducts()
     })
-  }
-
-  loadProducts() {
-    this.editorService.setProductsOnCanvas(this.canvas, this.products).then((prod) => {
-      console.log('products ok!', prod)
-    })
+    console.log("9")
+    this.editorService.setProductsOnCanvas(this.canvas, this.products)    
+    console.log("10")
   }
 
   loadPost() {
     this.editorService.setPostOnCanvas(this.canvas, this.post.post_url, this.brand.logo_url).then((post) => {
-      console.log('posts ok!', post)
+      console.log('posts ok', post)
     })
   }
 
