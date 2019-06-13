@@ -30,76 +30,62 @@ export class EditorPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.canvas = new fabric.Canvas('canvas')
-    this.getSelectedChoices()
-      .then(() => {
-        console.log("99")
-        this.loadCanvasDimensions()
+
+    this.getSelectedChoices().then(() => {
+      this.loadCanvasDimensions().then(() => {
+        this.template != null ?  this.loadTemplate() : this.loadPost()
       })
-      .then(() => {
-        console.log("100")
-      })
+    })
   }
 
   async getSelectedChoices() {
-    await this.editorService.getBrandStorage()
-      .then((brand) => {
-        console.log("1")
+    await this.editorService.getBrandStorage().then((brand) => {
         this.brand = brand
         this.title = this.brand.brand
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.log('getBrand error', err)
       })
 
-    await this.editorService.getTemplateStorage()
-      .then((template) => {
-        console.log("2")
+    await this.editorService.getTemplateStorage().then((template) => {
         this.template = template
         this.layout = this.template.layout
-      })
-      .catch(() => {
+      }).catch(() => {
         this.template = null
       })
 
-    await this.editorService.getPostStorage()
-      .then((post) => {
-        console.log("3")
+    await this.editorService.getPostStorage().then((post) => {
         this.post = post
         this.layout = this.post.layout
-      })
-      .catch(() => {
+      }).catch(() => {
         this.post = null
       })
 
-    await this.editorService.getProductsStorage()
-      .then((products) => {
-        console.log("4")
+    await this.editorService.getProductsStorage().then((products) => {
         products.forEach(p => {
           this.products.push(p)
         })
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.log('getProduct', err)
       })
   }
 
-  loadCanvasDimensions() {
-    console.log("5")
-    this.editorService.setCanvasDimensions(this.canvas, this.layout).then(() => {
-      console.log("6")
-      this.template != null ?  this.loadTemplate() : this.loadPost()
+  async loadCanvasDimensions() {
+    console.log("set Canvas Dimensions")
+    await this.editorService.setCanvasDimensions(this.canvas, this.layout).then(() => {
+      console.log("set Canvas Dimensions ok")
     })
   }
 
   loadTemplate() {
-    console.log("7")
-    this.editorService.setTemplateOnCanvas(this.canvas, this.template.json).then((it) => {
-      console.log("8")
-      console.log(it)
-    })
-    console.log("9")
-    this.editorService.setProductsOnCanvas(this.canvas, this.products)    
-    console.log("10")
+    console.log("set Template On Canvas")
+    this.editorService.setTemplateOnCanvas(this.canvas, this.template.json).then((img) => {
+      console.log(img)
+      console.log("set Template On Canvas ok")
+      console.log("set Products On Canvas")
+      this.editorService.setProductsOnCanvas(this.canvas, this.products).then(() => {
+        console.log("set Products On Canvas ok")  
+      })    
+    })    
   }
 
   loadPost() {

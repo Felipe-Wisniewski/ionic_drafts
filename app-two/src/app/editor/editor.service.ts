@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { fabric } from 'fabric';
 import { Canvas } from 'fabric/fabric-impl';
+import * as FontFaceObserver from 'fontfaceobserver';
 
 import { environment } from 'src/environments/environment';
 import { Product } from '../model/product';
@@ -11,7 +12,6 @@ import { Product } from '../model/product';
 })
 export class EditorService {
 
-  FontFaceObserver = require('fontfaceobserver')
   url = `${environment.URL_API}` 
 
   constructor(private storage: Storage) { }
@@ -68,7 +68,7 @@ export class EditorService {
 
   async setTemplateOnCanvas(canvas: Canvas, json) {
     const fonts = []
-    let mainImage = null
+    var mainObject = null
 
     json.objects.forEach(obj => {
       obj.scaleX = obj.scaleX / 100 * canvas.getWidth()
@@ -83,44 +83,44 @@ export class EditorService {
       }
 
       if (obj.type == 'text') {
-        let font = new this.FontFaceObserver(obj.fontFamily)
+        let font = new FontFaceObserver(obj.fontFamily)
         fonts.push(font.load().catch(() => obj.fontFamily = 'Roboto'))
       }
       
       if (obj.controls == "background") {
-        mainImage = obj
+        mainObject = obj
       }
       console.log("json obj -> ", obj)
     })
 
-    await canvas.loadFromJSON(json, canvas.renderAll.bind(canvas), (obj, fab) => {
-      // canvas.sendToBack = mainImage
-      console.log(obj)
-      console.log(fab)
+    await canvas.loadFromJSON(json, () => {
+      canvas.renderAll.bind(canvas)
+      return mainObject
     })    
   }
   
-  setProductsOnCanvas(canvas: Canvas, products: Product[]) {
+  async setProductsOnCanvas(canvas: Canvas, products: Product[]) {
     if (products.length > 1) {
-      fabric.Image.fromURL(products[0].image_url, (img) => {
-        img.scaleToWidth(canvas.getWidth() / 2)
-        img.top = 0
-        img.left = 0
-        canvas.add(img)
+      await fabric.Image.fromURL(products[0].image_url, (prod1) => {
+        prod1.scaleToWidth(canvas.getWidth() / 2)
+        prod1.top = 0
+        prod1.left = 0
+        canvas.add(prod1)
       })
       
-      fabric.Image.fromURL(products[1].image_url, (img) => {
-        img.scaleToWidth(canvas.getWidth() / 2)
-        img.top = canvas.getHeight() / 2
-        img.left = canvas.getWidth() / 2
-        canvas.add(img)
+      await fabric.Image.fromURL(products[1].image_url, (prod2) => {
+        prod2.scaleToWidth(canvas.getWidth() / 2)
+        prod2.top = canvas.getHeight() / 2
+        prod2.left = canvas.getWidth() / 2
+        canvas.add(prod2)
       })
     
     } else {
-      fabric.Image.fromURL(products[0].image_url, (img) => {
-        img.scaleToWidth(canvas.getWidth())
-        img.center()
-        canvas.add(img)
+      await fabric.Image.fromURL(products[0].image_url, (prod) => {
+        prod.scaleToWidth(canvas.getWidth())
+        prod.center()
+        canvas.add(prod)
+        console.log("prod add")
       })
     }
   }
