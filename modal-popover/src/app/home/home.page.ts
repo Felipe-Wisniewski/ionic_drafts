@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalController, ActionSheetController, PopoverController, NavController } from '@ionic/angular';
 
 import { TextToolsPage } from './text-tools/text-tools.page';
@@ -18,14 +18,14 @@ export class HomePage {
     private popoverController: PopoverController) {}
 
   share() {
-
+    console.log('share')
   }
 
   openChangeProduct() {
-
+    console.log('openChangeProduct')
   }
 
-  async openOptionsAddItems() {
+  async addItems() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Insert items',
       buttons: [
@@ -70,7 +70,6 @@ export class HomePage {
       }
     })
 
-    //retorno do component
     modal.onDidDismiss().then((it) => {
       if (it.data != null || it.data != undefined) {
         console.log(it.data['choose'])
@@ -80,16 +79,21 @@ export class HomePage {
     return await modal.present()
   }
 
-  async openOptionsEditText(ev: Event) {
+  async optionsEditText(ev: Event) {
+    console.log(ev)
     const popover = await this.popoverController.create({
       component: TextToolsPage,
       event: ev,
+      animated: true,
+      showBackdrop: true,
       translucent: true
-    });
+    })
+
+    
     return await popover.present();
   }
 
   deleteObjectOnCanvas() {
-
+    console.log('deleteObjectOnCanvas')
   }
 }
