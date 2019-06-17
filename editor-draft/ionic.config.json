@@ -1,7 +1,0 @@
-{
-  "name": "editor-draft",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}

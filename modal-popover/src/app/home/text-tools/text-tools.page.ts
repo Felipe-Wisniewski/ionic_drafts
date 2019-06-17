@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { Component, OnInit, Input } from '@angular/core';
+import { PopoverController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-text-tools',
@@ -8,49 +8,33 @@ import { PopoverController } from '@ionic/angular';
 })
 export class TextToolsPage implements OnInit {
 
-  text = ''
   fonts = ['Arial', 'Calibri', 'Roboto', 'Times New Roman', 'Verdana']
-  font = 'Select font'
 
-  constructor(private popoverController: PopoverController) { 
-    this.log('construtor');
-  }
+  objText: any
+  text = ''
+  textFont = ''
+  textSize = ''
+  textColor = ''
+  textOpacity = 0
 
-  closePopover() {
-    
-  }
+  constructor(private navParams: NavParams, private popoverController: PopoverController) { }
 
   ngOnChanges() {
-    this.log('ngOnChanges');
+    console.log('On  Changes')
   }
 
   ngOnInit() {
-    this.log('ngOnInit');
+    console.log('ngOnInit')
+    this.objText = this.navParams.get('objText')
+    this.setTextSettings()
+    // this.text = this.navParams.get('text')
+    // this.textFont = this.navParams.get('textFont')
+    // this.textSize = this.navParams.get('textSize')
+    // this.textColor = this.navParams.get('textColor')
+    // this.textOpacity = this.navParams.get('textOpacity')
   }
 
-  ngDoCheck() {
-    this.log('ngDoCheck');
+  setTextSettings() {
+    console.log(this.objText)    
   }
-
-  ngAfterContentInit() {
-    this.log('ngAfterContentInit');
-  }
-
-  ngAfterContentChecked() {
-    this.log('ngAfterContenChecked');
-  }
-
-  ngAfterViewChecked() {
-    this.log('ngAfterViewChecked');
-  }
-
-  ngOnDestroy() {
-    this.log('ngOnDestroy');
-    this.closePopover()
-  }
-
-  private log(hook: string) {
-    console.log(hook);
-  }
-
 }

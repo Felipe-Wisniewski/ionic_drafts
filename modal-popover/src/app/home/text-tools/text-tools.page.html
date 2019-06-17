@@ -20,7 +20,7 @@
         </div>
       </ion-col>
       <ion-col>
-        <ion-select [(ngModel)]="font">
+        <ion-select [(ngModel)]="textFont">
           <ion-select-option *ngFor="let font of fonts">{{ font }}</ion-select-option>
         </ion-select>
       </ion-col>
@@ -30,7 +30,7 @@
   <ion-row>
     <ion-item-divider no-padding>
       <ion-col>
-        <ion-range no-padding min="10" max="100" step="2">
+        <ion-range no-padding min="10" max="100" step="2" [(ngModel)]="textSize">
             <ion-icon slot="start" size="small" src="assets/icon/type.svg"></ion-icon>
             <ion-icon slot="end" src="assets/icon/type.svg"></ion-icon>
         </ion-range>
@@ -42,7 +42,7 @@
     <ion-item-divider no-padding>
       <ion-col size="2">
         <div class="div-icon">
-          <ion-icon slot="icon-only" size="large" name="color-palette"></ion-icon>
+          <ion-icon slot="icon-only" name="color-palette"></ion-icon>
         </div>
       </ion-col>
       <ion-col>
@@ -54,7 +54,7 @@
   <ion-row>
     <ion-item-divider no-padding>
       <ion-col>
-        <ion-range no-padding min="0" max="100" step="2">
+        <ion-range no-padding min="0" max="100" step="2" [(ngModel)]="textOpacity">
           <ion-icon slot="start" size="small" name="sunny"></ion-icon>
           <ion-icon slot="end" name="sunny"></ion-icon>
         </ion-range>
