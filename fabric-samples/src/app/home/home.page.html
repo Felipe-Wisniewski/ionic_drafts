@@ -1,16 +1,17 @@
-<ion-header>
+<ion-header no-padding id="header-id">
   <ion-toolbar color="primary">
-    <ion-title>Fabric</ion-title>
+    <ion-title>Editor</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon slot="icon-only" name="share"></ion-icon>
-      </ion-button>
-      <ion-button>
+      <ion-button [routerLink]="['/']">
         <ion-icon slot="icon-only" name="grid"></ion-icon>
       </ion-button>
-      <ion-button>
+      <ion-button [routerLink]="['/gallery']">
         <ion-icon slot="icon-only" name="photos"></ion-icon>
       </ion-button>
+
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -36,6 +37,40 @@
     </ion-row>
 
   </ion-grid>
+  <canvas class="canvas" id="canvas"></canvas>
 </ion-content>
 
+<ion-footer id="footer-id">
+  <ion-toolbar no-padding color="dark">
 
+    <ion-buttons class="footer-toolbar">
+
+      <!-- share -->
+      <ion-button (click)="share()">
+        <ion-icon slot="icon-only" size="large" name="share"></ion-icon>
+      </ion-button>
+
+      <!-- change product -->
+      <ion-button (click)="openChangeProduct()">
+        <ion-icon slot="icon-only" size="large" name="repeat"></ion-icon>
+      </ion-button>
+
+      <!-- open modal add items -->
+      <ion-button (click)="openOptionsAddItems()">
+        <ion-icon slot="icon-only" size="large" name="add"></ion-icon>
+      </ion-button>
+
+      <!-- open modal edit text -->
+      <ion-button (click)="openOptionsEditText()">
+        <ion-icon slot="icon-only" size="large" name="text"></ion-icon>
+      </ion-button>
+
+      <!-- delete selected item -->
+      <ion-button (click)="deleteObjectOnCanvas()">
+        <ion-icon slot="icon-only" size="large" name="trash"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

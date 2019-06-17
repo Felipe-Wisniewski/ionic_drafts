@@ -1,0 +1,59 @@
+<ion-header no-padding id="header-id">
+  <ion-toolbar color="primary">
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!searchIsClicked"  (click)="searchIsClicked=true">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/']">
+        <ion-icon slot="icon-only" name="grid"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/']">
+        <ion-icon slot="icon-only" name="photos"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-searchbar *ngIf="searchIsClicked" showCancelButton (ionCancel)="searchCancel()" [(ngModel)]="search" (ionChange)="searchProduct()"></ion-searchbar>
+
+<ion-content color="light-shade">
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel eros posuere ante cursus placerat id quis mauris. Morbi scelerisque diam nec enim dapibus tempus. Aliquam arcu ligula, rutrum sed faucibus bibendum, faucibus vel dui. Duis malesuada arcu id varius rhoncus. Etiam tincidunt, tellus tempus ullamcorper molestie, urna mi consequat erat, rhoncus consequat augue ex eget libero. Sed mattis velit in mauris mattis ultrices. Aliquam sollicitudin purus et leo sagittis porttitor. In maximus dui ac quam malesuada euismod. Curabitur maximus non neque porttitor consequat. Etiam et libero nisl.</p>
+  <!-- <canvas class="canvas" id="canvas"></canvas> -->
+</ion-content>
+
+<ion-footer id="footer-id">
+  <ion-toolbar color="dark">
+    <ion-buttons class="footer-buttons">
+      
+      <!-- share -->
+      <ion-button (click)="share()">
+        <ion-icon slot="icon-only" size="large" name="share"></ion-icon>
+      </ion-button>
+      
+      <!-- change product -->
+      <ion-button (click)="openChangeProduct()">
+        <ion-icon slot="icon-only" size="large" src="assets/icon/shoe.svg"></ion-icon>
+      </ion-button>
+      
+      <!-- open modal add items -->
+      <ion-button (click)="addItems()">
+        <ion-icon slot="icon-only" size="large" name="add"></ion-icon>
+      </ion-button>
+      
+      <!-- open modal edit text -->
+      <ion-button (click)="optionsEditText($event)">
+        <ion-icon slot="icon-only" size="large" src="assets/icon/type.svg"></ion-icon>
+      </ion-button>
+      
+      <!-- delete selected item -->
+      <ion-button (click)="deleteObject()">
+        <ion-icon slot="icon-only" size="large" name="trash"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
