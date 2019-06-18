@@ -56,6 +56,7 @@ export class HomePage {
       this.canvas.setDimensions({ width: widthScreen, height: widthScreen })
     }
     console.log(`canvas - w:${this.canvas.getWidth()} x h:${this.canvas.getHeight()}`)
+    this.getCanvasEvents()
     this.setTemplateOnCanvas()
   }
 
@@ -78,7 +79,8 @@ export class HomePage {
         let font = new FontFaceObserver(obj.fontFamily)
         fonts.push(font.load().catch(() => obj.fontFamily = 'Roboto'))
       }
-      
+      console.log(fonts)
+
       if (obj.controls == "background") {
         
       }
@@ -86,7 +88,6 @@ export class HomePage {
     })
 
     this.canvas.loadFromJSON(this.json, () => {
-      this.getCanvasEvents()
       this.canvas.renderAll.bind(this.canvas)
     })    
   }
@@ -94,17 +95,18 @@ export class HomePage {
   getCanvasEvents() {
     this.canvas.on({
       'mouse:down': (obj) => {
+        console.log(`mouse:down:`)
+        console.log(obj)
+
         if (obj.target) {
           switch(obj.target.type) {
             case 'text': {
-              console.log('text')
               this.objText = obj.target
               this.textIsSelected = false
               break
             }
 
             default: {
-              console.log('default')
               this.textIsSelected = false
               break
             }
@@ -112,43 +114,56 @@ export class HomePage {
         }
       },
       'touch:gesture': (obj) => {
-        console.log(`touch gesture: ${obj}`)
+        console.log(`touch gesture:`)
+        console.log(obj)
       },
       'mouse:up': (obj) => {
-        console.log(`mouse:up: ${obj}`)
+        console.log(`mouse:up:`)
+        console.log(obj)
       },
       'after:render': (obj) => {
-        console.log(`after:render: ${obj}`)
+        console.log(`after:render:`)
+        console.log(obj)
       },
       'before:selection:cleared': (obj) => {
-        console.log(`before:selection:cleared: ${obj}`)
+        console.log(`before:selection:cleared:`)
+        console.log(obj)
       },
       'selection:created': (obj) => {
-        console.log(`selection:created: ${obj}`)
+        console.log(`selection:created:`)
+        console.log(obj)
       },
       'selection:cleared': (obj) => {
-        console.log(`selection:cleared: ${obj}`)
+        console.log(`selection:cleared:`)
+        console.log(obj)
       },
       'object:modified': (obj) => {
-        console.log(`object:modified: ${obj}`)
+        console.log(`object:modified:`)
+        console.log(obj)
       },
       'object:selected': (obj) => {
-        console.log(`object:selected: ${obj}`)
+        console.log(`object:selected:`)
+        console.log(obj)
       },
       'object:moving': (obj) => {
-        console.log(`object:moving: ${obj}`)
+        console.log(`object:moving:`)
+        console.log(obj)
       },
       'object:scaling': (obj) => {
-        console.log(`object:scaling: ${obj}`)
+        console.log(`object:scaling:`)
+        console.log(obj)
       },
       'object:rotating': (obj) => {
-        console.log(`object:rotating: ${obj}`)
+        console.log(`object:rotating:`)
+        console.log(obj)
       },
       'object:added': (obj) => {
-        console.log(`object:added: ${obj}`)
+        console.log(`object:added:`)
+        console.log(obj)
       },
       'object:removed': (obj) => {
-        console.log(`object:removed: ${obj}`)
+        console.log(`object:removed:`)
+        console.log(obj)
       }
     })
   }
@@ -202,21 +217,15 @@ export class HomePage {
     return await modal.present()
   }
 
-  setTextSettings(obj: any) {
-    console.log(obj)
-    /* this.text = ''
-    this.textFont = ''
-    this.textSize = 0
-    this.textColor = ''
-    this.textOpacity = 50 */
-  }
-
   async optionsEditText(ev: Event) {
     const popover = await this.popoverController.create({
       component: TextToolsPage,
       event: ev,
+      animated: true,
+      translucent: true,
       componentProps: {
-        objText: this.objText
+        objText: this.objText,
+        canvas: this.canvas
       }
     })
 
