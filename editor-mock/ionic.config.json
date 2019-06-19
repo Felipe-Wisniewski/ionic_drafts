@@ -1,0 +1,7 @@
+{
+  "name": "editor-mock",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

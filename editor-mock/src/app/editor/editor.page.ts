@@ -1,20 +1,19 @@
-import { Component } from '@angular/core';
-import { ModalController, ActionSheetController, PopoverController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
-import { fabric } from 'fabric';
-import * as FontFaceObserver from 'fontfaceobserver';
-
-import { TextToolsPage } from './text-tools/text-tools.page';
+import { Component, OnInit } from '@angular/core';
 import { Canvas } from 'fabric/fabric-impl';
-import { HomeService } from './home.service';
+import { Subscription } from 'rxjs';
+import { EditorService } from './editor.service';
+import { PopoverController } from '@ionic/angular';
+import { fabric } from 'fabric';
+import { AddTextPage } from './add-text/add-text.page';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-editor',
+  templateUrl: './editor.page.html',
+  styleUrls: ['./editor.page.scss'],
 })
-export class HomePage {
+export class EditorPage implements OnInit {
 
+  
   title = 'Test'
   canvas: Canvas
   json: any
@@ -26,23 +25,20 @@ export class HomePage {
 
   subscription$: Subscription
 
-  constructor(private homeService: HomeService,
-    private modalController: ModalController,
-    private actionSheetController: ActionSheetController,
-    private popoverController: PopoverController) { }
+  constructor(private editorService: EditorService, private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.getChoices()
   }
 
   getChoices() {
-    this.subscription$ = this.homeService.getTemplate()
+    this.subscription$ = this.editorService.getTemplate()
       .subscribe(_template => {
         this.json = _template['json']
         this.setCanvasDimensions()
       })
 
-    this.subscription$ = this.homeService.getProducts()
+    this.subscription$ = this.editorService.getProducts()
       .subscribe(prods => {
         if (prods > 1) {
           console.log('>', prods)
@@ -86,8 +82,8 @@ export class HomePage {
       }
 
       if (obj.type == 'text') {
-        let font = new FontFaceObserver(obj.fontFamily)
-        fonts.push(font.load().catch(() => obj.fontFamily = 'Roboto'))
+        // let font = new FontFaceObserver(obj.fontFamily)
+        // fonts.push(font.load().catch(() => obj.fontFamily = 'Roboto'))
       }
       console.log(fonts)
 
@@ -190,7 +186,10 @@ export class HomePage {
     console.log('openChangeProduct')
   }
 
-  async addItems() {
+  addItems() {
+    
+  }
+  /* async addItems() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Insert items',
       buttons: [{
@@ -229,11 +228,11 @@ export class HomePage {
       }
     })
     return await modal.present()
-  }
+  } */
 
   async optionsEditText(ev: Event) {
     const popover = await this.popoverController.create({
-      component: TextToolsPage,
+      component: AddTextPage,
       event: ev,
       animated: true,
       translucent: true,
@@ -256,4 +255,5 @@ export class HomePage {
   ngOnDestroy() {
     console.log('On Destroy')
   }
+
 }
