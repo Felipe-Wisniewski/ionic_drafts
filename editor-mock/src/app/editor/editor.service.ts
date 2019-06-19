@@ -8,10 +8,5 @@ export class EditorService {
 
   constructor(private http: HttpClient) { }
 
-  getTemplate() {
-    return this.http.get('http://localhost:3000/template')
-  }
-
-  getProducts() {
-    return this.http.get('http://localhost:3000/products')
-  }
+  
+}

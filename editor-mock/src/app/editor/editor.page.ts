@@ -32,20 +32,7 @@ export class EditorPage implements OnInit {
   }
 
   getChoices() {
-    this.subscription$ = this.editorService.getTemplate()
-      .subscribe(_template => {
-        this.json = _template['json']
-        this.setCanvasDimensions()
-      })
-
-    this.subscription$ = this.editorService.getProducts()
-      .subscribe(prods => {
-        if (prods > 1) {
-          console.log('>', prods)
-        } else {
-          console.log('<', prods)
-        }
-      })
+    
   }
 
   setCanvasDimensions() {

@@ -1,15 +1,34 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      BR Mock
-    </ion-title>
+<ion-header no-padding id="header-id">
+  <ion-toolbar color="primary">
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/follow']">
+        <ion-icon slot="icon-only" name="grid"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/gallery']">
+        <ion-icon slot="icon-only" name="photos"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  
-  <ion-button>1</ion-button>
-  <ion-button>1</ion-button>
-  <ion-button>1</ion-button>
+  <div class="home-buttons">
+    <ion-button class="home-button" expand="full" (click)="onClick('1')">TEMPLATE BRANCO POST 1 PRODUTO</ion-button>
+    <ion-button class="home-button"  expand="full" (click)="onClick('2')">TEMPLATE BRANCO STORY 2 PRODUTOS</ion-button>
 
+    <ion-button class="home-button"  expand="full" (click)="onClick('3')">TEMPLATE POST 1 PRODUTO</ion-button>
+    <ion-button class="home-button"  expand="full" (click)="onClick('4')">TEMPLATE POST 2 PRODUTOS</ion-button>
+
+    <ion-button class="home-button"  expand="full" (click)="onClick('5')">TEMPLATE STORY 2 PRODUTOS</ion-button>
+
+    <ion-button class="home-button"  expand="full" (click)="onClick('6')">TEMPLATE POST TAL MAE TAL FILHA</ion-button>
+    <ion-button class="home-button"  expand="full" (click)="onClick('7')">TEMPLATE STORY TAL MAE TAL FILHA</ion-button>
+
+    <ion-button class="home-button"  expand="full" (click)="onClick('8')">POST POST</ion-button>
+    <ion-button class="home-button"  expand="full" (click)="onClick('9')">POST STORY</ion-button>
+  </div>
 </ion-content>
