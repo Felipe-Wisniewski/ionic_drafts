@@ -31,6 +31,7 @@
     "templateWhite": {
         "id_brand": "0",
         "id_template": "0",
+        "json": null,
         "name": "blank",
         "thumbnail_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/9bcc2a0cc1da524aac2e5d34f073c49d.",
         "id_subdivision": null,
@@ -40,6 +41,7 @@
     "templateWhiteS": {
         "id_brand": "0",
         "id_template": "0",
+        "json": null,
         "name": "blank",
         "thumbnail_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/templates/9bcc2a0cc1da524aac2e5d34f073c49d.",
         "id_subdivision": null,

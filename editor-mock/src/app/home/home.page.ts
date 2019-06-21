@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { Subscription, concat } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-import { Subscription } from 'rxjs';
 import { HomeService } from './home.service';
 
 @Component({
@@ -10,71 +11,51 @@ import { HomeService } from './home.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit, OnDestroy {
+export class HomePage implements OnDestroy {
 
   title = 'BR Test'
-  subscription$: Subscription[] = []
+  sub$: Subscription
 
-  constructor(private homeService: HomeService, private storage: Storage, private router: Router) { }
-
-  ngOnInit() {
-    console.log('HomePage OnInit')
+  constructor(private homeService: HomeService, private storage: Storage, private router: Router) {
+    this.storage.clear()
   }
 
   onClick(opc) {
     switch (opc) {
       case '1': {
-        this.getTemplateBlankPostOneProduct().then(() => {
-          this.router.navigate(['editor'])
-        })
+        this.getTemplateBlankPostOneProduct()
         break
       }
       case '2': {
-        this.getTemplateBlankStoryTwoProducts().then(() => {
-          this.router.navigate(['editor'])
-        })
+        this.getTemplateBlankStoryTwoProducts()
         break
       }
       case '3': {
-        this.getTemplatePostOneProduct().then(() => {
-          this.router.navigate(['editor'])
-        })
+        this.getTemplatePostOneProduct()
         break
       }
       case '4': {
-        this.getTemplatePostTwoProducts().then(() => {
-          this.router.navigate(['editor'])
-        })
+        this.getTemplatePostTwoProducts()
         break
       }
       case '5': {
-        this.getTemplateStoryTwoProducts().then(() => {
-          this.router.navigate(['editor'])
-        })
+        this.getTemplateStoryTwoProducts()
         break
       }
       case '6': {
-        this.getTemplatePostTalMaeTalFilha().then(() => {
-          this.router.navigate(['editor'])
-        })
+        this.getTemplatePostTalMaeTalFilha()
         break
       }
       case '7': {
-        this.getTemplateStoryTalMaeTalFilha().then(() => {
-          this.router.navigate(['editor'])
-        })
+        this.getTemplateStoryTalMaeTalFilha()
         break
       }
       case '8': {
-        this.getPostPost().then(() => {
-          this.router.navigate(['editor'])
-        })
+        this.getPostPost()
         break
       }
       case '9': {
-        this.getPostStory().then(() => {
-          this.router.navigate(['editor'])
-        })
+        this.getPostStory()
         break
       }
       default: {
@@ -84,126 +65,141 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
 
-  getBrand(opc) {
-    if (opc == 'brand') {
-      this.subscription$.push(this.homeService.getBrand3()
-        .subscribe((brand) => {
-          this.storage.set('brand', brand)
-        }))
-    } else {
-      this.subscription$.push(this.homeService.getBrandSub8()
-        .subscribe((sub) => {
-          this.storage.set('brand', sub)
-        }))
-    }
-  }
+  getTemplateBlankPostOneProduct() {
+    const brand = this.homeService.getBrand3()
+      .pipe(tap(b => this.storage.set('brand', b)))
+    const template = this.homeService.getTemplateWhite()
+      .pipe(tap(t => this.storage.set('template', t)))
+    const prod = this.homeService.getProduct()
+      .pipe(tap(p => this.storage.set('products', [p, {}])))
 
-  async getTemplateBlankPostOneProduct() {
-    await this.getBrand('brand')
+    const result = concat(brand, template, prod)
 
-    await this.subscription$.push(this.homeService.getTemplateWhite()
-      .subscribe((tempWhite) => {
-        this.storage.set('template', tempWhite)
+    this.sub$ = result.subscribe(
+      () => { },
+      (err) => { console.log(err) },
+      () => {
         this.storage.remove('post')
-      }))
-
-    await this.subscription$.push(this.homeService.getProduct()
-      .subscribe((prod) => {
-        this.storage.set('products', prod)
-      }))
+        this.router.navigate(['editor'])
+      })
   }
 
-  async getTemplateBlankStoryTwoProducts() {
-    await this.getBrand('brand')
+  getTemplateBlankStoryTwoProducts() {
+    const brand = this.homeService.getBrand3()
+      .pipe(tap(b => this.storage.set('brand', b)))
+    const template = this.homeService.getTemplateWhiteS()
+      .pipe(tap(t => this.storage.set('template', t)))
+    const prod = this.homeService.getProducts()
+      .pipe(tap(p => this.storage.set('products', p)))
 
-    await this.subscription$.push(this.homeService.getTemplateWhiteS()
-      .subscribe((tempWhiteS) => {
-        this.storage.set('template', tempWhiteS)
+    const result = concat(brand, template, prod)
+    this.sub$ = result.subscribe(
+      () => { },
+      (err) => { console.log(err) },
+      () => {
         this.storage.remove('post')
-      }))
-
-    await this.subscription$.push(this.homeService.getProducts()
-      .subscribe((prod) => {
-        this.storage.set('products', prod)
-      }))
+        this.router.navigate(['editor'])
+      })
   }
 
-  async getTemplatePostOneProduct() {
-    await this.getBrand('brand')
+  getTemplatePostOneProduct() {
+    const brand = this.homeService.getBrand3()
+      .pipe(tap(b => this.storage.set('brand', b)))
+    const template = this.homeService.getTemplate90()
+      .pipe(tap(t => this.storage.set('template', t)))
+    const prod = this.homeService.getProduct()
+      .pipe(tap(p => this.storage.set('products', [p, {}])))
 
-    await this.subscription$.push(this.homeService.getTemplate90()
-      .subscribe((temp) => {
-        this.storage.set('template', temp)
+    const result = concat(brand, template, prod)
+    this.sub$ = result.subscribe(
+      () => { },
+      (err) => { console.log(err) },
+      () => {
         this.storage.remove('post')
-      }))
-
-    await this.subscription$.push(this.homeService.getProduct()
-      .subscribe((prod) => {
-        this.storage.set('products', prod)
-      }))
+        this.router.navigate(['editor'])
+      })
   }
 
-  async getTemplatePostTwoProducts() {
-    await this.getBrand('brand')
+  getTemplatePostTwoProducts() {
+    const brand = this.homeService.getBrand3()
+      .pipe(tap(b => this.storage.set('brand', b)))
+    const template = this.homeService.getTemplate413()
+      .pipe(tap(t => this.storage.set('template', t)))
+    const prod = this.homeService.getProducts()
+      .pipe(tap(p => this.storage.set('products', p)))
 
-    await this.subscription$.push(this.homeService.getTemplate413()
-      .subscribe((temp) => {
-        this.storage.set('template', temp)
+    const result = concat(brand, template, prod)
+    this.sub$ = result.subscribe(
+      () => { },
+      (err) => { console.log(err) },
+      () => {
         this.storage.remove('post')
-      }))
-
-    await this.subscription$.push(this.homeService.getProducts()
-      .subscribe((prod) => {
-        this.storage.set('products', prod)
-      }))
+        this.router.navigate(['editor'])
+      })
   }
 
-  async getTemplateStoryTwoProducts() {
-    await this.getBrand('brand')
+  getTemplateStoryTwoProducts() {
+    const brand = this.homeService.getBrand3()
+      .pipe(tap(b => this.storage.set('brand', b)))
+    const template = this.homeService.getTemplate413s()
+      .pipe(tap(t => this.storage.set('template', t)))
+    const prod = this.homeService.getProducts()
+      .pipe(tap(p => this.storage.set('products', p)))
 
-    await this.subscription$.push(this.homeService.getTemplate413s()
-      .subscribe((temp) => {
-        this.storage.set('template', temp)
+    const result = concat(brand, template, prod)
+    this.sub$ = result.subscribe(
+      () => { },
+      (err) => { console.log(err) },
+      () => {
         this.storage.remove('post')
-      }))
-
-    await this.subscription$.push(this.homeService.getProducts()
-      .subscribe((prod) => {
-        this.storage.set('products', prod)
-      }))
+        this.router.navigate(['editor'])
+      })
   }
 
-  async getTemplatePostTalMaeTalFilha() {
-    await this.getBrand('sub')
+  getTemplatePostTalMaeTalFilha() {
     console.log('6')
   }
 
-  async getTemplateStoryTalMaeTalFilha() {
-    await this.getBrand('sub')
+  getTemplateStoryTalMaeTalFilha() {
     console.log('7')
   }
 
-  async getPostPost() {
-    await this.getBrand('brand')
+  getPostPost() {
+    const brand = this.homeService.getBrand3()
+      .pipe(tap(b => this.storage.set('brand', b)))
+    const post = this.homeService.getPost200()
+      .pipe(tap(p => this.storage.set('post', p)))
 
-    await this.subscription$.push(this.homeService.getPost200()
-      .subscribe((post) => {
-        this.storage.set('post', post)
+    const result = concat(brand, post)
+    this.sub$ = result.subscribe(
+      () => { },
+      (err) => { console.log(err) },
+      () => {
         this.storage.remove('template')
-      }))
+        this.storage.remove('products')
+        this.router.navigate(['editor'])
+      })
   }
 
-  async getPostStory() {
-    await this.getBrand('brand')
+  getPostStory() {
+    const brand = this.homeService.getBrand3()
+      .pipe(tap(b => this.storage.set('brand', b)))
+    const post = this.homeService.getPost200s()
+      .pipe(tap(p => this.storage.set('post', p)))
 
-    await this.subscription$.push(this.homeService.getPost200s()
-      .subscribe((post) => {
-        this.storage.set('post', post)
+    const result = concat(brand, post)
+    this.sub$ = result.subscribe(
+      () => { },
+      (err) => { console.log(err) },
+      () => {
         this.storage.remove('template')
-      }))
+        this.storage.remove('products')
+        this.router.navigate(['editor'])
+      })
   }
 
   ngOnDestroy() {
     console.log('HomePage OnDestroy')
+    this.sub$.unsubscribe()
   }
 }

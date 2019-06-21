@@ -1,3 +1,8 @@
+import { Product } from './../model/product';
+import { Post } from './../model/post';
+import { Template } from './../model/template';
+import { Brand } from './../model/brand';
+import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { Canvas } from 'fabric/fabric-impl';
 import { Subscription } from 'rxjs';
@@ -12,27 +17,57 @@ import { AddTextPage } from './add-text/add-text.page';
   styleUrls: ['./editor.page.scss'],
 })
 export class EditorPage implements OnInit {
-
   
-  title = 'Test'
+  title = ''
   canvas: Canvas
-  json: any
-  prod_one: any
-  prod_two: any
+
+  brand: Brand
+  template: Template = null
+  products: Product[]
+  post: Post = null
   
   objText: any
   textIsSelected = true
 
   subscription$: Subscription
 
-  constructor(private editorService: EditorService, private popoverController: PopoverController) { }
+  constructor(
+    private edtServ: EditorService, 
+    private storage: Storage, 
+    private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.getChoices()
   }
 
   getChoices() {
-    
+    this.storage.forEach((value, key, n) => {
+      switch(key) {
+        case 'brand': {
+          this.brand = value
+          break
+        }
+        case 'template': {
+          this.template = value
+          console.log(this.template)
+          break
+        }
+        case 'products': {
+          this.products = value
+          break
+        }
+        case 'post': {
+          this.post = value
+          break
+        }
+        default: {
+          break
+        }
+      }
+    }).then(() => {
+      if (this.template != null) console.log('TEMPLATE')
+      if (this.post != null) console.log('POST')
+    })
   }
 
   setCanvasDimensions() {
@@ -56,7 +91,7 @@ export class EditorPage implements OnInit {
   setTemplateOnCanvas() {
     const fonts = []
 
-    this.json.objects.forEach(obj => {
+    this.template.json.objects.forEach(obj => {
       obj.scaleX = obj.scaleX / 100 * this.canvas.getWidth()
       obj.scaleY = obj.scaleY / 100 * this.canvas.getHeight()
       obj.top = obj.top / 100 * this.canvas.getHeight()
@@ -80,7 +115,7 @@ export class EditorPage implements OnInit {
       console.log("json obj -> ", obj)
     })
 
-    this.canvas.loadFromJSON(this.json, this.canvas.renderAll.bind(this.canvas), (o, ob) => {
+    this.canvas.loadFromJSON(this.template.json, this.canvas.renderAll.bind(this.canvas), (o, ob) => {
       console.log('loadFromJSON')
       console.log(o)
       console.log(ob)

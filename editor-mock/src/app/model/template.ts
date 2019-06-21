@@ -10,7 +10,7 @@ export interface Template {
     id_lang: string,
     id_template: string,
     layout: string,
-    json?: JSON,
+    json?: any,
     name: string,
     thumbnail_url: string ,
     thumbnail: string,
