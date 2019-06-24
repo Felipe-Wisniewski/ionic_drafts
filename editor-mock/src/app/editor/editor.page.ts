@@ -17,7 +17,7 @@ import { AddTextPage } from './add-text/add-text.page';
   styleUrls: ['./editor.page.scss'],
 })
 export class EditorPage implements OnInit {
-  
+
   title = ''
   canvas: Canvas
 
@@ -25,67 +25,120 @@ export class EditorPage implements OnInit {
   template: Template = null
   products: Product[]
   post: Post = null
-  
+
+  layout = ''
+  logo = ''
+  prod_one = ''
+  prod_two = ''
+  text_template = ''
+  ref = ''
+
   objText: any
   textIsSelected = true
 
   subscription$: Subscription
 
   constructor(
-    private edtServ: EditorService, 
-    private storage: Storage, 
+    private edtServ: EditorService,
+    private storage: Storage,
     private popoverController: PopoverController) { }
 
   ngOnInit() {
-    this.getChoices()
+    this.getChoices().then(() => {
+      if (this.template != null) {
+        if (this.template.json != null) {
+          this.setTemplateOnCanvas()
+        } else {
+          this.setLogoOnCanvas()
+          //selecionar logo
+          //liberar texto
+          //liberar seu logo
+          //liberar stamps
+          //liberar icons
+        }
+        this.setProductsOnCanvas()
+      }
+
+      if (this.post != null) {
+        this.setPostOnCanvas()
+      }
+    })
   }
 
-  getChoices() {
-    this.storage.forEach((value, key, n) => {
-      switch(key) {
+  async getChoices() {
+    await this.storage.forEach((value, key, n) => {
+      switch (key) {
+
         case 'brand': {
           this.brand = value
+          this.title = this.brand.brand
+          this.logo = this.brand.logo_url
           break
         }
+
         case 'template': {
           this.template = value
-          console.log(this.template)
+          if (this.template != null) {
+            this.layout = this.template.layout
+          }
           break
         }
+
         case 'products': {
           this.products = value
+          this.prod_one = this.products[0].image_url
+          this.ref = this.products[0].ref
+          this.products[1] != null ? this.prod_two = this.products[1].image_url : this.prod_two = ''
           break
         }
+
         case 'post': {
           this.post = value
+          if (this.post != null) {
+            this.layout = this.post.layout
+            this.ref = this.post.real_ref
+          }
           break
+
         }
         default: {
           break
         }
       }
     }).then(() => {
-      if (this.template != null) console.log('TEMPLATE')
-      if (this.post != null) console.log('POST')
+      this.createCanvas()
     })
   }
 
-  setCanvasDimensions() {
+  createCanvas() {
     this.canvas = new fabric.Canvas('canvas')
+    this.canvas.backgroundColor = '#FFFFFF'
 
     let header = document.getElementsByTagName('ion-header').item(0).clientHeight
     let footer = document.getElementsByTagName('ion-footer').item(0).clientHeight
     let widthScreen = parent.innerWidth
     let heightScreen = parent.innerHeight - (header + footer)
 
-    if (widthScreen > heightScreen) {
-      this.canvas.setDimensions({ width: heightScreen, height: heightScreen })
-    } else {
-      this.canvas.setDimensions({ width: widthScreen, height: widthScreen })
+    if (this.layout == 'post') {
+      if (widthScreen > heightScreen) {
+        this.canvas.setDimensions({ width: heightScreen, height: heightScreen })
+      } else {
+        this.canvas.setDimensions({ width: widthScreen, height: widthScreen })
+      }
     }
-    // console.log(`canvas - w:${this.canvas.getWidth()} x h:${this.canvas.getHeight()}`)
+
+    if (this.layout == 'story') {
+      if (widthScreen > heightScreen) {
+        let width = (1080 / 1920) * heightScreen
+        this.canvas.setDimensions({ width: width, height: heightScreen })
+      } else {
+        let height = (1920 / 1080) * widthScreen
+        this.canvas.setDimensions({ width: widthScreen, height: height })
+      }
+
+    }
+    console.log(`canvas - w:${this.canvas.getWidth()} x h:${this.canvas.getHeight()}`)
     // this.getCanvasEvents()
-    this.setTemplateOnCanvas()
   }
 
   setTemplateOnCanvas() {
@@ -98,19 +151,20 @@ export class EditorPage implements OnInit {
       obj.left = obj.left / 100 * this.canvas.getWidth()
       obj.lastGoodLeft = obj.left
       obj.lastGoodTop = obj.top
-      
+
       if (!obj.selectable) {
         obj.evented = false
       }
 
       if (obj.type == 'text') {
+        this.text_template = ''
         // let font = new FontFaceObserver(obj.fontFamily)
         // fonts.push(font.load().catch(() => obj.fontFamily = 'Roboto'))
+        // console.log(fonts)
       }
-      console.log(fonts)
 
       if (obj.controls == "background") {
-        
+
       }
       console.log("json obj -> ", obj)
     })
@@ -119,9 +173,37 @@ export class EditorPage implements OnInit {
       console.log('loadFromJSON')
       console.log(o)
       console.log(ob)
-      console.log('------------')
       this.canvas.sendToBack(ob).renderAll()
-    })    
+      console.log('------------')
+    })
+  }
+
+  setProductsOnCanvas() {
+    console.log('products')
+    console.log(this.prod_one)
+    console.log(this.prod_two)
+  }
+
+  setPostOnCanvas() {
+    console.log('post')
+    fabric.Image.fromURL(this.post.post_url, (post) => {
+      post.scaleToHeight(this.canvas.getHeight())
+      this.canvas.setOverlayImage(post, this.canvas.renderAll.bind(this.canvas))
+    })
+  }
+
+  setLogoOnCanvas() {
+    console.log('logo')
+    fabric.Image.fromURL(this.logo, (logo) => {
+      logo.scaleToWidth(this.canvas.getWidth() / 2.5)
+      logo.cornerStyle = 'circle'
+      logo.cornerSize = 20
+      logo.top = this.canvas.getHeight() - ((logo.scaleY * logo.height) + 20)
+      logo.left = 20
+      logo.lockUniScaling = true
+      this.canvas.add(logo)
+      this.canvas.renderAll()
+    })
   }
 
   getCanvasEvents() {
@@ -131,7 +213,7 @@ export class EditorPage implements OnInit {
         console.log(obj)
 
         if (obj.target) {
-          switch(obj.target.type) {
+          switch (obj.target.type) {
             case 'text': {
               this.objText = obj.target
               this.textIsSelected = false
@@ -209,7 +291,7 @@ export class EditorPage implements OnInit {
   }
 
   addItems() {
-    
+
   }
   /* async addItems() {
     const actionSheet = await this.actionSheetController.create({

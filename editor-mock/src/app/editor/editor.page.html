@@ -3,6 +3,9 @@
     <ion-title>{{ title }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
+      <ion-button [routerLink]="['/']">
+        <ion-icon slot="icon-only" name="home"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/follow']">
@@ -15,8 +18,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="light-shade">
-  <canvas class="canvas" id="canvas"></canvas>
+<ion-content>
+  <div class="editor-container">
+    <canvas class="canvas" id="canvas"></canvas>
+  </div>
 </ion-content>
 
 <ion-footer id="footer-id">
