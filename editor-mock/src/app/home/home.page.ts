@@ -108,7 +108,7 @@ export class HomePage implements OnDestroy {
     const template = this.homeService.getTemplate90()
       .pipe(tap(t => this.storage.set('template', t)))
     const prod = this.homeService.getProduct()
-      .pipe(tap(p => this.storage.set('products', [p, {}])))
+      .pipe(tap(p => this.storage.set('products', [p])))
 
     const result = concat(brand, template, prod)
     this.sub$ = result.subscribe(

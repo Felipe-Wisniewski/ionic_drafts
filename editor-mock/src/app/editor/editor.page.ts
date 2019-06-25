@@ -33,21 +33,27 @@ export class EditorPage implements OnInit {
   text_template = ''
   ref = ''
 
+  mainImage: any
   objText: any
   textIsSelected = true
 
   subscription$: Subscription
 
-  constructor(
-    private edtServ: EditorService,
-    private storage: Storage,
-    private popoverController: PopoverController) { }
+  constructor(private edtServ: EditorService, private storage: Storage, private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.getChoices().then(() => {
+      
       if (this.template != null) {
+
         if (this.template.json != null) {
-          this.setTemplateOnCanvas()
+          
+          this.setTemplateOnCanvas().then((r) => {
+            console.log(r)
+            this.setMainImageOnCanvas()
+            this.setProductsOnCanvas()    
+          })
+        
         } else {
           this.setLogoOnCanvas()
           //selecionar logo
@@ -56,9 +62,8 @@ export class EditorPage implements OnInit {
           //liberar stamps
           //liberar icons
         }
-        this.setProductsOnCanvas()
+        // this.setProductsOnCanvas()
       }
-
       if (this.post != null) {
         this.setPostOnCanvas()
       }
@@ -66,6 +71,7 @@ export class EditorPage implements OnInit {
   }
 
   async getChoices() {
+    console.log('--getChoices--')
     await this.storage.forEach((value, key, n) => {
       switch (key) {
 
@@ -88,7 +94,7 @@ export class EditorPage implements OnInit {
           this.products = value
           this.prod_one = this.products[0].image_url
           this.ref = this.products[0].ref
-          this.products[1] != null ? this.prod_two = this.products[1].image_url : this.prod_two = ''
+          this.products[1] != null ? this.prod_two = this.products[1].image_url : this.prod_two = null
           break
         }
 
@@ -108,11 +114,13 @@ export class EditorPage implements OnInit {
     }).then(() => {
       this.createCanvas()
     })
+    console.log('##getChoices##')
   }
 
   createCanvas() {
     this.canvas = new fabric.Canvas('canvas')
     this.canvas.backgroundColor = '#FFFFFF'
+    this.canvas.preserveObjectStacking = true
 
     let header = document.getElementsByTagName('ion-header').item(0).clientHeight
     let footer = document.getElementsByTagName('ion-footer').item(0).clientHeight
@@ -141,7 +149,8 @@ export class EditorPage implements OnInit {
     // this.getCanvasEvents()
   }
 
-  setTemplateOnCanvas() {
+  async setTemplateOnCanvas() {
+    console.log('--setTemplateOnCanvas--')
     const fonts = []
 
     this.template.json.objects.forEach(obj => {
@@ -163,37 +172,75 @@ export class EditorPage implements OnInit {
         // console.log(fonts)
       }
 
-      if (obj.controls == "background") {
-
+      if (obj.controls === "background") {
+        console.log("json obj -> ", obj)
+        this.mainImage = obj
       }
-      console.log("json obj -> ", obj)
     })
 
-    this.canvas.loadFromJSON(this.template.json, this.canvas.renderAll.bind(this.canvas), (o, ob) => {
-      console.log('loadFromJSON')
-      console.log(o)
-      console.log(ob)
-      this.canvas.sendToBack(ob).renderAll()
-      console.log('------------')
-    })
+    return await this.canvas.loadFromJSON(this.template.json, this.canvas.renderAll.bind(this.canvas))
+  }
+
+  setMainImageOnCanvas() {
+    // this.canvas.bringToFront(this.mainImage)
+    // this.canvas.renderAll()
   }
 
   setProductsOnCanvas() {
-    console.log('products')
-    console.log(this.prod_one)
-    console.log(this.prod_two)
+    console.log('--products--')
+    this.products.forEach((prod, idx) => {
+
+      fabric.Image.fromURL(prod.image_url, (image) => {
+        let imageWidth, imageTop, imageLeft
+
+        if (this.products.length > 1) {
+
+          if (this.layout === 'post') {
+            imageWidth = this.canvas.getWidth() - (this.canvas.getWidth() / 3)
+            idx == 0 ? imageTop = 15 : imageTop = this.canvas.getHeight() / 2
+            idx == 0 ? imageLeft = 15 : imageLeft = (this.canvas.getWidth() / 3) - 15
+
+          } else {
+            imageWidth = this.canvas.getWidth()
+            idx == 0 ? imageTop = 0 : imageTop = this.canvas.getHeight() / 2
+            idx == 0 ? imageLeft = 0 : imageLeft = 0
+          }
+          image.top = imageTop
+          image.left = imageLeft
+          image.scaleToWidth(imageWidth)
+
+        } else {
+          image.originY = 'center'
+          image.top = this.canvas.getHeight() / 2
+          image.scaleToWidth(this.canvas.getWidth())
+        }
+        
+        image.cornerStyle = 'circle'
+        image.cornerSize = 20
+        image.lockUniScaling = true
+
+        image.on('selected', (it) => {
+          // console.log(it)
+        })
+
+        this.canvas.add(image)
+      })
+    })
+    this.canvas.renderAll()
+    console.log('##products##')
   }
 
   setPostOnCanvas() {
-    console.log('post')
+    console.log('--post--')
     fabric.Image.fromURL(this.post.post_url, (post) => {
       post.scaleToHeight(this.canvas.getHeight())
       this.canvas.setOverlayImage(post, this.canvas.renderAll.bind(this.canvas))
     })
+    console.log('##post##')
   }
 
   setLogoOnCanvas() {
-    console.log('logo')
+    console.log('--logo--')
     fabric.Image.fromURL(this.logo, (logo) => {
       logo.scaleToWidth(this.canvas.getWidth() / 2.5)
       logo.cornerStyle = 'circle'
@@ -202,8 +249,10 @@ export class EditorPage implements OnInit {
       logo.left = 20
       logo.lockUniScaling = true
       this.canvas.add(logo)
-      this.canvas.renderAll()
+      // this.canvas.renderAll()
+      this.canvas.setOverlayImage(logo, this.canvas.renderAll.bind(this.canvas))
     })
+    console.log('##logo##')
   }
 
   getCanvasEvents() {
