@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Canvas } from 'fabric/fabric-impl';
 import { NavParams } from '@ionic/angular';
 
@@ -7,16 +7,29 @@ import { NavParams } from '@ionic/angular';
   templateUrl: './add-text.page.html',
   styleUrls: ['./add-text.page.scss'],
 })
-export class AddTextPage implements OnInit {
+export class AddTextPage implements OnInit, OnDestroy {
 
-  
-  fonts = ['Arial', 'Calibri', 'Roboto', 'Times New Roman', 'Verdana']
+
+  fonts = [
+    { name: 'Abadi', fontFamily: 'Abadi' },
+    { name: 'Always In My Heart', fontFamily: 'AlwaysInMyHeart' },
+    { name: 'Amaranth', fontFamily: 'Amaranth' },
+    { name: 'Asap', fontFamily: 'Asap' },
+    { name: 'Bebas', fontFamily: 'Bebas' },
+    { name: 'Champagne & Limousines', fontFamily: 'ChampagneLimousines' },
+    { name: 'Dulcelin', fontFamily: 'Dulcelin' },
+    { name: 'GuldScript', fontFamily: 'GuldScript' },
+    { name: 'Helvetica', fontFamily: 'Helvetica' },
+    { name: 'Helvetica Neue', fontFamily: 'HelveticaNeue' },
+    { name: 'Humanist Bold', fontFamily: 'HumanistBold' },
+    { name: 'Roboto', fontFamily: 'Roboto' }
+  ]
 
   canvas: Canvas
-  objText: any
+  objText: fabric.Text
   text = ''
-  textFont = ''
-  textSize = ''
+  textFont: string
+  textSize: number
   textColor = ''
   textOpacity = 0
 
@@ -35,78 +48,34 @@ export class AddTextPage implements OnInit {
   ngOnInit() {
     console.log('ngOnInit')
     this.canvas = this.navParams.get('canvas')
-    this.objText = this.navParams.get('objText')
+
+    this.objText = this.navParams.get('objectSelected')
     this.setTextSettings()
   }
 
   setTextSettings() {
-    console.log(this.objText)
-    console.log(this.objText.text)
-    console.log(this.objText.fontFamily)
-    console.log(this.objText.fontSize)
-    console.log(this.objText.fill)
-    console.log(this.objText.opacity)
-    console.log('----------------------------------------')
     this.text = this.objText.text
     this.textFont = this.objText.fontFamily
     this.textSize = this.objText.fontSize
-    this.textColor = this.objText.fill
+    this.textColor = this.objText.fill.toString()
     this.textOpacity = this.objText.opacity
   }
 
   setParamsText() {
     this.objText.text = this.text
-    this.objText.fontFamily = this.textFont
     this.objText.fontSize = this.textSize
     this.objText.fill = this.textColor
     this.objText.opacity = this.textOpacity
     this.canvas.renderAll()
   }
 
-  openTool(choose) {
-
-    switch (choose) {
-      case 'text': {
-        this.closeTools()
-        this.selectedText = true
-        break
-      }
-
-      case 'font': {
-        this.closeTools()
-        this.selectedFont = true
-        break
-      }
-
-      case 'size': {
-        this.closeTools()
-        this.selectedSize = true
-        break
-      }
-
-      case 'color': {
-        this.closeTools()
-        this.selectedColor = true
-        break
-      }
-
-      case 'opacity': {
-        this.closeTools()
-        this.selectedOpacity = true
-        break
-      }
-
-      default: {
-        break
-      }
-    }
+  setFont() {
+    console.log('AddFont', this.textFont)
+    this.objText.set("fontFamily", this.textFont)
+    this.canvas.renderAll()
   }
 
-  closeTools() {
-    this.selectedText = false
-    this.selectedFont = false
-    this.selectedSize = false
-    this.selectedColor = false
-    this.selectedOpacity = false
+  ngOnDestroy() {
+    console.log('AddText ngOnDestroy')
   }
 }

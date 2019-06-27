@@ -5,7 +5,6 @@ import { Brand } from './../model/brand';
 import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { Canvas } from 'fabric/fabric-impl';
-import { Subscription } from 'rxjs';
 import { EditorService } from './editor.service';
 import { PopoverController } from '@ionic/angular';
 import { fabric } from 'fabric';
@@ -33,6 +32,9 @@ export class EditorPage implements OnInit {
   text_template = ''
   ref = ''
 
+  objectSelected: any
+  deletableObject = false
+
   controls = {
     general: false,
     stamps: false,
@@ -43,11 +45,6 @@ export class EditorPage implements OnInit {
     gallery: false
   }
 
-  objText: any
-  textIsSelected = true
-
-  subscription$: Subscription
-
   constructor(private edtServ: EditorService, private storage: Storage, private popoverController: PopoverController) { }
 
   ngOnInit() {
@@ -57,19 +54,13 @@ export class EditorPage implements OnInit {
 
         if (this.template.json != null) {
 
-          this.setTemplateOnCanvas().then((it) => {
-            // console.log(it)
+          this.setTemplateOnCanvas().then(() => {
             this.setProductsOnCanvas()
           })
 
         } else {
-          this.setLogoOnCanvas()
           this.setProductsOnCanvas()
-          //selecionar logo
-          //liberar texto
-          //liberar seu logo
-          //liberar stamps
-          //liberar icons
+          this.setLogoOnCanvas()
         }
       }
       if (this.post != null) {
@@ -174,9 +165,9 @@ export class EditorPage implements OnInit {
         console.log("json.obj I -> ", obj)
         this.text_template = obj.text
         // let font = new FontFaceObserver(obj.fontFamily)
-        let font = obj.fontFamily
-        fonts.push(font.load().catch(() => obj.fontFamily = 'Roboto'))
-        console.log(fonts)
+        // let font = obj.fontFamily
+        // fonts.push(font.load().catch(() => obj.fontFamily = 'Roboto'))
+        // console.log(fonts)
       }
 
     })
@@ -184,9 +175,9 @@ export class EditorPage implements OnInit {
   }
 
   setProductsOnCanvas() {
-    this.products.forEach((prod, idx) => {
+    this.products.forEach((product, idx) => {
 
-      fabric.Image.fromURL(prod.image_url, (image) => {
+      fabric.Image.fromURL(product.image_url, (prod) => {
         let imageWidth, imageTop, imageLeft
 
         if (this.products.length > 1) {
@@ -201,26 +192,22 @@ export class EditorPage implements OnInit {
             idx == 0 ? imageTop = 0 : imageTop = this.canvas.getHeight() / 2
             idx == 0 ? imageLeft = 0 : imageLeft = 0
           }
-          image.top = imageTop
-          image.left = imageLeft
-          image.scaleToWidth(imageWidth)
+          prod.top = imageTop
+          prod.left = imageLeft
+          prod.scaleToWidth(imageWidth)
 
         } else {
-          image.originY = 'center'
-          image.top = this.canvas.getHeight() / 2
-          image.scaleToWidth(this.canvas.getWidth())
+          prod.originY = 'center'
+          prod.top = this.canvas.getHeight() / 2
+          prod.scaleToWidth(this.canvas.getWidth())
         }
 
-        image.lockUniScaling = true
-        image.cornerStyle = 'circle'
-        image.cornerSize = 20
-        image.name = `product${idx}`
-        
-        // adicionar 'controls = general'
-        /* image.on('selected', (it) => {
-          // console.log(it)
-        }) */
-        this.canvas.add(image).sendToBack(image)
+        prod.cornerStyle = 'circle'
+        prod.cornerSize = 20
+        prod.name = `product${idx}`
+        prod.lockUniScaling = true
+        prod.setOptions({controls: 'general'})
+        this.canvas.add(prod).sendToBack(prod)
       })
     })
   }
@@ -235,94 +222,92 @@ export class EditorPage implements OnInit {
   setLogoOnCanvas() {
     fabric.Image.fromURL(this.logo, (logo) => {
       logo.scaleToWidth(this.canvas.getWidth() / 2.5)
-      logo.cornerStyle = 'circle'
-      logo.cornerSize = 20
       logo.top = this.canvas.getHeight() - ((logo.scaleY * logo.height) + 20)
       logo.left = 20
+      logo.cornerStyle = 'circle'
+      logo.cornerSize = 20
       logo.lockUniScaling = true
+      logo.setOptions({controls: 'brand-logos'})
       this.canvas.add(logo)
-      this.canvas.setOverlayImage(logo, this.canvas.renderAll.bind(this.canvas))
+      this.canvas.setOverlayImage(logo, this.canvas.renderAll.bind(this.canvas)).setActiveObject(logo)
     })
   }
 
   getCanvasEvents() {
     this.canvas.on({
-      'mouse:down': (obj) => {
-        console.log(`mouse:down:`)
-        console.log(obj)
-
-        if (obj.target) {
-          switch (obj.target.type) {
-            case 'text': {
-              this.objText = obj.target
-              this.textIsSelected = false
-              break
-            }
-
-            default: {
-              this.textIsSelected = false
-              break
-            }
-          }
-        }
-      },
-      'touch:gesture': (obj) => {
-        console.log(`touch gesture:`)
-        console.log(obj)
-      },
-      'mouse:up': (obj) => {
-        console.log(`mouse:up:`)
-        console.log(obj)
-      },
-      'after:render': (obj) => {
-        console.log(`after:render:`)
-        console.log(obj)
-      },
-      'before:selection:cleared': (obj) => {
-        console.log(`before:selection:cleared:`)
-        console.log(obj)
-      },
       'selection:created': (obj) => {
-        console.log(`selection:created:`)
-        console.log(obj)
+        this.eventSelectionCreated(obj.target)
+      },
+      'selection:updated': (obj) => {
+        this.eventSelectionCreated(obj.target) 
       },
       'selection:cleared': (obj) => {
-        console.log(`selection:cleared:`)
-        console.log(obj)
-      },
-      'object:modified': (obj) => {
-        console.log(`object:modified:`)
-        console.log(obj)
-      },
-      'object:selected': (obj) => {
-        console.log(`object:selected:`)
-        console.log(obj)
-      },
-      'object:moving': (obj) => {
-        console.log(`object:moving:`)
-        console.log(obj)
-      },
-      'object:scaling': (obj) => {
-        console.log(`object:scaling:`)
-        console.log(obj)
-      },
-      'object:rotating': (obj) => {
-        console.log(`object:rotating:`)
-        console.log(obj)
+        this.eventSelectionCleared(obj.target)
       },
       'object:added': (obj) => {
-        console.log(`object:added:`)
-        console.log(obj)
+        // console.log(`object:added:`)
       },
       'object:removed': (obj) => {
-        console.log(`object:removed:`)
-        console.log(obj)
+        // console.log(`object:removed:`)
       }
     })
+  }
+  
+  eventSelectionCreated(object) {
+
+    this.objectSelected = object
+
+    switch(object.controls) {
+      case 'general': {
+        console.log('general')
+        console.log(object)
+        this.deletableObject = false
+        break
+      }
+      case 'text': {
+        console.log('text')
+        console.log(object)
+        object.removable ? this.deletableObject = true : this.deletableObject = false
+        this.controls.text = true
+        break
+      }
+      case 'gallery': {
+        console.log('gallery')
+        break
+      }
+      case 'brand-logos': {
+        console.log('brand-logos')
+        console.log(object)
+        break
+      }
+      case 'stamps': {
+        console.log('stamps')
+        console.log(object)
+        break
+      }
+      case 'icons': {
+        console.log('icons')
+        console.log(object)
+        break
+      }
+      case 'background': {
+        console.log('background')
+        break
+      }
+      default: {
+        break
+      }
+    }
+  }
+   
+  eventSelectionCleared(object) {
+    console.log(`- selection:cleared:`)
+    console.log(object)
   }
 
   share() {
     console.log('share')
+    console.log(JSON.stringify(this.canvas))
   }
 
   openChangeProduct() {
@@ -380,7 +365,7 @@ export class EditorPage implements OnInit {
       animated: true,
       translucent: true,
       componentProps: {
-        objText: this.objText,
+        objectSelected: this.objectSelected,
         canvas: this.canvas
       }
     })
@@ -393,6 +378,7 @@ export class EditorPage implements OnInit {
 
   deleteObject() {
     console.log('deleteObjectOnCanvas')
+    this.canvas.remove(this.objectSelected)
   }
 
   ngOnDestroy() {

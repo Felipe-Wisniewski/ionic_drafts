@@ -40,11 +40,11 @@
         <ion-icon slot="icon-only" size="large" name="add"></ion-icon>
       </ion-button>
       <!-- open modal edit text -->
-      <ion-button (click)="optionsEditText($event)" [(disabled)]="textIsSelected">
+      <ion-button (click)="optionsEditText($event)" [(disabled)]="!controls.text">
         <ion-icon slot="icon-only" size="large" src="assets/icon/type.svg"></ion-icon>
       </ion-button>
       <!-- delete selected item -->
-      <ion-button (click)="deleteObject()">
+      <ion-button (click)="deleteObject()" [(disabled)]="!deletableObject">
         <ion-icon slot="icon-only" size="large" name="trash"></ion-icon>
       </ion-button>
     </ion-buttons>
