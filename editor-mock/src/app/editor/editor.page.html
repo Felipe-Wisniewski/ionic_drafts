@@ -36,15 +36,15 @@
         <ion-icon slot="icon-only" size="large" src="assets/icon/shoe.svg"></ion-icon>
       </ion-button>
       <!-- open modal add items -->
-      <ion-button (click)="addItems()">
+      <ion-button (click)="addItemsPopover($event)">
         <ion-icon slot="icon-only" size="large" name="add"></ion-icon>
       </ion-button>
       <!-- open modal edit text -->
-      <ion-button (click)="optionsEditText($event)" [(disabled)]="!controls.text">
+      <ion-button (click)="addTextPopover($event)" [(disabled)]="!controls.text">
         <ion-icon slot="icon-only" size="large" src="assets/icon/type.svg"></ion-icon>
       </ion-button>
       <!-- delete selected item -->
-      <ion-button (click)="deleteObject()" [(disabled)]="!deletableObject">
+      <ion-button (click)="deleteObjectOnCanvas()" [(disabled)]="!deletableObject">
         <ion-icon slot="icon-only" size="large" name="trash"></ion-icon>
       </ion-button>
     </ion-buttons>

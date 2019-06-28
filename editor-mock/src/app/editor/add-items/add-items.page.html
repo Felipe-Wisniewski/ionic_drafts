@@ -1,9 +1,57 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>add-items</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+<ion-grid>
+    <!-- BRAND LOGOS -->
+    <ion-row (click)="addItem('brand')" *ngIf="brandEnabled">
+      <ion-item-divider no-padding>
+        <ion-col size="2">
+          <div class="div-icon">
+            <ion-icon slot="icon-only" size="large" name="photos"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col>
+          <p>BRAND LOGOS</p>
+        </ion-col>
+      </ion-item-divider>
+    </ion-row>
+  
+    <!-- OWN LOGO -->
+    <ion-row (click)="addItem('logo')" *ngIf="logoEnabled">
+      <ion-item-divider no-padding>
+        <ion-col size="2">
+          <div class="div-icon">
+            <ion-icon slot="icon-only" size="large" name="image"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col>
+          <p>OWN LOGO</p>
+        </ion-col>
+      </ion-item-divider>
+    </ion-row>
+  
+    <!-- STAMPS -->
+    <ion-row (click)="addItem('stamps')" *ngIf="stampsEnabled">
+      <ion-item-divider no-padding>
+          <ion-col size="2">
+              <div class="div-icon">
+                <ion-icon slot="icon-only" size="large" name="pricetags"></ion-icon>
+              </div>
+            </ion-col>
+        <ion-col>
+          <p>STAMPS</p>
+        </ion-col>
+      </ion-item-divider>
+    </ion-row>
+  
+    <!-- ICONS -->
+    <ion-row (click)="addItem('icons')" *ngIf="iconsEnabled">
+      <ion-item-divider no-padding>
+        <ion-col size="2">
+          <div class="div-icon">
+            <ion-icon slot="icon-only" size="large" name="information"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col>
+          <p>ICONS</p>
+        </ion-col>
+      </ion-item-divider>
+    </ion-row>
+  </ion-grid>

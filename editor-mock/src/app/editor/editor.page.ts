@@ -9,6 +9,7 @@ import { EditorService } from './editor.service';
 import { PopoverController } from '@ionic/angular';
 import { fabric } from 'fabric';
 import { AddTextPage } from './add-text/add-text.page';
+import { AddItemsPage } from './add-items/add-items.page';
 
 @Component({
   selector: 'app-editor',
@@ -42,7 +43,7 @@ export class EditorPage implements OnInit {
     text: false,
     icons: false,
     brandLogos: false,
-    gallery: false
+    gallery: true
   }
 
   constructor(private edtServ: EditorService, private storage: Storage, private popoverController: PopoverController) { }
@@ -242,7 +243,9 @@ export class EditorPage implements OnInit {
         this.eventSelectionCreated(obj.target) 
       },
       'selection:cleared': (obj) => {
-        this.eventSelectionCleared(obj.target)
+        console.log(`- selection:cleared:`)
+        console.log(obj)
+        this.eventSelectionCleared()
       },
       'object:added': (obj) => {
         // console.log(`object:added:`)
@@ -254,44 +257,33 @@ export class EditorPage implements OnInit {
   }
   
   eventSelectionCreated(object) {
-
     this.objectSelected = object
-
+    this.eventSelectionCleared()
+    
     switch(object.controls) {
       case 'general': {
-        console.log('general')
-        console.log(object)
         this.deletableObject = false
         break
       }
       case 'text': {
-        console.log('text')
-        console.log(object)
         object.removable ? this.deletableObject = true : this.deletableObject = false
         this.controls.text = true
         break
       }
       case 'gallery': {
-        console.log('gallery')
         break
       }
       case 'brand-logos': {
-        console.log('brand-logos')
-        console.log(object)
+        this.controls.brandLogos = true
         break
       }
       case 'stamps': {
-        console.log('stamps')
-        console.log(object)
         break
       }
       case 'icons': {
-        console.log('icons')
-        console.log(object)
         break
       }
       case 'background': {
-        console.log('background')
         break
       }
       default: {
@@ -300,13 +292,15 @@ export class EditorPage implements OnInit {
     }
   }
    
-  eventSelectionCleared(object) {
-    console.log(`- selection:cleared:`)
-    console.log(object)
+  eventSelectionCleared() {
+    this.controls.general = false
+    this.controls.text = false
+    this.controls.brandLogos = false
+    this.controls.stamps = false
+    this.controls.icons = false
   }
 
   share() {
-    console.log('share')
     console.log(JSON.stringify(this.canvas))
   }
 
@@ -314,69 +308,44 @@ export class EditorPage implements OnInit {
     console.log('openChangeProduct')
   }
 
-  addItems() {
-
-  }
-  /* async addItems() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Insert items',
-      buttons: [{
-        text: 'Brand logos',
-        icon: 'photos',
-        handler: () => { this.addItemsModal() }
-      }, {
-        text: 'Your logo',
-        icon: 'image',
-        handler: () => { this.addItemsModal() }
-      }, {
-        text: 'Stamps',
-        icon: 'pricetags',
-        handler: () => { this.addItemsModal() }
-      }, {
-        text: 'Icons',
-        icon: 'information',
-        handler: () => { this.addItemsModal() }
-      }]
-    })
-    await actionSheet.present()
-  }
-
-  async addItemsModal() {
-    const modal = await this.modalController.create({
-      component: '',
-      componentProps: {
-        choose: 'choose'
-      }
-    })
-
-    modal.onDidDismiss().then((it) => {
-      if (it.data != null || it.data != undefined) {
-        console.log(it.data['choose'])
-        let image = it.data['choose'].image_url
-      }
-    })
-    return await modal.present()
-  } */
-
-  async optionsEditText(ev: Event) {
+  async addItemsPopover(event: Event) {
     const popover = await this.popoverController.create({
-      component: AddTextPage,
-      event: ev,
+      component: AddItemsPage,
+      event: event,
       animated: true,
       translucent: true,
       componentProps: {
-        objectSelected: this.objectSelected,
+        canvas: this.canvas,
+        objItems: this.objectSelected,
+        controls: this.controls
+      }
+    })
+
+    popover.onDidDismiss().then((item) => {
+      console.log(item)
+    })
+    return await popover.present()
+  }
+
+  async addTextPopover(event: Event) {
+    const popover = await this.popoverController.create({
+      component: AddTextPage,
+      event: event,
+      animated: true,
+      translucent: true,
+      componentProps: {
+        objText: this.objectSelected,
         canvas: this.canvas
       }
     })
 
-    popover.onDidDismiss().then(it => {
+    popover.onDidDismiss().then((it) => {
       console.log(it)
     })
     return await popover.present()
   }
 
-  deleteObject() {
+  deleteObjectOnCanvas() {
     console.log('deleteObjectOnCanvas')
     this.canvas.remove(this.objectSelected)
   }

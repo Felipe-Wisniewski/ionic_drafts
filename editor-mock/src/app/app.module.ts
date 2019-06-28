@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { AddItemsPageModule } from './editor/add-items/add-items.module';
 import { AddTextPageModule } from './editor/add-text/add-text.module';
+import { AddItemsModalPageModule } from './editor/add-items-modal/add-items-modal.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,8 @@ import { AddTextPageModule } from './editor/add-text/add-text.module';
     IonicModule.forRoot(), 
     IonicStorageModule.forRoot(), 
     AppRoutingModule, 
-    AddItemsPageModule, 
+    AddItemsPageModule,
+    AddItemsModalPageModule, 
     AddTextPageModule
   ],
   providers: [

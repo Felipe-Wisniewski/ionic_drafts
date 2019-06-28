@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Canvas } from 'fabric/fabric-impl';
-import { NavParams } from '@ionic/angular';
+import { NavParams, PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-text',
@@ -39,7 +39,7 @@ export class AddTextPage implements OnInit, OnDestroy {
   selectedColor = false
   selectedOpacity = false
 
-  constructor(private navParams: NavParams) { }
+  constructor(private navParams: NavParams, private popoverController: PopoverController) { }
 
   ngOnChanges() {
     console.log('On  Changes')
@@ -48,8 +48,7 @@ export class AddTextPage implements OnInit, OnDestroy {
   ngOnInit() {
     console.log('ngOnInit')
     this.canvas = this.navParams.get('canvas')
-
-    this.objText = this.navParams.get('objectSelected')
+    this.objText = this.navParams.get('objText')
     this.setTextSettings()
   }
 
@@ -73,6 +72,10 @@ export class AddTextPage implements OnInit, OnDestroy {
     console.log('AddFont', this.textFont)
     this.objText.set("fontFamily", this.textFont)
     this.canvas.renderAll()
+  }
+
+  closePopover() {
+    this.popoverController.dismiss()
   }
 
   ngOnDestroy() {
