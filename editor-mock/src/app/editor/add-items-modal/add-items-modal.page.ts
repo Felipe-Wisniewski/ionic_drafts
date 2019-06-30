@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class AddItemsModalPage implements OnInit {
 
-  choose: string
+  option: string
   chooses = []
 
   subscription$: Subscription
@@ -18,12 +18,12 @@ export class AddItemsModalPage implements OnInit {
   constructor(private navParams: NavParams, private modalService: AddItemsModalService, private modalController: ModalController) { }
 
   ngOnInit() {
-    this.choose = this.navParams.get('choose')
-    this.loadItemsEditor()
+    this.option = this.navParams.get('option')
+    this.getItemsModal()
   }
 
-  loadItemsEditor() {
-    switch (this.choose) {
+  getItemsModal() {
+    switch (this.option) {
       case 'brand': {
         this.subscription$ = this.modalService.getBrandsLogos()
           .subscribe(brandLogos => {

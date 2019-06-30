@@ -7,9 +7,46 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GalleryPage implements OnInit {
 
+  option = 'posts'
+  search = ''
+
+  loaded = false
+  hideSearch = false
+
+  listImages = []
+  posts = []
+  logos = []
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  searchPost() {
+
+  }
+
+  searchCancel() {
+
+  }
+
+  selectPostLogo() {
+
+  }
+
+  selectImage(image, idx) {
+
+  }
+
+  loadMore(event) {
+
+  }
+
+  openEditor() {
+    
+  }
+
+  loadErrorImg(event) {
+
+  }
 }

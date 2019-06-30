@@ -1,6 +1,6 @@
 <ion-grid>
     <!-- BRAND LOGOS -->
-    <ion-row (click)="addItem('brand')" *ngIf="brandEnabled">
+    <ion-row (click)="openOption('brand')" *ngIf="brandEnabled">
       <ion-item-divider no-padding>
         <ion-col size="2">
           <div class="div-icon">
@@ -14,7 +14,7 @@
     </ion-row>
   
     <!-- OWN LOGO -->
-    <ion-row (click)="addItem('logo')" *ngIf="logoEnabled">
+    <ion-row (click)="openOption('logo')" *ngIf="logoEnabled">
       <ion-item-divider no-padding>
         <ion-col size="2">
           <div class="div-icon">
@@ -28,7 +28,7 @@
     </ion-row>
   
     <!-- STAMPS -->
-    <ion-row (click)="addItem('stamps')" *ngIf="stampsEnabled">
+    <ion-row (click)="openOption('stamps')" *ngIf="stampsEnabled">
       <ion-item-divider no-padding>
           <ion-col size="2">
               <div class="div-icon">
@@ -42,7 +42,7 @@
     </ion-row>
   
     <!-- ICONS -->
-    <ion-row (click)="addItem('icons')" *ngIf="iconsEnabled">
+    <ion-row (click)="openOption('icons')" *ngIf="iconsEnabled">
       <ion-item-divider no-padding>
         <ion-col size="2">
           <div class="div-icon">

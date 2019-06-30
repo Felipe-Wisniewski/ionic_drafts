@@ -35,24 +35,18 @@ export class AddItemsPage implements OnInit {
     this.iconsEnabled = this.controls.icons
   }
 
-  async addItem(choose) {
+  async openOption(option) {
     const modal = await this.modalController.create({
       component: AddItemsModalPage,
       componentProps: {
-        choose: choose
+        option: option
       }
     })
-
+    
     modal.onDidDismiss().then((item) => {
-      console.log('modal')
-      console.log(this.objItem)
-      console.log(choose)
-      console.log(item.data.choose.image_url)
-      let itemUrl = item.data.choose.image_url
-
-      switch (choose) {
+      switch (option) {
         case 'brand': {
-                    
+          this.setLogoBrand(item.data.choose.image_url)
           break
         }
         case 'logo': {
@@ -60,35 +54,51 @@ export class AddItemsPage implements OnInit {
           break
         }
         case 'stamps': {
-          
+          this.setStamp(item.data.choose.image_url)
           break
         }
         case 'icons': {
-          
+          this.setIcons(item.data.choose.image_url)
           break
         }
         default: {
           break
         }
       }
-
       this.closePopover()
     })
     return await modal.present()
   }
+  
+  setLogoBrand(imageUrl: string) {
+    let top = this.objItem.top
+    let left = this.objItem.left
+    let scaleToWidth = this.objItem.getScaledWidth()
 
-  setLogoBrand(imgUrl: string) {
-    fabric.Image.fromURL(imgUrl, (img) => {
-      img.scaleToWidth(this.canvas.getWidth() / 2.5)
-      img.top = this.canvas.getHeight() - ((img.scaleY * img.height) + 20)
-      img.left = 20
+    fabric.Image.fromURL(imageUrl, (img) => {
+      img.scaleToWidth(scaleToWidth)
+      img.top = top
+      img.left = left
       img.cornerStyle = 'circle'
       img.cornerSize = 20
       img.lockUniScaling = true
       img.setOptions({ controls: 'brand-logos' })
       this.canvas.add(img)
+      this.canvas.remove(this.objItem)
       this.canvas.setOverlayImage(img, this.canvas.renderAll.bind(this.canvas)).setActiveObject(img)
     })
+  }
+
+  setLogoOwn() {
+
+  }
+
+  setStamp(imageUrl: string) {
+
+  }
+
+  setIcons(imageUrl: string) {
+
   }
 
   closePopover() {
