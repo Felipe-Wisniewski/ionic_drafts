@@ -33,6 +33,7 @@
       "id_template": "0",
       "json": null,
       "name": "blank",
+      "thumbnail_url": "assets/img/templateWhitePost.png",
       "id_subdivision": null,
       "max_products": "1",
       "layout": "post"
@@ -42,6 +43,7 @@
       "id_template": "0",
       "json": null,
       "name": "blank",
+      "thumbnail_url": "assets/img/templateWhiteStory.png",
       "id_subdivision": null,
       "max_products": "2",
       "layout": "story"
