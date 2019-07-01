@@ -7,7 +7,6 @@ const routes: Routes = [
   { path: 'editor', loadChildren: './editor/editor.module#EditorPageModule' },
   { path: 'follow', loadChildren: './follow/follow.module#FollowPageModule' },
   { path: 'gallery', loadChildren: './gallery/gallery.module#GalleryPageModule' }
-
 ];
 
 @NgModule({

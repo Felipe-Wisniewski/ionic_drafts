@@ -32,7 +32,7 @@
         <ion-icon slot="icon-only" size="large" name="share"></ion-icon>
       </ion-button>
       <!-- change product -->
-      <ion-button (click)="openChangeProduct()">
+      <ion-button (click)="productPopover($event)">
         <ion-icon slot="icon-only" size="large" src="assets/icon/shoe.svg"></ion-icon>
       </ion-button>
       <!-- open modal add items -->
@@ -40,7 +40,7 @@
         <ion-icon slot="icon-only" size="large" name="add"></ion-icon>
       </ion-button>
       <!-- open modal edit text -->
-      <ion-button (click)="addTextPopover($event)" [(disabled)]="!controls.text">
+      <ion-button (click)="addTextPopover($event)">
         <ion-icon slot="icon-only" size="large" src="assets/icon/type.svg"></ion-icon>
       </ion-button>
       <!-- delete selected item -->

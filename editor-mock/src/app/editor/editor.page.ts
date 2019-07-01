@@ -10,6 +10,7 @@ import { PopoverController } from '@ionic/angular';
 import { fabric } from 'fabric';
 import { AddTextPage } from './add-text/add-text.page';
 import { AddItemsPage } from './add-items/add-items.page';
+import { ProductPopoverPage } from './product-popover/product-popover.page';
 
 @Component({
   selector: 'app-editor',
@@ -38,11 +39,11 @@ export class EditorPage implements OnInit {
 
   controls = {
     general: false,
-    stamps: false,
-    background: false,
     text: false,
     icons: false,
+    stamps: false,
     brandLogos: false,
+    background: false,
     gallery: true
   }
 
@@ -54,16 +55,17 @@ export class EditorPage implements OnInit {
       if (this.template != null) {
 
         if (this.template.json != null) {
-
           this.setTemplateOnCanvas().then(() => {
             this.setProductsOnCanvas()
           })
 
         } else {
+          this.setControls()
           this.setProductsOnCanvas()
           this.setLogoOnCanvas()
         }
       }
+
       if (this.post != null) {
         this.setPostOnCanvas()
         this.setLogoOnCanvas()
@@ -94,7 +96,7 @@ export class EditorPage implements OnInit {
           this.products = value
           this.prod_one = this.products[0]
           this.products[1] != null ? this.prod_two = this.products[1] : this.prod_two = null
-          this.ref = this.products[0].ref
+          // this.ref = this.products[0].ref
           break
         }
 
@@ -152,7 +154,7 @@ export class EditorPage implements OnInit {
     const fonts = []
 
     this.template.json.objects.forEach(obj => {
-
+      console.log("json.obj I -> ", obj)
       obj.scaleX = (obj.scaleX / 100) * this.canvas.getWidth()
       obj.scaleY = (obj.scaleY / 100) * this.canvas.getHeight()
       obj.top = (obj.top / 100) * this.canvas.getHeight()
@@ -162,17 +164,21 @@ export class EditorPage implements OnInit {
 
       if (!obj.selectable) obj.evented = false
 
-      if (obj.type === 'text') {
-        console.log("json.obj I -> ", obj)
+      if (obj.type) {
+        this.controls.text = true
         this.text_template = obj.text
         // let font = new FontFaceObserver(obj.fontFamily)
-        // let font = obj.fontFamily
         // fonts.push(font.load().catch(() => obj.fontFamily = 'Roboto'))
-        // console.log(fonts)
       }
-
     })
     return await this.canvas.loadFromJSON(this.template.json, this.canvas.renderAll.bind(this.canvas))
+  }
+
+  setControls() {
+    this.controls.brandLogos = true
+    this.controls.icons = true
+    this.controls.stamps = true
+    this.controls.text = true
   }
 
   setProductsOnCanvas() {
@@ -207,7 +213,8 @@ export class EditorPage implements OnInit {
         prod.cornerSize = 20
         prod.name = `product${idx}`
         prod.lockUniScaling = true
-        prod.setOptions({controls: 'general'})
+        prod.setOptions({ controls: 'general' })
+        prod.setOptions({ ref: product.ref })
         this.canvas.add(prod).sendToBack(prod)
       })
     })
@@ -216,6 +223,7 @@ export class EditorPage implements OnInit {
   setPostOnCanvas() {
     fabric.Image.fromURL(this.post.post_url, (post) => {
       post.scaleToHeight(this.canvas.getHeight())
+      // post.scaleToWidth(this.canvas.getWidth())
       this.canvas.setOverlayImage(post, this.canvas.renderAll.bind(this.canvas))
     })
   }
@@ -228,7 +236,7 @@ export class EditorPage implements OnInit {
       logo.cornerStyle = 'circle'
       logo.cornerSize = 20
       logo.lockUniScaling = true
-      logo.setOptions({controls: 'brand-logos'})
+      logo.setOptions({ controls: 'brand-logos' })
       this.canvas.add(logo)
       this.canvas.setOverlayImage(logo, this.canvas.renderAll.bind(this.canvas)).setActiveObject(logo)
     })
@@ -240,47 +248,47 @@ export class EditorPage implements OnInit {
         this.eventSelectionCreated(obj.target)
       },
       'selection:updated': (obj) => {
-        this.eventSelectionCreated(obj.target) 
+        this.eventSelectionCreated(obj.target)
       },
       'selection:cleared': (obj) => {
         console.log(`- selection:cleared:`)
-        console.log(obj)
         this.eventSelectionCleared()
       },
       'object:added': (obj) => {
-        // console.log(`object:added:`)
+        console.log(`object:added:`, obj)
       },
       'object:removed': (obj) => {
-        // console.log(`object:removed:`)
+        console.log(`object:removed:`, obj)
       }
     })
   }
-  
+
   eventSelectionCreated(object) {
-    this.objectSelected = object
-    this.eventSelectionCleared()
-    
-    switch(object.controls) {
+    switch (object.controls) {
       case 'general': {
         this.deletableObject = false
+        this.controls.general = true
         break
       }
       case 'text': {
         object.removable ? this.deletableObject = true : this.deletableObject = false
-        this.controls.text = true
+        console.log(object)
         break
       }
       case 'gallery': {
         break
       }
       case 'brand-logos': {
-        this.controls.brandLogos = true
+        this.deletableObject = false
+
         break
       }
       case 'stamps': {
+
         break
       }
       case 'icons': {
+
         break
       }
       case 'background': {
@@ -290,22 +298,38 @@ export class EditorPage implements OnInit {
         break
       }
     }
+    this.objectSelected = object
   }
-   
+
   eventSelectionCleared() {
-    this.controls.general = false
-    this.controls.text = false
-    this.controls.brandLogos = false
-    this.controls.stamps = false
-    this.controls.icons = false
+    this.objectSelected = null
+    this.canvas.forEachObject((obj) => {
+      console.log(obj)
+    })
   }
 
   share() {
     console.log(JSON.stringify(this.canvas))
   }
 
-  openChangeProduct() {
-    console.log('openChangeProduct')
+  async productPopover(event: Event) {
+    const popover = await this.popoverController.create({
+      component: ProductPopoverPage,
+      event: event,
+      animated: true,
+      translucent: true,
+      componentProps: {
+        canvas: this.canvas,
+        objItems: this.objectSelected,
+        controls: this.controls,
+        ref: this.ref
+      }
+    })
+
+    popover.onDidDismiss().then((item) => {
+      console.log(item)
+    })
+    return await popover.present()
   }
 
   async addItemsPopover(event: Event) {
@@ -334,13 +358,15 @@ export class EditorPage implements OnInit {
       animated: true,
       translucent: true,
       componentProps: {
+        canvas: this.canvas,
         objText: this.objectSelected,
-        canvas: this.canvas
+        controls: this.controls
       }
     })
 
     popover.onDidDismiss().then((it) => {
       console.log(it)
+      // if (this.objItem.text == '') this.canvas.remove(this.objItem)
     })
     return await popover.present()
   }
