@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>Templates</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/']">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/']">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- 
+    <ion-grid class="grid-home" *ngIf="brands$ | async as brands ; else loading">
+        <ion-row *ngFor="let brand of brands">
+          <ion-col class="col-home">
+            <ion-img [src]="brand.image_url" (click)="selectBrand(brand)" (ionError)="loadErrorImg($event)"></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  
+      <ng-template #loading>
+        <ion-spinner loadingSpinner="crescent"></ion-spinner>
+      </ng-template>
+ -->
+</ion-content>
