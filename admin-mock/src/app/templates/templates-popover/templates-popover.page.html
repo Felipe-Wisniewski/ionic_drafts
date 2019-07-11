@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-item>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input autofocus="true" [(ngModel)]="name"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <ion-row>
+      <ion-item-divider no-padding mode="md">
+        <ion-label slot="start">Brand</ion-label>
+        <ion-select slot="end" interface="popover" [(ngModel)]="brand">
+          <ion-select-option *ngFor="let brand of brands">{{ brand.brand }}</ion-select-option>
+        </ion-select>
+      </ion-item-divider>
+    </ion-row>
+    
+    <ion-row>
+      <ion-item-divider no-padding mode="md">
+        <ion-label slot="start">Language</ion-label>
+        <ion-select slot="end" interface="popover" [(ngModel)]="language">
+          <ion-select-option *ngFor="let language of languages">{{ language.lang }}</ion-select-option>
+        </ion-select>
+      </ion-item-divider>
+    </ion-row>
+    
+    <ion-row *ngIf="isNewTemplate">
+      <ion-item-divider no-padding mode="md">
+        <ion-label slot="start">Layout</ion-label>
+        <ion-select slot="end" interface="popover" [(ngModel)]="layout">
+          <ion-select-option *ngFor="let layout of layouts" >{{ layout }}</ion-select-option>
+        </ion-select>
+      </ion-item-divider>
+    </ion-row>
+    
+    <ion-row>
+      <ion-button (click)="save()">
+        SAVE
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+</ion-content>

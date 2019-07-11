@@ -2,10 +2,10 @@
   <ion-toolbar color="primary" mode="md">
     <ion-title>Templates</ion-title>
     <ion-buttons slot="end">
-      <ion-button [routerLink]="['/']">
+      <ion-button (click)="newTemplate()">
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
-      <ion-button [routerLink]="['/']">
+      <ion-button (click)="logout()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -13,17 +13,38 @@
 </ion-header>
 
 <ion-content>
-  <!-- 
-    <ion-grid class="grid-home" *ngIf="brands$ | async as brands ; else loading">
-        <ion-row *ngFor="let brand of brands">
-          <ion-col class="col-home">
-            <ion-img [src]="brand.image_url" (click)="selectBrand(brand)" (ionError)="loadErrorImg($event)"></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-  
-      <ng-template #loading>
-        <ion-spinner loadingSpinner="crescent"></ion-spinner>
-      </ng-template>
- -->
+  <ion-grid *ngIf="loaded ; else loading">
+    <ion-row class="row-template">
+      <ion-col class="col-template" *ngFor="let template of templates" size="2">
+        <ion-card class="card-template" mode="md">
+          <ion-img class="img-template" [src]="template.thumbnail_url" (ionError)="loadErrorImg($event)"></ion-img>
+          <ion-card-header>
+            <ion-card-title>{{ template.name | lowercase }}</ion-card-title>
+            <ion-card-subtitle>{{ template.id_lang }}    -    {{ template.status }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-buttons class="buttons-template">
+              <ion-button (click)="renameTemplate(template)">
+                <ion-icon slot="start" name="create"></ion-icon>
+              </ion-button>
+              <ion-button (click)="editTemplate(template)">
+                <ion-icon slot="start" name="construct"></ion-icon>
+              </ion-button>
+              <ion-button (click)="deleteTemplate(template)">
+                <ion-icon slot="start" name="trash"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll threshold="50%" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ng-template #loading>
+    <ion-spinner loadingSpinner="crescent"></ion-spinner>
+  </ng-template>
 </ion-content>
