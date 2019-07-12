@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { Subscription } from 'rxjs';
 
 import { TemplatesService } from './templates.service';
@@ -24,8 +25,9 @@ export class TemplatesPage implements OnInit {
 
   constructor(
     private templatesService: TemplatesService, 
-    private popoverController: PopoverController,
-    private router: Router) { }
+    private storage: Storage,
+    private router: Router,
+    private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.getTemplates()
@@ -74,8 +76,9 @@ export class TemplatesPage implements OnInit {
   }
 
   editTemplate(template) {
-    // STORAGE SET
-    this.router.navigate(['editor-template'])
+    this.storage.set('template', template).then(() => {
+      this.router.navigate(['editor-template'])
+    })
   }
 
   deleteTemplate(template) {

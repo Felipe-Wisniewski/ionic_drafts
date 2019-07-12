@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary" mode="md">
     <ion-title>{{ title }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -8,42 +8,70 @@
   <ion-grid>
     <ion-row>
       <ion-item>
-        <ion-label position="stacked">Name</ion-label>
-        <ion-input autofocus="true" [(ngModel)]="name"></ion-input>
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input autofocus="true" [(ngModel)]="name" required="true"></ion-input>
       </ion-item>
     </ion-row>
 
     <ion-row>
       <ion-item-divider no-padding mode="md">
-        <ion-label slot="start">Brand</ion-label>
-        <ion-select slot="end" interface="popover" [(ngModel)]="brand">
-          <ion-select-option *ngFor="let brand of brands">{{ brand.brand }}</ion-select-option>
+        <ion-label slot="start">Marca</ion-label>
+        <ion-select slot="end" interface="popover" [(ngModel)]="brand" name="brand.brand"
+          (ionChange)="setBrandChange()">
+          <ion-select-option *ngFor="let brand of brands" [value]="brand">{{ brand.brand }}</ion-select-option>
         </ion-select>
       </ion-item-divider>
     </ion-row>
-    
+
+    <ion-row *ngIf="isSubdivision">
+      <ion-item-divider no-padding mode="md">
+        <ion-label slot="start">Sub Marca</ion-label>
+        <ion-select slot="end" interface="popover" [(ngModel)]="subdivision" name="subdivision.subdivision">
+          <ion-select-option *ngFor="let sub of subs" [value]="sub">{{ sub.subdivision }}</ion-select-option>
+        </ion-select>
+      </ion-item-divider>
+    </ion-row>
+
     <ion-row>
       <ion-item-divider no-padding mode="md">
-        <ion-label slot="start">Language</ion-label>
-        <ion-select slot="end" interface="popover" [(ngModel)]="language">
-          <ion-select-option *ngFor="let language of languages">{{ language.lang }}</ion-select-option>
+        <ion-label slot="start">Idioma</ion-label>
+        <ion-select slot="end" interface="popover" [(ngModel)]="language" name="language.lang">
+          <ion-select-option *ngFor="let lang of languages" [value]="lang">{{ lang.lang }}</ion-select-option>
         </ion-select>
       </ion-item-divider>
     </ion-row>
-    
+
     <ion-row *ngIf="isNewTemplate">
       <ion-item-divider no-padding mode="md">
         <ion-label slot="start">Layout</ion-label>
         <ion-select slot="end" interface="popover" [(ngModel)]="layout">
-          <ion-select-option *ngFor="let layout of layouts" >{{ layout }}</ion-select-option>
+          <ion-select-option *ngFor="let layout of layouts">{{ layout }}</ion-select-option>
         </ion-select>
       </ion-item-divider>
     </ion-row>
-    
+
     <ion-row>
-      <ion-button (click)="save()">
-        SAVE
-      </ion-button>
+      <ion-item-divider no-padding mode="md">
+        <ion-label slot="start">Validade</ion-label>
+        <ion-toggle slot="end" [(ngModel)]="validityDate"></ion-toggle>
+      </ion-item-divider>
+    </ion-row>
+
+    <ion-row *ngIf="validityDate">
+      <ion-item-divider no-padding mode="md">
+        <ion-label slot="start">Início</ion-label>
+        <ion-datetime slot="end" display-format="D/M/YYYY" picker-format="D M YYYY" [(ngModel)]="validityStart"
+          placeholder="Selecione..." min="2019" max="2060" value="15-12-1994"></ion-datetime>
+      </ion-item-divider>
+      <ion-item-divider no-padding mode="md">
+        <ion-label slot="start">Fim</ion-label>
+        <ion-datetime slot="end" display-format="D/M/YYYY" picker-format="D M YYYY" [(ngModel)]="validityEnd"
+          placeholder="Selecione..." min="2019" max="2060" value="15-12-1994"></ion-datetime>
+      </ion-item-divider>
+    </ion-row>
+
+    <ion-row>
+      <ion-button expand="block" (click)="save()">SALVAR</ion-button>
     </ion-row>
   </ion-grid>
 </ion-content>
