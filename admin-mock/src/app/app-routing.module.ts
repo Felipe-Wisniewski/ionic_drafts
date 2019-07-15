@@ -5,7 +5,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'templates', loadChildren: './templates/templates.module#TemplatesPageModule' },
-  { path: 'editor-template', loadChildren: './editor-template/editor-template.module#EditorTemplatePageModule' }
+  { path: 'editor-template', loadChildren: './editor-template/editor-template.module#EditorTemplatePageModule' },
+  { path: 'editor-background', loadChildren: './editor-template/editor-background/editor-background.module#EditorBackgroundPageModule' }
 ];
 
 @NgModule({

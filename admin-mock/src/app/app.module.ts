@@ -11,6 +11,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TemplatesPopoverPageModule } from './templates/templates-popover/templates-popover.module';
+import { EditorBackgroundPageModule } from './editor-template/editor-background/editor-background.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,8 @@ import { TemplatesPopoverPageModule } from './templates/templates-popover/templa
     IonicModule.forRoot(), 
     IonicStorageModule.forRoot(), 
     AppRoutingModule,
-    TemplatesPopoverPageModule
+    TemplatesPopoverPageModule,
+    EditorBackgroundPageModule
   ],
   providers: [
     StatusBar,

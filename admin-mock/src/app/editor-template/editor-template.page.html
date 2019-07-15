@@ -1,9 +1,55 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>editor-template</ion-title>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="save"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content mode="md">
+  <div class="editor-container">
+    <canvas class="canvas" id="canvas"></canvas>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="dark" mode="md">
+    <ion-buttons class="footer-buttons">
+
+      <!-- text -->
+      <ion-button (click)="addText()">
+        <ion-icon slot="icon-only" size="large" src="assets/icon/type.svg"></ion-icon>
+      </ion-button>
+
+      <!-- stamps -->
+      <ion-button (click)="addStamps()">
+        <ion-icon slot="icon-only" size="large" name="pricetags"></ion-icon>
+      </ion-button>
+
+      <!-- background -->
+      <ion-button (click)="addBackground()">
+        <ion-icon slot="icon-only" size="large" name="images"></ion-icon>
+      </ion-button>
+
+      <!-- icons -->
+      <ion-button (click)="addIcons()">
+        <ion-icon slot="icon-only" size="large" name="information-circle"></ion-icon>
+      </ion-button>
+
+      <!-- editor -->
+      <ion-button (click)="editorSet()">
+        <ion-icon slot="icon-only" size="large" name="settings"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

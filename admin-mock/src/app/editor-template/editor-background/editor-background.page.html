@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar mode="md">
+      <ion-title>Backgrounds</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-grid *ngIf="loaded ; else loading">
+      <ion-row>
+        <ion-col *ngFor="let background of backgrounds" size="4">
+          <div (click)="changeBackground(background)">
+            <ion-img [src]="background.image_url" (ionError)="loadErrorImg($event)"></ion-img>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
+    <ion-infinite-scroll threshold="50%" (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  
+    <ng-template #loading>
+      <ion-spinner loadingSpinner="crescent"></ion-spinner>
+    </ng-template>
+  </ion-content>

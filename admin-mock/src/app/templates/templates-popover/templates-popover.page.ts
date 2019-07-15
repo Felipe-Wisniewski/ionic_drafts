@@ -26,6 +26,7 @@ export class TemplatesPopoverPage implements OnInit {
   name = null
   language = null
   layout = null
+  id_subdivision = null
   validityDate = false
   validityStart = null
   validityEnd = null
@@ -48,7 +49,7 @@ export class TemplatesPopoverPage implements OnInit {
 
   async getParams() {
     this.brands = await this.navParams.get('brands')
-    this.template = await this.navParams.get('template')
+    this.template = await this.navParams.get('templateEditor')
   }
 
   setParams() {
@@ -92,7 +93,7 @@ export class TemplatesPopoverPage implements OnInit {
 
         this.template = {
           id_brand: this.brand.id.toString(),
-          id_subdivision: this.subdivision.id_subdivision.toString(),
+          id_subdivision: this.id_subdivision,
           max_products: null,
           status: null,
           registration_user: null,
@@ -142,6 +143,14 @@ export class TemplatesPopoverPage implements OnInit {
     if (this.brand == null) valid++
     if (this.language == null) valid++
 
+    if (this.isSubdivision) {
+      if (this.subdivision == null) {
+        valid++
+      } else {
+        this.id_subdivision = this.subdivision.id_subdivision.toString()
+      }
+    }
+
     if (this.isNewTemplate) {
       if (this.layout == null) valid++
     }
@@ -155,7 +164,8 @@ export class TemplatesPopoverPage implements OnInit {
   }
 
   openEditor() {
-    this.storage.set('template', this.template).then(() => {
+    this.storage.set('brand', this.brand)
+    this.storage.set('template-editor', this.template).then(() => {
       this.router.navigate(['editor-template'])
     })
   }

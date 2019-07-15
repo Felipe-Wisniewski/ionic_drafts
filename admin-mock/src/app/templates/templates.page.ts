@@ -69,14 +69,14 @@ export class TemplatesPage implements OnInit {
       mode: "md",
       componentProps: {
         brands: this.brands,
-        template: template
+        templateEditor: template
       }
     })
     return await popover.present()
   }
 
   editTemplate(template) {
-    this.storage.set('template', template).then(() => {
+    this.storage.set('template-editor', template).then(() => {
       this.router.navigate(['editor-template'])
     })
   }
