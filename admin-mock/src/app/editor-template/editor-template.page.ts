@@ -11,6 +11,10 @@ import { Stamp } from '../model/stamp';
 import { Icon } from '../model/icon';
 import { EditorTemplateService } from './editor-template.service';
 import { EditorBackgroundPage } from './editor-background/editor-background.page';
+import { EditorStampsPage } from './editor-stamps/editor-stamps.page';
+import { EditorStampsPopoverPage } from './editor-stamps-popover/editor-stamps-popover.page';
+import { EditorIconsPopoverPage } from './editor-icons-popover/editor-icons-popover.page';
+import { EditorIconsModalPage } from './editor-icons-modal/editor-icons-modal.page';
 
 @Component({
   selector: 'app-editor-template',
@@ -25,9 +29,10 @@ export class EditorTemplatePage implements OnInit {
 
   template: Template
   brand: Brand
-  
+
   stamps: Stamp[] = []
   icons: Icon[] = []
+  objectSelected: any
 
   subscription$: Subscription[] = []
 
@@ -40,8 +45,6 @@ export class EditorTemplatePage implements OnInit {
   ngOnInit() {
     this.getChoices().then(() => {
       if (this.template.id_template != null) this.getTemplate()
-      this.getStamps()
-      this.getIcons()
     })
   }
 
@@ -75,29 +78,35 @@ export class EditorTemplatePage implements OnInit {
       let width = (1080 / 1920) * heightScreen
       this.canvas.setDimensions({ width: width, height: heightScreen })
     }
-    console.log('canvas ok')
+    this.getCanvasEvents()
   }
 
+  getCanvasEvents() {
+    this.canvas.on({
+      'selection:created': (obj) => {
+        this.objectSelected = obj.target
+      },
+      'selection:updated': (obj) => {
+        this.objectSelected = obj.target
+      },
+      'selection:cleared': () => {
+        this.objectSelected = null
+      }/* ,
+      'object:added': (obj) => {
+        console.log(`object:added:`, obj)
+      },
+      'object:removed': (obj) => {
+        console.log(`object:removed:`, obj)
+      } */
+    })
+  }
+ 
   getTemplate() {
     this.subscription$.push(this.editorTemplateService.getTemplate(this.template.id_template)
       .subscribe((_template) => {
         this.template = _template
         this.setTemplateOnCanvas()
       }))
-  }
-
-  getStamps() {
-    /* this.subscription$.push(this.editorTemplateService.getStamps(this.template.id_template)
-      .subscribe((_stamps) => {
-        this.stamps = _stamps
-      })) */
-  }
-
-  getIcons() {
-    /* this.subscription$.push(this.editorTemplateService.getIcons(this.template.id_template)
-      .subscribe((_icons) => {
-        this.icons = _icons
-      })) */
   }
 
   async setTemplateOnCanvas() {
@@ -119,6 +128,7 @@ export class EditorTemplatePage implements OnInit {
         // let font = new FontFaceObserver(obj.fontFamily)
         // fonts.push(font.load().catch(() => obj.fontFamily = 'Roboto'))
       }
+      console.log(obj)
     })
     return await this.canvas.loadFromJSON(this.template.json, this.canvas.renderAll.bind(this.canvas))
   }
@@ -127,8 +137,33 @@ export class EditorTemplatePage implements OnInit {
 
   }
 
-  addStamps() {
+  async addStamps(ev) {
+    if (this.objectSelected != null && this.objectSelected.controls == 'stamps') {
 
+      const popover = await this.popoverController.create({
+        component: EditorStampsPopoverPage,
+        event: ev,
+        animated: true,
+        translucent: true,
+        mode: "md",
+        componentProps: {
+          canvas: this.canvas,
+          object: this.objectSelected
+        }
+      })
+      return await popover.present()
+
+    } else {
+
+      const modal = await this.modalController.create({
+        component: EditorStampsPage,
+        componentProps: {
+          canvas: this.canvas,
+          template: this.template
+        }
+      })
+      return await modal.present()
+    }
   }
 
   async addBackground() {
@@ -139,17 +174,43 @@ export class EditorTemplatePage implements OnInit {
         template: this.template
       }
     })
-    modal.onDidDismiss().then(() => {
-      console.log('modal.onDidDismiss')
-    })
     return await modal.present()
   }
 
-  addIcons() {
+  async addIcons(ev) {
+    if (this.objectSelected != null && this.objectSelected.controls == 'icons') {
 
+      const popover = await this.popoverController.create({
+        component: EditorIconsPopoverPage,
+        event: ev,
+        animated: true,
+        translucent: true,
+        mode: "md",
+        componentProps: {
+          canvas: this.canvas,
+          object: this.objectSelected
+        }
+      })
+      return await popover.present()
+
+    } else {
+
+      const modal = await this.modalController.create({
+        component: EditorIconsModalPage,
+        componentProps: {
+          canvas: this.canvas,
+          template: this.template
+        }
+      })
+      return await modal.present()
+    }
   }
 
   editorSet() {
 
+  }
+
+  deleteObjectOnCanvas() {
+    this.canvas.remove(this.objectSelected)
   }
 }

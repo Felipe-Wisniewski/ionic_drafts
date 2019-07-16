@@ -12,6 +12,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TemplatesPopoverPageModule } from './templates/templates-popover/templates-popover.module';
 import { EditorBackgroundPageModule } from './editor-template/editor-background/editor-background.module';
+import { EditorStampsPageModule } from './editor-template/editor-stamps/editor-stamps.module';
+import { EditorStampsPopoverPageModule } from './editor-template/editor-stamps-popover/editor-stamps-popover.module';
+import { EditorIconsModalPageModule } from './editor-template/editor-icons-modal/editor-icons-modal.module';
+import { EditorIconsPopoverPageModule } from './editor-template/editor-icons-popover/editor-icons-popover.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +27,11 @@ import { EditorBackgroundPageModule } from './editor-template/editor-background/
     IonicStorageModule.forRoot(), 
     AppRoutingModule,
     TemplatesPopoverPageModule,
-    EditorBackgroundPageModule
+    EditorBackgroundPageModule,
+    EditorStampsPageModule,
+    EditorStampsPopoverPageModule,
+    EditorIconsModalPageModule,
+    EditorIconsPopoverPageModule
   ],
   providers: [
     StatusBar,

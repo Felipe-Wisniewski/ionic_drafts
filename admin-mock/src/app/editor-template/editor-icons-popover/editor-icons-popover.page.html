@@ -1,0 +1,84 @@
+<ion-grid>
+  <!-- MOVEMENT -->
+  <ion-row>
+    <ion-item-divider no-padding mode="md">
+      <ion-col size="2">
+        <div>
+          <ion-icon slot="icon-only" size="large" name="swap"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-label>Travar Movimentos</ion-label>
+        <ion-toggle [(ngModel)]="lockMovement" mode="md" (ionChange)="setLockMovement()"></ion-toggle>
+      </ion-col>
+    </ion-item-divider>
+  </ion-row>
+  <!-- ROTATION -->
+  <ion-row>
+    <ion-item-divider no-padding mode="md">
+      <ion-col size="2">
+        <div>
+          <ion-icon slot="icon-only" size="large" name="sync"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-label>Travar Rotação</ion-label>
+        <ion-toggle [(ngModel)]="lockRotation" (ionChange)="setLockRotation()"></ion-toggle>
+      </ion-col>
+    </ion-item-divider>
+  </ion-row>
+  <!-- SIZE -->
+  <ion-row>
+    <ion-item-divider no-padding mode="md">
+      <ion-col size="2">
+        <div>
+          <ion-icon slot="icon-only" size="large" name="resize"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-label>Travar Tamanho</ion-label>
+        <ion-toggle [(ngModel)]="lockSize" (ionChange)="setLockSize()"></ion-toggle>
+      </ion-col>
+    </ion-item-divider>
+  </ion-row>
+
+  <!-- colors -->
+  <ion-row>
+    <ion-item-divider no-padding mode="md">
+      <div class="div-list">
+        <ion-col class="col-list" *ngFor="let color of colors">
+          <div class="icon-circle" [ngStyle]="{'background-color': color.color}" (click)="selectedColor(color.color)">
+          </div>
+        </ion-col>
+      </div>
+    </ion-item-divider>
+  </ion-row>
+  <!-- r -->
+  <ion-row>
+    <ion-item-divider no-padding mode="md">
+      <ion-range no-padding min="0" max="255" step="1" [(ngModel)]="color.r" (ionChange)="setRgb()">
+        <ion-label slot="start">R</ion-label>
+        <ion-label slot="end">{{ color.r }}</ion-label>
+      </ion-range>
+    </ion-item-divider>
+  </ion-row>
+  <!-- g -->
+  <ion-row>
+    <ion-item-divider no-padding mode="md">
+      <ion-range no-padding min="0" max="255" step="1" [(ngModel)]="color.g" (ionChange)="setRgb()">
+        <ion-label slot="start">G</ion-label>
+        <ion-label slot="end">{{ color.g }}</ion-label>
+      </ion-range>
+    </ion-item-divider>
+  </ion-row>
+  <!-- b -->
+  <ion-row>
+    <ion-item-divider no-padding mode="md">
+      <ion-range no-padding min="0" max="255" step="1" [(ngModel)]="color.b" (ionChange)="setRgb()">
+        <ion-label slot="start">B</ion-label>
+        <ion-label slot="end">{{ color.b }}</ion-label>
+      </ion-range>
+    </ion-item-divider>
+  </ion-row>
+
+</ion-grid>

@@ -1,41 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
-import { catchError, map } from 'rxjs/operators';
 import { empty } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EditorTemplateService {
+export class EditorIconsModalService {
 
   private url = environment.URL_API
-  lang = 'pt'
+  static pages
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
-  getTemplate(id_template) {
-    return this.http.get(`${this.url}templates/${id_template}`)
+  getIcons(id_brand, lang) {
+    return this.http.get<any[]>(`${this.url}icons?id_brand=${id_brand};98&lang=${lang}`)
       .pipe(
         catchError(() => {
-          this.alertPopup("Erro ao carregar template")
+          this.alertPopup("Erro ao carregar os ícones.")
           return empty()
         }),
-        map(resp => resp['template'])
+        map(resp => resp['icons'])
       )
-  }
-
-  getIcons(id_brand) {
-    return this.http.get(`${this.url}icons?id_brand=${id_brand};98&lang=${this.lang}`)
-    .pipe(
-      catchError(() => {
-        this.alertPopup("Erro ao carregar os icones")
-        return empty()
-      }),
-      map(resp => resp['icons'])
-    )
   }
 
   async alertPopup(message: string) {

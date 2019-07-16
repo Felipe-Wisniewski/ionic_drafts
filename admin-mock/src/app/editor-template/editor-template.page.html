@@ -24,32 +24,30 @@
 <ion-footer>
   <ion-toolbar color="dark" mode="md">
     <ion-buttons class="footer-buttons">
-
       <!-- text -->
       <ion-button (click)="addText()">
         <ion-icon slot="icon-only" size="large" src="assets/icon/type.svg"></ion-icon>
       </ion-button>
-
       <!-- stamps -->
-      <ion-button (click)="addStamps()">
+      <ion-button (click)="addStamps($event)">
         <ion-icon slot="icon-only" size="large" name="pricetags"></ion-icon>
       </ion-button>
-
       <!-- background -->
       <ion-button (click)="addBackground()">
         <ion-icon slot="icon-only" size="large" name="images"></ion-icon>
       </ion-button>
-
       <!-- icons -->
-      <ion-button (click)="addIcons()">
+      <ion-button (click)="addIcons($event)">
         <ion-icon slot="icon-only" size="large" name="information-circle"></ion-icon>
       </ion-button>
-
       <!-- editor -->
       <ion-button (click)="editorSet()">
         <ion-icon slot="icon-only" size="large" name="settings"></ion-icon>
       </ion-button>
-
+      <!-- delete selected item -->
+      <ion-button (click)="deleteObjectOnCanvas()" [(disabled)]="!objectSelected">
+        <ion-icon slot="icon-only" size="large" name="trash"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

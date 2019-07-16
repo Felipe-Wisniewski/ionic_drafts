@@ -72,16 +72,10 @@ export class EditorBackgroundPage implements OnInit {
   }
 
   changeBackground(background) {
-    console.log(background)
-
-    if (this.objBackground) {
-      console.log(this.objBackground)
-    } else {
-      console.log(this.objBackground)
-    }
-
+    
     fabric.Image.fromURL(background.image_url, (img) => {
-      img.width = this.canvas.getWidth()
+      let size = img.getOriginalSize()
+      size.height > size.width ? img.scaleToHeight(this.canvas.getHeight()) : img.scaleToWidth(this.canvas.getWidth())
       img.selectable = false
       img.evented = false
       img.lockMovementX = true
@@ -89,28 +83,11 @@ export class EditorBackgroundPage implements OnInit {
       img.setOptions({ controls: 'background' })
       img.setOptions({ removable: true })
       img.center()
-
-    })
-
-    //   }, image => {
-    //     const size = image.getOriginalSize();
-    //     if (size.height > size.width) {
-    //       image.scaleToHeight(CanvasEditor.height)
-    //     }
-    //     $scope.backgroundimage = image;
-
-    /* this.fabric.Image.fromURL(url, (img) => {
-      options.maxWidth = options.maxWidth || img.width;
-      options.maxHeight = options.maxHeight || img.height;
-      if (options.width) {
-        img.scaleToWidth(options.width);
-        delete options.width;
-      }
-      if (options.height) {
-        img.scaleToHeight(options.height);
-        delete options.height;
-      }
-    }, { crossOrigin: "Anonymous" });*/
+      
+      if (this.objBackground) this.canvas.remove(this.objBackground)
+      this.canvas.add(img)
+      this.canvas.renderAll()
+    }, { crossOrigin: "Anonymous" })
 
     this.closeModal()
   }

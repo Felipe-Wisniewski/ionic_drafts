@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar mode="md">
+      <ion-title>Ícones</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <div>
+      <ion-grid>
+        <ion-row>
+          <ion-col *ngFor="let icon of icons" size="2">
+            <div (click)="addIcon(icon)">
+              <ion-img [src]="icon.image_url" (ionError)="loadErrorImg($event)"></ion-img>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-content>
