@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams } from '@ionic/angular';
-import { fabric } from 'fabric';
 import { Canvas } from 'fabric/fabric-impl';
+import { NavParams, ModalController, PopoverController } from '@ionic/angular';
+import { Template } from 'src/app/model/template';
+import { EditorBackgroundPage } from '../editor-background/editor-background.page';
 
 @Component({
-  selector: 'app-editor-icons-popover',
-  templateUrl: './editor-icons-popover.page.html',
-  styleUrls: ['./editor-icons-popover.page.scss'],
+  selector: 'app-editor-background-popover',
+  templateUrl: './editor-background-popover.page.html',
+  styleUrls: ['./editor-background-popover.page.scss'],
 })
-export class EditorIconsPopoverPage implements OnInit {
+export class EditorBackgroundPopoverPage implements OnInit {
 
   canvas: Canvas
-  object: any
+  template: Template
+  objBackground: any
   color = { r: 0, g: 0, b: 0 }
 
   colors = [
@@ -24,55 +26,56 @@ export class EditorIconsPopoverPage implements OnInit {
     { color: "#2c3e50" }, { color: "#9b59b6" }, { color: "#8e44ad" }
   ]
 
-  lockMovement = false
-  lockRotation = false
-  lockSize = false
-  lockColor = false
+  hideBackground = false
   colorChoose = ''
 
-  constructor(private navParams: NavParams) { }
+  constructor(
+    private navParams: NavParams,
+    private modalController: ModalController,
+    private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.canvas = this.navParams.get('canvas')
-    this.object = this.navParams.get('object')
+    this.template = this.navParams.get('template')
+    this.objBackground = this.navParams.get('objBackground')
 
-    this.colorChoose = this.object.fill
+    console.log(this.canvas.backgroundColor.toString())
+    this.colorChoose = this.canvas.backgroundColor.toString()
     this.color = this.hexToRGB(this.colorChoose);
-    this.lockMovement = this.object.lockMovementX
-    this.lockRotation = this.object.lockRotation
-    this.lockSize = this.object.lockScalingX
-    this.lockColor = this.object.changeColor
+    // this.hideBackground = this.objBackground.lockMovementX
   }
 
-  setLockMovement() {
-    this.object.set("lockMovementX", this.lockMovement)
-    this.object.set("lockMovementY", this.lockMovement)
+  async changeBackground() {
+    const modal = await this.modalController.create({
+      component: EditorBackgroundPage,
+      componentProps: {
+        canvas: this.canvas,
+        template: this.template
+      }
+    })
+    
+    modal.onDidDismiss().then(() => {
+      this.closePopover()
+    })
+
+    return await modal.present()
   }
 
-  setLockRotation() {
-    this.object.set("lockRotation", this.lockRotation)
-  }
-
-  setLockSize() {
-    this.object.set("lockScalingX", this.lockSize)
-    this.object.set("lockScalingY", this.lockSize)
-  }
-
-  setLockColor() {
-    this.object.set("changeColor", this.lockColor)
+  setHideBackground() {
+    // this.canvas.
+    // this.objBackground.set("lockMovementX", this.lockMovement)
   }
 
   selectedColor(color) {
     this.colorChoose = color;
     this.color = this.hexToRGB(color);
-    this.object.set("fill", color)
-    console.log(this.object)
+    this.canvas.backgroundColor = color
     this.canvas.renderAll()
   }
 
   setRgb() {
     this.colorChoose = `#${this.rgbToHex(this.color.r, this.color.g, this.color.b)}`
-    this.object.set("fill", this.colorChoose)
+    this.canvas.backgroundColor = this.colorChoose
     this.canvas.renderAll()
   }
 
@@ -87,5 +90,9 @@ export class EditorIconsPopoverPage implements OnInit {
   rgbToHex(r, g, b) {
     let bin = r << 16 | g << 8 | b;
     return ((h) => new Array(7 - h.length).join("0") + h)(bin.toString(16).toUpperCase())
+  }
+
+  closePopover() {
+    this.popoverController.dismiss()
   }
 }

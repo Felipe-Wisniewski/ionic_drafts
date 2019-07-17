@@ -1,0 +1,26 @@
+.div-list {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    height: 45px;
+  }
+  
+  .col-list {
+    height: auto;
+    width: auto;
+    padding: 0px;
+  }
+  
+  .icon-circle {
+    position: relative;
+    display: inline-block;
+    margin: 3px;
+    padding: 16px;
+    width: 35px;
+    height: 35px; 
+    
+    border: 1px solid #000000;
+    border-radius: 50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+  }

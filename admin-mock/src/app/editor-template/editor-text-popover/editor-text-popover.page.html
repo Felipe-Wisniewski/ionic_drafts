@@ -1,0 +1,73 @@
+<ion-grid>
+
+  <!-- INPUT TEXT -->
+  <ion-row *ngIf="textEnabled">
+    <ion-item-divider no-padding mode="md">
+      <ion-col size="2">
+        <div>
+          <ion-icon slot="icon-only" size="large" name="create" mode="md"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-input class="input-text" no-padding placeholder="Enter Text" autofocus="true" [(ngModel)]="text"
+          (ionChange)="setText()"></ion-input>
+      </ion-col>
+    </ion-item-divider>
+  </ion-row>
+
+  <!-- FONTS -->
+  <ion-row *ngIf="fontEnabled">
+    <ion-item-divider no-padding mode="md">
+      <ion-col size="2">
+        <div>
+          <ion-icon slot="icon-only" size="large" name="code-working"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-select placeholder="More fonts..." [(ngModel)]="textFont" (ionChange)="setFontFamily()">
+          <ion-select-option *ngFor="let font of fonts" [ngClass]="{'font-family': font.fontFamily}">{{ font.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-item-divider>
+  </ion-row>
+
+  <!-- CHANGE COLOR -->
+  <ion-row *ngIf="colorEnabled">
+    <ion-item-divider no-padding mode="md">
+      <ion-col size="2">
+        <div>
+          <ion-icon slot="icon-only" size="large" name="color-palette"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col (click)="setTextColor()">
+        <p class="p-change-color">CHANGE COLOR</p>
+      </ion-col>
+    </ion-item-divider>
+  </ion-row>
+
+  <!-- FONT SIZE -->
+  <ion-row *ngIf="sizeEnabled">
+    <ion-item-divider no-padding mode="md">
+      <ion-col>
+        <ion-range no-padding min="14" max="600" step="1" [(ngModel)]="textSize" (ionChange)="setFontSize()">
+          <ion-icon slot="start" size="small" src="assets/icon/type.svg"></ion-icon>
+          <ion-icon slot="end" src="assets/icon/type.svg"></ion-icon>
+        </ion-range>
+      </ion-col>
+    </ion-item-divider>
+  </ion-row>
+
+  <!-- TEXT OPACITY -->
+  <ion-row *ngIf="opacityEnabled">
+    <ion-item-divider no-padding mode="md">
+      <ion-col>
+        <ion-range no-padding min="0" max="1" step="0.1" [(ngModel)]="textOpacity" (ionChange)="setTextOpacity()">
+          <ion-icon slot="start" size="small" name="sunny"></ion-icon>
+          <ion-icon slot="end" name="sunny"></ion-icon>
+        </ion-range>
+      </ion-col>
+    </ion-item-divider>
+  </ion-row>
+
+</ion-grid>

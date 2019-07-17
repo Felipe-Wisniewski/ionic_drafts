@@ -49,7 +49,7 @@ export class EditorIconsModalPage implements OnInit {
     fabric.loadSVGFromURL(icon.image_url, (objects, options) => {
       var obj = fabric.util.groupSVGElements(objects, { crossOrigin: 'Anonymous' })
 
-      obj.scaleToWidth(this.canvas.getWidth() / 6)
+      obj.scaleToWidth(this.canvas.getWidth() / 7)
       obj.top = 10
       obj.left = 10
       obj.cornerStyle = 'circle'
@@ -61,7 +61,10 @@ export class EditorIconsModalPage implements OnInit {
       obj.lockRotation = false
       obj.lockScalingX = false
       obj.lockScalingY = false
+      obj.setOptions({ fill: '#000000' })
+      obj.setOptions({ changeColor: false })
       obj.setOptions({ controls: 'icons' })
+      obj.setOptions({ crossOrigin: 'Anonymous' })
 
       this.canvas.add(obj).renderAll();
     })

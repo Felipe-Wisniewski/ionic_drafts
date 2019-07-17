@@ -25,7 +25,7 @@
   <ion-toolbar color="dark" mode="md">
     <ion-buttons class="footer-buttons">
       <!-- text -->
-      <ion-button (click)="addText()">
+      <ion-button (click)="addText($event)">
         <ion-icon slot="icon-only" size="large" src="assets/icon/type.svg"></ion-icon>
       </ion-button>
       <!-- stamps -->
@@ -33,16 +33,12 @@
         <ion-icon slot="icon-only" size="large" name="pricetags"></ion-icon>
       </ion-button>
       <!-- background -->
-      <ion-button (click)="addBackground()">
+      <ion-button (click)="addBackground($event)">
         <ion-icon slot="icon-only" size="large" name="images"></ion-icon>
       </ion-button>
       <!-- icons -->
       <ion-button (click)="addIcons($event)">
         <ion-icon slot="icon-only" size="large" name="information-circle"></ion-icon>
-      </ion-button>
-      <!-- editor -->
-      <ion-button (click)="editorSet()">
-        <ion-icon slot="icon-only" size="large" name="settings"></ion-icon>
       </ion-button>
       <!-- delete selected item -->
       <ion-button (click)="deleteObjectOnCanvas()" [(disabled)]="!objectSelected">

@@ -16,6 +16,8 @@ import { EditorStampsPageModule } from './editor-template/editor-stamps/editor-s
 import { EditorStampsPopoverPageModule } from './editor-template/editor-stamps-popover/editor-stamps-popover.module';
 import { EditorIconsModalPageModule } from './editor-template/editor-icons-modal/editor-icons-modal.module';
 import { EditorIconsPopoverPageModule } from './editor-template/editor-icons-popover/editor-icons-popover.module';
+import { EditorBackgroundPopoverPageModule } from './editor-template/editor-background-popover/editor-background-popover.module';
+import { EditorTextPopoverPageModule } from './editor-template/editor-text-popover/editor-text-popover.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +33,9 @@ import { EditorIconsPopoverPageModule } from './editor-template/editor-icons-pop
     EditorStampsPageModule,
     EditorStampsPopoverPageModule,
     EditorIconsModalPageModule,
-    EditorIconsPopoverPageModule
+    EditorIconsPopoverPageModule,
+    EditorBackgroundPopoverPageModule,
+    EditorTextPopoverPageModule
   ],
   providers: [
     StatusBar,

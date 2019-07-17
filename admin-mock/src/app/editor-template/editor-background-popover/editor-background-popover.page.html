@@ -1,5 +1,18 @@
 <ion-grid>
-  <!-- MOVEMENT -->
+  <!-- CHANGE BACKGROUND -->
+  <ion-row>
+      <ion-item-divider no-padding mode="md">
+        <ion-col size="2">
+          <div>
+            <ion-icon slot="icon-only" size="large" name="swap"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col (click)="changeBackground()">
+          <p>Mudar Background</p>
+        </ion-col>
+      </ion-item-divider>
+    </ion-row>
+  <!-- HIDE BACKGROUND -->
   <ion-row>
     <ion-item-divider no-padding mode="md">
       <ion-col size="2">
@@ -8,53 +21,12 @@
         </div>
       </ion-col>
       <ion-col>
-        <ion-label>Travar Movimentos</ion-label>
-        <ion-toggle [(ngModel)]="lockMovement" mode="md" (ionChange)="setLockMovement()"></ion-toggle>
+        <ion-label>Ocultar Background</ion-label>
+        <ion-toggle [(ngModel)]="hideBackground" mode="md" (ionChange)="setHideBackground()"></ion-toggle>
       </ion-col>
     </ion-item-divider>
   </ion-row>
-  <!-- ROTATION -->
-  <ion-row>
-    <ion-item-divider no-padding mode="md">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" size="large" name="sync"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col>
-        <ion-label>Travar Rotação</ion-label>
-        <ion-toggle [(ngModel)]="lockRotation" (ionChange)="setLockRotation()"></ion-toggle>
-      </ion-col>
-    </ion-item-divider>
-  </ion-row>
-  <!-- SIZE -->
-  <ion-row>
-    <ion-item-divider no-padding mode="md">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" size="large" name="resize"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col>
-        <ion-label>Travar Tamanho</ion-label>
-        <ion-toggle [(ngModel)]="lockSize" (ionChange)="setLockSize()"></ion-toggle>
-      </ion-col>
-    </ion-item-divider>
-  </ion-row>
-  <!-- COLOR -->
-  <ion-row>
-    <ion-item-divider no-padding mode="md">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" size="large" name="resize"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col>
-        <ion-label>Travar Cor</ion-label>
-        <ion-toggle [(ngModel)]="lockColor" (ionChange)="setLockColor()"></ion-toggle>
-      </ion-col>
-    </ion-item-divider>
-  </ion-row>
+  
   <!-- colors -->
   <ion-row>
     <ion-item-divider no-padding mode="md">

@@ -15,6 +15,8 @@ import { EditorStampsPage } from './editor-stamps/editor-stamps.page';
 import { EditorStampsPopoverPage } from './editor-stamps-popover/editor-stamps-popover.page';
 import { EditorIconsPopoverPage } from './editor-icons-popover/editor-icons-popover.page';
 import { EditorIconsModalPage } from './editor-icons-modal/editor-icons-modal.page';
+import { EditorBackgroundPopoverPage } from './editor-background-popover/editor-background-popover.page';
+import { EditorTextPopoverPage } from './editor-text-popover/editor-text-popover.page';
 
 @Component({
   selector: 'app-editor-template',
@@ -100,7 +102,7 @@ export class EditorTemplatePage implements OnInit {
       } */
     })
   }
- 
+
   getTemplate() {
     this.subscription$.push(this.editorTemplateService.getTemplate(this.template.id_template)
       .subscribe((_template) => {
@@ -110,6 +112,7 @@ export class EditorTemplatePage implements OnInit {
   }
 
   async setTemplateOnCanvas() {
+
     this.template.json.objects.forEach((obj) => {
 
       obj.scaleX = (obj.scaleX / 100) * this.canvas.getWidth()
@@ -133,13 +136,23 @@ export class EditorTemplatePage implements OnInit {
     return await this.canvas.loadFromJSON(this.template.json, this.canvas.renderAll.bind(this.canvas))
   }
 
-  addText() {
-
+  async addText(ev) {
+    const popover = await this.popoverController.create({
+      component: EditorTextPopoverPage,
+      event: ev,
+      animated: true,
+      translucent: true,
+      mode: "md",
+      componentProps: {
+        canvas: this.canvas,
+        object: this.objectSelected
+      }
+    })
+    return await popover.present()
   }
 
   async addStamps(ev) {
     if (this.objectSelected != null && this.objectSelected.controls == 'stamps') {
-
       const popover = await this.popoverController.create({
         component: EditorStampsPopoverPage,
         event: ev,
@@ -154,7 +167,6 @@ export class EditorTemplatePage implements OnInit {
       return await popover.present()
 
     } else {
-
       const modal = await this.modalController.create({
         component: EditorStampsPage,
         componentProps: {
@@ -166,20 +178,44 @@ export class EditorTemplatePage implements OnInit {
     }
   }
 
-  async addBackground() {
-    const modal = await this.modalController.create({
-      component: EditorBackgroundPage,
-      componentProps: {
-        canvas: this.canvas,
-        template: this.template
-      }
+  async addBackground(ev) {
+
+    let objBackground = null
+
+    this.canvas.forEachObject((obj: any) => {
+      if (obj.controls === 'background') objBackground = obj
     })
-    return await modal.present()
+
+    if (objBackground) {
+      const popover = await this.popoverController.create({
+        component: EditorBackgroundPopoverPage,
+        event: ev,
+        animated: true,
+        translucent: true,
+        mode: "md",
+        componentProps: {
+          canvas: this.canvas,
+          template: this.template,
+          objBackground: objBackground
+        }
+      })
+      return await popover.present()
+
+    } else {
+      const modal = await this.modalController.create({
+        component: EditorBackgroundPage,
+        componentProps: {
+          canvas: this.canvas,
+          template: this.template
+        }
+      })
+      return await modal.present()
+    }
   }
 
   async addIcons(ev) {
-    if (this.objectSelected != null && this.objectSelected.controls == 'icons') {
 
+    if (this.objectSelected != null && this.objectSelected.controls == 'icons') {
       const popover = await this.popoverController.create({
         component: EditorIconsPopoverPage,
         event: ev,
@@ -194,7 +230,6 @@ export class EditorTemplatePage implements OnInit {
       return await popover.present()
 
     } else {
-
       const modal = await this.modalController.create({
         component: EditorIconsModalPage,
         componentProps: {
@@ -204,10 +239,6 @@ export class EditorTemplatePage implements OnInit {
       })
       return await modal.present()
     }
-  }
-
-  editorSet() {
-
   }
 
   deleteObjectOnCanvas() {
