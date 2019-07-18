@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavParams, PopoverController } from '@ionic/angular';
 import { fabric } from 'fabric';
 import { Canvas } from 'fabric/fabric-impl';
+import { ColorsPopoverPage } from '../colors-popover/colors-popover.page';
 
 @Component({
   selector: 'app-editor-text-popover',
@@ -9,6 +10,8 @@ import { Canvas } from 'fabric/fabric-impl';
   styleUrls: ['./editor-text-popover.page.scss'],
 })
 export class EditorTextPopoverPage implements OnInit {
+
+  @ViewChild('textInput') textInput
 
   fonts = [
     { name: 'Abadi', fontFamily: 'Abadi' },
@@ -33,22 +36,30 @@ export class EditorTextPopoverPage implements OnInit {
   text = ''
   textFont = 'Abadi'
   textSize = 50
+  textMinSize = 0
+  textMaxSize = 50
   textColor = '#000000'
   textOpacity = 1
 
-  textEnabled = false
-  fontEnabled = false
-  sizeEnabled = false
-  colorEnabled = false
-  opacityEnabled = false
+  textSizes = {
+    lower: 14,
+    upper: 150
+  }
+
+  lockMovement = false
+  lockFont = false
+  lockColor = false
+
+  textSettingsEnabled = false
 
   constructor(
-    private navParams: NavParams, 
+    private navParams: NavParams,
     private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.canvas = this.navParams.get('canvas')
     this.objFabric = this.navParams.get('object')
+
     this.setTextSettings()
   }
 
@@ -80,36 +91,26 @@ export class EditorTextPopoverPage implements OnInit {
       })
 
       this.canvas.add(this.objText).renderAll()
-      this.textEnabled = true
 
     } else {
       this.objText = this.objFabric
-
+      console.log(this.objFabric)
       this.text = this.objText.text
       this.textFont = this.objText.fontFamily
       this.textSize = this.objText.fontSize
       this.textColor = this.objText.fill
       this.textOpacity = this.objText.opacity
 
-      this.objText.controls === 'reference' ? this.textEnabled = false : this.textEnabled = true
-      this.fontEnabled = true
-      this.sizeEnabled = true
-      this.colorEnabled = true
-      this.opacityEnabled = true
+      this.textSettingsEnabled = true
     }
   }
 
   setText() {
     if (this.text != '') {
-      this.fontEnabled = true
-      this.sizeEnabled = true
-      this.colorEnabled = true
-      this.opacityEnabled = true
+      this.textSettingsEnabled = true
+
     } else {
-      this.fontEnabled = false
-      this.sizeEnabled = false
-      this.colorEnabled = false
-      this.opacityEnabled = false
+      this.textSettingsEnabled = false
     }
     this.objText.set("text", this.text)
     this.canvas.renderAll()
@@ -121,22 +122,23 @@ export class EditorTextPopoverPage implements OnInit {
   }
 
   setFontSize() {
+    console.log(this.textSize)
     this.objText.set("fontSize", this.textSize)
     this.canvas.renderAll()
   }
 
   async setTextColor() {
-    /* const popover = await this.popoverController.create({
+    const popover = await this.popoverController.create({
       component: ColorsPopoverPage,
       animated: true,
       translucent: true,
       mode: "md",
       componentProps: {
         canvas: this.canvas,
-        objText: this.objText
+        object: this.objText
       }
     })
-    return await popover.present() */
+    return await popover.present()
   }
 
   setTextOpacity() {
@@ -144,10 +146,27 @@ export class EditorTextPopoverPage implements OnInit {
     this.canvas.renderAll()
   }
 
+  setLockMovements() {
+    console.log(this.lockMovement)
+  }
+
+  setLockFont() {
+    console.log(this.lockFont)
+  }
+
+  setLockColor() {
+    console.log(this.lockColor)
+  }
+
+  setTextMinMax() {
+    console.log(this.textSizes)
+  }
+
   ngOnDestroy() {
     if (this.objText.text === '') {
       this.canvas.remove(this.objText)
       this.canvas.renderAll()
+
     } else {
       this.canvas.setActiveObject(this.objText)
       this.canvas.renderAll()

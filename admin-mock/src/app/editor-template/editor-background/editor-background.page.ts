@@ -85,7 +85,7 @@ export class EditorBackgroundPage implements OnInit {
       img.center()
       
       if (this.objBackground) this.canvas.remove(this.objBackground)
-      this.canvas.add(img)
+      this.canvas.add(img).sendToBack(img)
       this.canvas.renderAll()
     }, { crossOrigin: "Anonymous" })
 

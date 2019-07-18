@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="title" [ngStyle]="{'color': colorChoose}">COR</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="colorSelect()">
+        <ion-icon slot="icon-only" size="large" name="checkmark-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scroll-y="false">
+  <ion-grid>
+    <!-- colors -->
+    <ion-row>
+      <ion-item-divider no-padding>
+        <div class="div-list">
+          <ion-col class="col-list" *ngFor="let color of colors">
+            <div class="icon-circle" [ngStyle]="{'background-color': color.color}" (click)="selectedColor(color.color)">
+            </div>
+          </ion-col>
+        </div>
+      </ion-item-divider>
+    </ion-row>
+    <!-- r -->
+    <ion-row>
+      <ion-item-divider no-padding>
+        <ion-range no-padding min="0" max="255" step="1" [(ngModel)]="color.r" (ionChange)="setRgb()">
+          <ion-label slot="start">R</ion-label>
+          <ion-label slot="end">{{ color.r }}</ion-label>
+        </ion-range>
+      </ion-item-divider>
+    </ion-row>
+    <!-- g -->
+    <ion-row>
+      <ion-item-divider no-padding>
+        <ion-range no-padding min="0" max="255" step="1" [(ngModel)]="color.g" (ionChange)="setRgb()">
+          <ion-label slot="start">G</ion-label>
+          <ion-label slot="end">{{ color.g }}</ion-label>
+        </ion-range>
+      </ion-item-divider>
+    </ion-row>
+    <!-- b -->
+    <ion-row>
+      <ion-item-divider no-padding>
+        <ion-range no-padding min="0" max="255" step="1" [(ngModel)]="color.b" (ionChange)="setRgb()">
+          <ion-label slot="start">B</ion-label>
+          <ion-label slot="end">{{ color.b }}</ion-label>
+        </ion-range>
+      </ion-item-divider>
+    </ion-row>
+  </ion-grid>
+</ion-content>

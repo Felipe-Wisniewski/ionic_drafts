@@ -1,14 +1,19 @@
 .input-text {
-    font-size: 20px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    // no-padding maxlength=18 placeholder="Enter Text" autofocus="true" 
+  font-size: 18px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+
+  // no-padding maxlength=18 placeholder="Enter Text" autofocus="true"
+}
+
+ion-icon {
+  font-size: 24px;
 }
 
 .p-change-color {
-    font-size: 18px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    margin: 0px;
-    text-align: center;
+  font-size: 18px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin: 0px;
+  text-align: center;
 }
