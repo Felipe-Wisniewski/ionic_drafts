@@ -41,14 +41,11 @@ export class EditorTextPopoverPage implements OnInit {
   textColor = '#000000'
   textOpacity = 1
 
-  textSizes = {
-    lower: 14,
-    upper: 150
-  }
+  // textSizes = { lower: 14, upper: 150 }
 
   lockMovement = false
-  lockFont = false
-  lockColor = false
+  changeFont = false
+  changeColor = false
 
   textSettingsEnabled = false
 
@@ -63,6 +60,13 @@ export class EditorTextPopoverPage implements OnInit {
     this.setTextSettings()
   }
 
+  ionViewDidLoad(){
+    console.log("ionViewDidLoad")
+    setTimeout(() => {
+      this.textInput.setFocus()
+    }, 500)
+  }
+
   setTextSettings() {
 
     if (this.objFabric == null || this.objFabric.type != 'text') {
@@ -75,18 +79,26 @@ export class EditorTextPopoverPage implements OnInit {
         cornerSize: 20,
         cornerStyle: "circle",
         lockUniScaling: true,
+        lockScalingX: true,
+        lockScalingY: true,
+        lockMovementX: this.lockMovement,
+        lockMovementY: this.lockMovement,
         fillRule: "nonzero",
         paintFirst: "fill",
         globalCompositeOperation: "source-over",
         type: "text",
         fontSize: this.textSize,
+
         fontFamily: this.textFont,
         fill: this.textColor,
         opacity: this.textOpacity,
       })
 
+      
       this.objText.setOptions({
         controls: 'text',
+        changeFont: true,
+        changeColor: true,
         removable: true
       })
 
@@ -94,13 +106,14 @@ export class EditorTextPopoverPage implements OnInit {
 
     } else {
       this.objText = this.objFabric
-      console.log(this.objFabric)
       this.text = this.objText.text
       this.textFont = this.objText.fontFamily
       this.textSize = this.objText.fontSize
       this.textColor = this.objText.fill
       this.textOpacity = this.objText.opacity
-
+      this.lockMovement = this.objText.lockMovementX
+      this.changeFont = this.objText.changeFont
+      this.changeColor = this.objText.changeColor
       this.textSettingsEnabled = true
     }
   }
@@ -122,7 +135,6 @@ export class EditorTextPopoverPage implements OnInit {
   }
 
   setFontSize() {
-    console.log(this.textSize)
     this.objText.set("fontSize", this.textSize)
     this.canvas.renderAll()
   }
@@ -147,19 +159,20 @@ export class EditorTextPopoverPage implements OnInit {
   }
 
   setLockMovements() {
-    console.log(this.lockMovement)
+    this.objText.set("lockMovementX", this.lockMovement)
+    this.objText.set("lockMovementY", this.lockMovement)
+    this.canvas.renderAll()
+
   }
 
   setLockFont() {
-    console.log(this.lockFont)
+    this.objText.set("changeFont", this.changeFont)
+    this.canvas.renderAll()
   }
 
   setLockColor() {
-    console.log(this.lockColor)
-  }
-
-  setTextMinMax() {
-    console.log(this.textSizes)
+    this.objText.set("changeColor", this.changeFont)
+    this.canvas.renderAll()
   }
 
   ngOnDestroy() {

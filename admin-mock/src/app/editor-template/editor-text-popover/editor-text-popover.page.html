@@ -13,13 +13,12 @@
       </ion-col>
     </ion-item-divider>
   </ion-row>
-
   <!-- FONTS -->
   <ion-row *ngIf="textSettingsEnabled">
     <ion-item-divider no-padding>
       <ion-col size="2">
         <div>
-          <ion-icon slot="icon-only" name="code-working"></ion-icon>
+          <ion-icon slot="icon-only" src="assets/icon/ic_fonts.svg"></ion-icon>
         </div>
       </ion-col>
       <ion-col>
@@ -30,33 +29,28 @@
       </ion-col>
     </ion-item-divider>
   </ion-row>
-
-  <!-- CHANGE COLOR -->
-  <ion-row *ngIf="textSettingsEnabled">
-    <ion-item-divider no-padding (click)="setTextColor()">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" name="color-palette"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col>
-        <p class="p-change-color">Paleta de Cores</p>
-      </ion-col>
-    </ion-item-divider>
-  </ion-row>
-
   <!-- FONT SIZE -->
   <ion-row *ngIf="textSettingsEnabled">
     <ion-item-divider no-padding>
       <ion-col>
-        <ion-range no-padding min="14" max="{{ textSizes.upper }}" step="1" [(ngModel)]="textSize" (ionChange)="setFontSize()">
-          <ion-icon slot="start" src="assets/icon/type.svg" size="small"></ion-icon>
-          <ion-icon slot="end" src="assets/icon/type.svg"></ion-icon>
+        <ion-range no-padding min="10" max="600" step="1" [(ngModel)]="textSize"
+          (ionChange)="setFontSize()">
+          <ion-icon slot="start" src="assets/icon/ic_letter-a.svg" size="small"></ion-icon>
+          <ion-icon slot="end" src="assets/icon/ic_letter-a.svg"></ion-icon>
         </ion-range>
       </ion-col>
     </ion-item-divider>
   </ion-row>
-
+  <!-- FONT SIZE MIN MAX -->
+  <!-- <ion-row *ngIf="textSettingsEnabled">
+    <ion-item-divider no-padding>
+      <ion-range no-padding dualKnobs="true" min="14" max="600" step="1" [(ngModel)]="textSizes"
+        (ionChange)="setFontMinMax()">
+        <ion-label slot="start">{{ textSizes.lower }}</ion-label>
+        <ion-label slot="end">{{ textSizes.upper }}</ion-label>
+      </ion-range>
+    </ion-item-divider>
+  </ion-row> -->
   <!-- TEXT OPACITY -->
   <ion-row *ngIf="textSettingsEnabled">
     <ion-item-divider no-padding>
@@ -68,62 +62,34 @@
       </ion-col>
     </ion-item-divider>
   </ion-row>
-
+  <!-- CHANGE COLOR -->
+  <ion-row *ngIf="textSettingsEnabled">
+    <ion-item-divider no-padding>
+      <ion-label>Text Color</ion-label>
+      <ion-button slot="end" fill="outline" shape="round" size="small" (click)="setTextColor()">
+        <ion-icon slot="icon-only" size="small" name="color-palette"></ion-icon>
+      </ion-button>
+    </ion-item-divider>
+  </ion-row>
   <!-- LOCK MOVEMENT -->
   <ion-row *ngIf="textSettingsEnabled">
     <ion-item-divider no-padding mode="md">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" size="large" name="resize"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col>
-        <ion-label>Travar Movimentos</ion-label>
-        <ion-toggle [(ngModel)]="lockMovement" (ionChange)="setLockMovements()"></ion-toggle>
-      </ion-col>
+      <ion-label>Travar Movimentos</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="lockMovement" (ionChange)="setLockMovements()"></ion-toggle>
     </ion-item-divider>
   </ion-row>
-
   <!-- LOCK CHANGE FONT -->
   <ion-row *ngIf="textSettingsEnabled">
     <ion-item-divider no-padding mode="md">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" size="large" name="resize"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col>
-        <ion-label>Travar Fonte</ion-label>
-        <ion-toggle [(ngModel)]="lockFont" (ionChange)="setLockFont()"></ion-toggle>
-      </ion-col>
+      <ion-label>Travar Fonte</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="lockFont" (ionChange)="setLockFont()"></ion-toggle>
     </ion-item-divider>
   </ion-row>
-
   <!-- LOCK CHANGE COLOR -->
   <ion-row *ngIf="textSettingsEnabled">
     <ion-item-divider no-padding mode="md">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" size="large" name="color-palette"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col>
-        <ion-label>Travar Cor</ion-label>
-        <ion-toggle [(ngModel)]="lockColor" (ionChange)="setLockColor()"></ion-toggle>
-      </ion-col>
-    </ion-item-divider>
-  </ion-row>
-
-  <!-- TEXT MIN MAX SIZE -->
-  <ion-row *ngIf="textSettingsEnabled">
-    <ion-item-divider no-padding>
-      <ion-col>
-        <!-- <ion-range no-padding min="0" max="1" step="0.1" [(ngModel)]="textOpacity" (ionChange)="setTextOpacity()"> -->
-        <ion-range no-padding dualKnobs="true" min="14" max="600" step="1" [(ngModel)]="textSizes" (ionChange)="setTextMinMax()">
-          <ion-icon slot="start" name="sunny" size="small"></ion-icon>
-          <ion-icon slot="end" name="sunny"></ion-icon>
-        </ion-range>
-      </ion-col>
+      <ion-label>Travar Cor</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="lockColor" (ionChange)="setLockColor()"></ion-toggle>
     </ion-item-divider>
   </ion-row>
 </ion-grid>

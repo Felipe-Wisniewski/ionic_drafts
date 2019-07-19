@@ -2,41 +2,26 @@
   <!-- CHANGE BACKGROUND -->
   <ion-row>
     <ion-item-divider no-padding mode="md">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" size="large" name="swap"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col (click)="changeBackground()">
-        <p>Mudar Background</p>
-      </ion-col>
-    </ion-item-divider>
-  </ion-row>
-  <!-- HIDE BACKGROUND -->
-  <ion-row>
-    <ion-item-divider no-padding mode="md">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" size="large" name="swap"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col>
-        <ion-label>Ocultar Background</ion-label>
-        <ion-toggle [(ngModel)]="hideBackground" mode="md" (ionChange)="setHideBackground()"></ion-toggle>
-      </ion-col>
+      <ion-label>Trocar Background</ion-label>
+      <ion-button slot="end" fill="outline" shape="round" size="small" (click)="changeBackground()">
+        <ion-icon slot="icon-only" size="small" name="images"></ion-icon>
+      </ion-button>
     </ion-item-divider>
   </ion-row>
   <!-- CHANGE COLOR -->
   <ion-row>
     <ion-item-divider no-padding mode="md">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" size="large" name="color-palette"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col (click)="setTextColor()">
-        <p class="p-change-color">Alterar Cor</p>
-      </ion-col>
+      <ion-label>Background Color</ion-label>
+      <ion-button slot="end" fill="outline" shape="round" size="small" (click)="setTextColor()">
+        <ion-icon slot="icon-only" size="small" name="color-fill"></ion-icon>
+      </ion-button>
+    </ion-item-divider>
+  </ion-row>
+  <!-- HIDE BACKGROUND -->
+  <ion-row>
+    <ion-item-divider no-padding mode="md">
+      <ion-label>Ocultar Background</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="hideBackground" mode="md" (ionChange)="setHideBackground()"></ion-toggle>
     </ion-item-divider>
   </ion-row>
 </ion-grid>

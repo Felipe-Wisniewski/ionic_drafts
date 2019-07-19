@@ -49,7 +49,7 @@ export class EditorIconsPopoverPage implements OnInit {
     this.object.set("changeColor", this.lockColor)
   }
 
-  async setTextColor() {
+  async setIconColor() {
     const popover = await this.popoverController.create({
       component: ColorsPopoverPage,
       animated: true,

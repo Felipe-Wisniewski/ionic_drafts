@@ -2,43 +2,22 @@
   <!-- MOVEMENT -->
   <ion-row>
     <ion-item-divider no-padding mode="md">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" size="large" name="swap"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col>
-        <ion-label>Travar Movimentos</ion-label>
-        <ion-toggle [(ngModel)]="lockMovement" mode="md" (ionChange)="setLockMovement()"></ion-toggle>
-      </ion-col>
+      <ion-label>Travar Movimentos</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="lockMovement" mode="md" (ionChange)="setLockMovement()"></ion-toggle>
     </ion-item-divider>
   </ion-row>
   <!-- ROTATION -->
   <ion-row>
     <ion-item-divider no-padding mode="md">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" size="large" name="sync"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col>
-        <ion-label>Travar Rotação</ion-label>
-        <ion-toggle [(ngModel)]="lockRotation" (ionChange)="setLockRotation()"></ion-toggle>
-      </ion-col>
+      <ion-label>Travar Rotação</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="lockRotation" (ionChange)="setLockRotation()"></ion-toggle>
     </ion-item-divider>
   </ion-row>
   <!-- SIZE -->
   <ion-row>
     <ion-item-divider no-padding mode="md">
-      <ion-col size="2">
-        <div>
-          <ion-icon slot="icon-only" size="large" name="resize"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col>
-        <ion-label>Travar Tamanho</ion-label>
-        <ion-toggle [(ngModel)]="lockSize" (ionChange)="setLockSize()"></ion-toggle>
-      </ion-col>
+      <ion-label>Travar Tamanho</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="lockSize" (ionChange)="setLockSize()"></ion-toggle>
     </ion-item-divider>
   </ion-row>
 </ion-grid>
