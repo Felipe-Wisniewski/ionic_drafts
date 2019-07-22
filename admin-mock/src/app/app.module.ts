@@ -19,6 +19,7 @@ import { EditorIconsPopoverPageModule } from './editor-template/editor-icons-pop
 import { EditorBackgroundPopoverPageModule } from './editor-template/editor-background-popover/editor-background-popover.module';
 import { EditorTextPopoverPageModule } from './editor-template/editor-text-popover/editor-text-popover.module';
 import { ColorsPopoverPageModule } from './editor-template/colors-popover/colors-popover.module';
+import { FontsPopoverPageModule } from './editor-template/fonts-popover/fonts-popover.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +38,8 @@ import { ColorsPopoverPageModule } from './editor-template/colors-popover/colors
     EditorIconsPopoverPageModule,
     EditorBackgroundPopoverPageModule,
     EditorTextPopoverPageModule,
-    ColorsPopoverPageModule
+    ColorsPopoverPageModule,
+    FontsPopoverPageModule
   ],
   providers: [
     StatusBar,

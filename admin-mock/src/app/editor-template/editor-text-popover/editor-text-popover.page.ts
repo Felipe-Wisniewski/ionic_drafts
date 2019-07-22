@@ -3,6 +3,7 @@ import { NavParams, PopoverController } from '@ionic/angular';
 import { fabric } from 'fabric';
 import { Canvas } from 'fabric/fabric-impl';
 import { ColorsPopoverPage } from '../colors-popover/colors-popover.page';
+import { FontsPopoverPage } from '../fonts-popover/fonts-popover.page';
 
 @Component({
   selector: 'app-editor-text-popover',
@@ -12,22 +13,6 @@ import { ColorsPopoverPage } from '../colors-popover/colors-popover.page';
 export class EditorTextPopoverPage implements OnInit {
 
   @ViewChild('textInput') textInput
-
-  fonts = [
-    { name: 'Abadi', fontFamily: 'Abadi' },
-    { name: 'Always In My Heart', fontFamily: 'AlwaysInMyHeart' },
-    { name: 'Amaranth', fontFamily: 'Amaranth' },
-    { name: 'Asap', fontFamily: 'Asap' },
-    { name: 'Bebas', fontFamily: 'Bebas' },
-    { name: 'Champagne & Limousines', fontFamily: 'ChampagneLimousines' },
-    { name: 'Dulcelin', fontFamily: 'Dulcelin' },
-    { name: 'GuldScript', fontFamily: 'GuldScript' },
-    { name: 'Helvetica', fontFamily: 'Helvetica' },
-    { name: 'Helvetica Neue', fontFamily: 'HelveticaNeue' },
-    { name: 'Humanist Bold', fontFamily: 'HumanistBold' },
-    { name: 'Roboto', fontFamily: 'Roboto' },
-    { name: 'Times New Roman', fontFamily: 'Times New Roman' }
-  ]
 
   canvas: Canvas
   objFabric: any
@@ -41,7 +26,7 @@ export class EditorTextPopoverPage implements OnInit {
   textColor = '#000000'
   textOpacity = 1
 
-  // textSizes = { lower: 14, upper: 150 }
+  textSizes = { lower: 14, upper: 150 }
 
   lockMovement = false
   changeFont = false
@@ -129,16 +114,6 @@ export class EditorTextPopoverPage implements OnInit {
     this.canvas.renderAll()
   }
 
-  setFontFamily() {
-    this.objText.set("fontFamily", this.textFont)
-    this.canvas.renderAll()
-  }
-
-  setFontSize() {
-    this.objText.set("fontSize", this.textSize)
-    this.canvas.renderAll()
-  }
-
   async setTextColor() {
     const popover = await this.popoverController.create({
       component: ColorsPopoverPage,
@@ -152,6 +127,32 @@ export class EditorTextPopoverPage implements OnInit {
     })
     return await popover.present()
   }
+
+  async setFontFamily() {
+    // this.objText.set("fontFamily", this.textFont)
+    // this.canvas.renderAll()
+    const popover = await this.popoverController.create({
+      component: FontsPopoverPage,
+      animated: true,
+      translucent: true,
+      mode: "md",
+      componentProps: {
+        canvas: this.canvas,
+        object: this.objText
+      }
+    })
+    return await popover.present()
+  }
+
+  setFontMinMax() {
+    console.log(this.textSizes)
+  }
+
+  setFontSize() {
+    this.objText.set("fontSize", this.textSize)
+    this.canvas.renderAll()
+  }
+
 
   setTextOpacity() {
     this.objText.set("opacity", this.textOpacity)

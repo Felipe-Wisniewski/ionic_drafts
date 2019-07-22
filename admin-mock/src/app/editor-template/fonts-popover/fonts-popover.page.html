@@ -1,0 +1,9 @@
+<ion-content>
+  <ion-radio-group>
+    <ion-list-header>Fonts</ion-list-header>
+    <ion-item *ngFor="let font of fonts">
+      <ion-label>{{ font.name }}</ion-label>
+      <ion-radio slot="end" (click)="setFont(font)"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</ion-content>

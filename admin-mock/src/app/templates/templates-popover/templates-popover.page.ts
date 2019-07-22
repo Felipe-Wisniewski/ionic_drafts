@@ -27,6 +27,7 @@ export class TemplatesPopoverPage implements OnInit {
   language = null
   layout = null
   id_subdivision = null
+  maxProducts = "1"
   validityDate = false
   validityStart = null
   validityEnd = null
@@ -60,6 +61,7 @@ export class TemplatesPopoverPage implements OnInit {
     } else {
       this.title = 'Editar Template'
       this.name = this.template.name
+      this.maxProducts = this.template.max_products
       this.getBrandTemplateEdit()
       this.getLanguageTemplateEdit()
     }
@@ -94,7 +96,7 @@ export class TemplatesPopoverPage implements OnInit {
         this.template = {
           id_brand: this.brand.id.toString(),
           id_subdivision: this.id_subdivision,
-          max_products: null,
+          max_products: this.maxProducts,
           status: null,
           registration_user: null,
           registration_date: null,
@@ -117,7 +119,8 @@ export class TemplatesPopoverPage implements OnInit {
       } else {
         this.template.name = this.name
         this.template.id_brand = this.brand.id.toString()
-        this.template.id_lang = this.language.id // ID !
+        this.template.id_lang = this.language.id // TODO ID_LANG !
+        this.template.max_products = this.maxProducts
 
         if (this.validityDate) {
           this.template.validity_period_start = this.validityStart
