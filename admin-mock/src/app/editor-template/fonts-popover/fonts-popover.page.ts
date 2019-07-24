@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Canvas } from 'fabric/fabric-impl';
 import { NavParams, PopoverController } from '@ionic/angular';
+import { Canvas } from 'fabric/fabric-impl';
 
 @Component({
   selector: 'app-fonts-popover',
@@ -28,8 +28,6 @@ export class FontsPopoverPage implements OnInit {
     { name: 'Times New Roman', fontFamily: 'Times New Roman' }
   ]
 
-  chosenFont = 'Abadi'
-
   constructor(private navParams: NavParams, private popoverController: PopoverController) { }
 
   ngOnInit() {
@@ -38,7 +36,8 @@ export class FontsPopoverPage implements OnInit {
   }
 
   setFont(font) {
-    console.log(font)
+    this.object.set('fontFamily', font.fontFamily)
+    this.canvas.renderAll()
     this.closePopover()
   }
 

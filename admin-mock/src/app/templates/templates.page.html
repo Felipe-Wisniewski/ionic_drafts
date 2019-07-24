@@ -12,10 +12,12 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- <ion-col col-sm-12 col-xl-12 col-md-6 col-lg-6 ></ion-col> -->
+
 <ion-content>
   <ion-grid *ngIf="loaded ; else loading">
     <ion-row class="row-template">
-      <ion-col col-12 col-md-4 col-lg-3 col-xl-3 *ngFor="let template of templates">
+      <ion-col col-12 col-md-1 *ngFor="let template of templates">
         <ion-card mode="md">
           <ion-img [src]="template.thumbnail_url" (ionError)="loadErrorImg($event)"></ion-img>
           <ion-card-header>

@@ -20,12 +20,14 @@ import { EditorBackgroundPopoverPageModule } from './editor-template/editor-back
 import { EditorTextPopoverPageModule } from './editor-template/editor-text-popover/editor-text-popover.module';
 import { ColorsPopoverPageModule } from './editor-template/colors-popover/colors-popover.module';
 import { FontsPopoverPageModule } from './editor-template/fonts-popover/fonts-popover.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    BrowserModule, 
+    BrowserModule,
+    FormsModule, 
     HttpClientModule, 
     IonicModule.forRoot(), 
     IonicStorageModule.forRoot(), 

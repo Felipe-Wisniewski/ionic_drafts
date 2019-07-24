@@ -1,24 +1,23 @@
 <ion-content>
   <div class="div-container">
-
     <div class="div-logo">
       <ion-img [src]="logo"></ion-img>
     </div>
 
     <div class="div-form">
+      <ion-item-divider no-padding mode="md">
+        <ion-icon slot="start" name="contact"></ion-icon>
+        <ion-input placeholder="Username" type="text" [(ngModel)]="user"></ion-input>
+      </ion-item-divider>
+      <ion-label position="floating" class="error" *ngIf="errorUser">{{ messageUser }}</ion-label>
 
       <ion-item-divider no-padding mode="md">
-        <ion-icon name="contact"></ion-icon>
-        <ion-input></ion-input>
+        <ion-icon slot="start" name="key"></ion-icon>
+        <ion-input placeholder="Password" type="password" [(ngModel)]="pwd"></ion-input>
       </ion-item-divider>
+      <ion-label position="floating" class="error" *ngIf="errorPwd">{{ messagePwd }}</ion-label>
 
-      <ion-item-divider no-padding mode="md">
-        <ion-icon name="key"></ion-icon>
-        <ion-input type="password"></ion-input>
-      </ion-item-divider>
-
-      <ion-button expand="block" (click)="login()">LOGIN</ion-button>
-
+      <ion-button type="submit" expand="block" (click)="validForm()">LOGIN</ion-button>
     </div>
   </div>
 </ion-content>
