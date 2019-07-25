@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
 
 import { TemplatesPage } from './templates.page';
+import { IdLangPipe } from '../shared/id-lang.pipe';
 
 const routes: Routes = [
   {
@@ -21,6 +21,10 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [TemplatesPage]
+  declarations: [
+    TemplatesPage,
+    IdLangPipe
+  ],
+  providers: [IdLangPipe]
 })
-export class TemplatesPageModule {}
+export class TemplatesPageModule { }

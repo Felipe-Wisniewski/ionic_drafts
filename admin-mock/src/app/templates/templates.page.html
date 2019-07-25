@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary" mode="md">
+  <ion-toolbar color="primary">
     <ion-title>Templates</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="newTemplate()">
@@ -12,32 +12,35 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-col col-sm-12 col-xl-12 col-md-6 col-lg-6 ></ion-col> -->
-
 <ion-content>
-  <ion-grid *ngIf="loaded ; else loading">
+
+  <ion-grid class="grid-template" *ngIf="loaded ; else loading">
     <ion-row class="row-template">
-      <ion-col col-12 col-md-1 *ngFor="let template of templates">
-        <ion-card mode="md">
-          <ion-img [src]="template.thumbnail_url" (ionError)="loadErrorImg($event)"></ion-img>
-          <ion-card-header>
-            <ion-card-title>{{ template.name | lowercase }}</ion-card-title>
-            <ion-card-subtitle>{{ template.id_lang }} - {{ template.status }}</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-buttons class="buttons-template">
-              <ion-button (click)="renameTemplate(template)">
-                <ion-icon slot="start" name="create"></ion-icon>
-              </ion-button>
-              <ion-button (click)="editTemplate(template)">
-                <ion-icon slot="start" name="construct"></ion-icon>
-              </ion-button>
-              <ion-button (click)="deleteTemplate(template)">
-                <ion-icon slot="start" name="trash"></ion-icon>
-              </ion-button>
-            </ion-buttons>
-          </ion-card-content>
-        </ion-card>
+      <ion-col class="col-template" *ngFor="let template of templates">
+
+        <ion-img [src]="template.thumbnail_url" (ionError)="loadErrorImg($event)"></ion-img>
+
+        <div class="label-name">
+          <ion-label>{{ template.name | lowercase }}</ion-label>
+        </div>
+
+        <div class="label">
+          <ion-label>{{ template.id_lang | idLang }}</ion-label>
+          <ion-label>{{ template.status | uppercase }}</ion-label>
+        </div>
+
+        <ion-buttons class="buttons-template">
+          <ion-button (click)="renameTemplate(template)">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+          <ion-button (click)="editTemplate(template)">
+            <ion-icon name="construct"></ion-icon>
+          </ion-button>
+          <ion-button (click)="deleteTemplate(template)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -49,4 +52,5 @@
   <ng-template #loading>
     <ion-spinner loadingSpinner="crescent"></ion-spinner>
   </ng-template>
+
 </ion-content>

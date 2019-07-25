@@ -23,7 +23,9 @@ import { FontsPopoverPageModule } from './editor-template/fonts-popover/fonts-po
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,

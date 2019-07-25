@@ -5,6 +5,8 @@ import { Storage } from '@ionic/storage';
 
 import { Brand, Subdivision } from './../../model/brand';
 import { Template } from './../../model/template';
+import { TemplatesService } from '../templates.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-templates-popover',
@@ -20,7 +22,9 @@ export class TemplatesPopoverPage implements OnInit {
   brand: Brand = null
   subs: Subdivision[] = []
   subdivision: Subdivision = null
+
   languages = [{ lang: 'inglês', id: '1' }, { lang: 'espanhol', id: '2' }, { lang: 'português', id: '3' }]
+
   layouts = ['post', 'story']
 
   name = null
@@ -35,11 +39,13 @@ export class TemplatesPopoverPage implements OnInit {
   isNewTemplate = false
   isSubdivision = false
 
+  subscription$: Subscription[] = []
+
   constructor(
     private navParams: NavParams,
     private storage: Storage,
     private router: Router,
-    private alertController: AlertController,
+    private templateService: TemplatesService,
     private popoverController: PopoverController) { }
 
   ngOnInit() {
@@ -64,6 +70,7 @@ export class TemplatesPopoverPage implements OnInit {
       this.maxProducts = this.template.max_products
       this.getBrandTemplateEdit()
       this.getLanguageTemplateEdit()
+      this.getTemplate()
     }
   }
 
@@ -77,6 +84,11 @@ export class TemplatesPopoverPage implements OnInit {
     this.languages.forEach(lang => {
       if (lang.id == this.template.id_lang) this.language = lang
     })
+  }
+
+  getTemplate() {
+    this.subscription$.push(this.templateService.getTemplate(this.template.id_template)
+      .subscribe(temp => this.template = temp))
   }
 
   setBrandChange() {
@@ -135,8 +147,14 @@ export class TemplatesPopoverPage implements OnInit {
       }
 
     } else {
-      this.alert()
+      this.templateService.alertPopup('Preencha todos os campos para continuar.')
     }
+  }
+
+  saveEditTemplate() {
+    console.log('save edit')
+    this.subscription$.push(this.templateService.putTemplate(this.template)
+      .subscribe(r => console.log(r)))
   }
 
   validForm() {
@@ -162,7 +180,7 @@ export class TemplatesPopoverPage implements OnInit {
       if (this.validityStart == null) valid++
       if (this.validityEnd == null) valid++
     }
-    
+
     return valid == 0
   }
 
@@ -171,21 +189,6 @@ export class TemplatesPopoverPage implements OnInit {
     this.storage.set('template-editor', this.template).then(() => {
       this.router.navigate(['editor-template'])
     })
-  }
-
-  saveEditTemplate() {
-    console.log('save edit')
-  }
-
-  async alert() {
-    const alert = await this.alertController.create({
-      // header: 'Alert',
-      // subHeader: 'Subtitle',
-      message: 'Preencha todos os campos para continuar.',
-      buttons: ['OK']
-    });
-
-    await alert.present();
   }
 
   closePopover() {
