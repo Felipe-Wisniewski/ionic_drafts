@@ -17,6 +17,7 @@ import { EditorIconsPopoverPage } from './editor-icons-popover/editor-icons-popo
 import { EditorIconsModalPage } from './editor-icons-modal/editor-icons-modal.page';
 import { EditorBackgroundPopoverPage } from './editor-background-popover/editor-background-popover.page';
 import { EditorTextPopoverPage } from './editor-text-popover/editor-text-popover.page';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-editor-template',
@@ -239,6 +240,13 @@ export class EditorTemplatePage implements OnInit {
       })
       return await modal.present()
     }
+  }
+
+  saveTemplate() {
+    console.log(this.template)
+    this.template.json = JSON.stringify(this.canvas)
+    this.template.thumbnail = this.canvas.toDataURL({ format: 'png', quality: 0.3 })
+    this.editorTemplateService.saveTemplate(this.template)
   }
 
   deleteObjectOnCanvas() {

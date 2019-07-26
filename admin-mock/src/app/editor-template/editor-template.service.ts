@@ -1,7 +1,8 @@
+import { Template } from 'src/app/model/template';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { empty } from 'rxjs';
 
 import { environment } from 'src/environments/environment.prod';
@@ -27,15 +28,29 @@ export class EditorTemplateService {
       )
   }
 
+  saveTemplate(template: Template) {
+
+  // TODO HTTP PARAMS
+
+    return this.http.post(``, 'PARAMS', 'HEADER')
+      .pipe(
+        catchError(() => {
+          this.alertPopup("Erro ao salvar o template.")
+          return empty()
+        })
+      ),
+      tap(r => console.log(r))
+  }
+
   getIcons(id_brand) {
     return this.http.get(`${this.url}icons?id_brand=${id_brand};98&lang=${this.lang}`)
-    .pipe(
-      catchError(() => {
-        this.alertPopup("Erro ao carregar os icones")
-        return empty()
-      }),
-      map(resp => resp['icons'])
-    )
+      .pipe(
+        catchError(() => {
+          this.alertPopup("Erro ao carregar os icones")
+          return empty()
+        }),
+        map(resp => resp['icons'])
+      )
   }
 
   async alertPopup(message: string) {

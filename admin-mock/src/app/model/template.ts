@@ -14,6 +14,6 @@ export interface Template {
     name: string,
     thumbnail_url: string ,
     thumbnail?: string,
-    validity_period_start?: null,
-    validity_period_end?: null
+    validity_period_start?: string,
+    validity_period_end?: string
 }

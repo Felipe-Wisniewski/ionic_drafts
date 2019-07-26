@@ -32,12 +32,12 @@ export class TemplatesPopoverPage implements OnInit {
   layout = null
   id_subdivision = null
   maxProducts = "1"
-  validityDate = false
-  validityStart = null
-  validityEnd = null
+  validityStart?: string = null
+  validityEnd?: string = null
 
   isNewTemplate = false
   isSubdivision = false
+  validityDate = false
 
   subscription$: Subscription[] = []
 
@@ -108,44 +108,46 @@ export class TemplatesPopoverPage implements OnInit {
         this.template = {
           id_brand: this.brand.id.toString(),
           id_subdivision: this.id_subdivision,
+          id_lang: this.language.id,
+          name: this.name,
+          thumbnail: null,
+          layout: this.layout,
           max_products: this.maxProducts,
+          json: null,
+          validity_period_start: this.validityStart.slice(0,10),
+          validity_period_end: this.validityEnd.slice(0,10),
+
           status: null,
           registration_user: null,
           registration_date: null,
           alteration_user: null,
           alteration_date: null,
-          id_lang: this.language.id,
           id_template: null,
-          layout: this.layout,
-          json: null,
-          name: this.name,
-          thumbnail_url: null,
-          thumbnail: null,
-          validity_period_start: this.validityStart,
-          validity_period_end: this.validityEnd
+          thumbnail_url: null
         }
 
+        
         this.openEditor()
         this.closePopover()
-
+        
       } else {
         this.template.name = this.name
         this.template.id_brand = this.brand.id.toString()
-        this.template.id_lang = this.language.id // TODO ID_LANG !
+        this.template.id_lang = this.language.id
         this.template.max_products = this.maxProducts
-
+        
         if (this.validityDate) {
-          this.template.validity_period_start = this.validityStart
-          this.template.validity_period_end = this.validityEnd
+          this.template.validity_period_start = this.validityStart.slice(0,10)
+          this.template.validity_period_end = this.validityEnd.slice(0,10)
         } else {
           this.template.validity_period_start = null
           this.template.validity_period_end = null
         }
-
+        
         this.saveEditTemplate()
         this.closePopover()
       }
-
+      
     } else {
       this.templateService.alertPopup('Preencha todos os campos para continuar.')
     }
