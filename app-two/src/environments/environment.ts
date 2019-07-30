@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   
-  URL_API: 'http://10.1.1.153:9090/api/'
+  URL_API: 'http://18.231.197.137/api/'
   // URL_API: 'http://10.3.1.210:9090/api/'
 };
 

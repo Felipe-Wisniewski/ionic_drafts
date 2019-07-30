@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'products', loadChildren: './products/products.module#ProductsPageModule' },
   { path: 'editor', loadChildren: './editor/editor.module#EditorPageModule' },
   { path: 'follow', loadChildren: './follow/follow.module#FollowPageModule' },
-  { path: 'gallery', loadChildren: './gallery/gallery.module#GalleryPageModule' },
+  { path: 'gallery', loadChildren: './gallery/gallery.module#GalleryPageModule' }
 ];
 
 @NgModule({

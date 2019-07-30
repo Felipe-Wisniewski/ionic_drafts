@@ -11,6 +11,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TemplatesPopoverPageModule } from './templates/templates-popover/templates-popover.module';
+import { FilterPopoverPageModule } from './templates/filter-popover/filter-popover.module';
 import { EditorBackgroundPageModule } from './editor-template/editor-background/editor-background.module';
 import { EditorStampsPageModule } from './editor-template/editor-stamps/editor-stamps.module';
 import { EditorStampsPopoverPageModule } from './editor-template/editor-stamps-popover/editor-stamps-popover.module';
@@ -35,6 +36,7 @@ import { FormsModule } from '@angular/forms';
     IonicStorageModule.forRoot(), 
     AppRoutingModule,
     TemplatesPopoverPageModule,
+    FilterPopoverPageModule,
     EditorBackgroundPageModule,
     EditorStampsPageModule,
     EditorStampsPopoverPageModule,

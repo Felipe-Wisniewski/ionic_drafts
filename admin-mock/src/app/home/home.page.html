@@ -5,19 +5,20 @@
     </div>
 
     <div class="div-form">
-      <ion-item-divider no-padding mode="md">
-        <ion-icon slot="start" name="contact"></ion-icon>
-        <ion-input placeholder="Username" type="text" [(ngModel)]="user"></ion-input>
-      </ion-item-divider>
-      <ion-label position="floating" class="error" *ngIf="errorUser">{{ messageUser }}</ion-label>
 
-      <ion-item-divider no-padding mode="md">
+      <ion-item-divider mode="md">
+        <ion-icon slot="start" name="contact"></ion-icon>
+        <ion-input placeholder="Username" type="text" autofocus="true" [(ngModel)]="user"></ion-input>
+      </ion-item-divider>
+      <p class="error" *ngIf="errorUser">{{ messageUser }}</p>
+
+      <ion-item-divider mode="md">
         <ion-icon slot="start" name="key"></ion-icon>
         <ion-input placeholder="Password" type="password" [(ngModel)]="pwd"></ion-input>
       </ion-item-divider>
-      <ion-label position="floating" class="error" *ngIf="errorPwd">{{ messagePwd }}</ion-label>
+      <p class="error" *ngIf="errorUser">{{ messagePwd }}</p>
 
-      <ion-button type="submit" expand="block" (click)="validForm()">LOGIN</ion-button>
     </div>
+    <ion-button type="submit" expand="block" (click)="validForm()">LOGIN</ion-button>
   </div>
 </ion-content>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
 import { Subdivision } from '../model/brand';
+import { PopoverController } from '@ionic/angular';
+import { TemplatesPostsPopoverPage } from '../templates-posts-popover/templates-posts-popover.page';
 
 @Component({
   selector: 'app-sub-brand',
@@ -15,7 +16,7 @@ export class SubBrandPage implements OnInit {
   loaded = false
   subs: Subdivision[]
 
-  constructor(private storage: Storage, private router: Router) { }
+  constructor(private storage: Storage, private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.getBrandStorage()
@@ -25,13 +26,30 @@ export class SubBrandPage implements OnInit {
     this.storage.get('brand').then(brand => {
       this.title = brand.brand
       this.subs = brand.subdivisions
+
+      this.subs.sort((a, b) => {
+        if (a.id_subdivision > b.id_subdivision) return 1
+        if (a.id_subdivision < b.id_subdivision) return -1
+        return 0
+      })
     })
     this.loaded = true
   }
 
   selectBrand(sub) {
     this.storage.set('brand', sub).then(() => {
-      this.router.navigate(['templates-posts'])
+      this.templatesOrPostsPopover()
     })
+  }
+
+  async templatesOrPostsPopover() {
+    const popover = await this.popoverController.create({
+      component: TemplatesPostsPopoverPage,
+      keyboardClose: false,
+      animated: true,
+      translucent: true,
+      mode: "md"
+    })
+    return await popover.present()
   }
 }

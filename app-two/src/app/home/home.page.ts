@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 import { HomeService } from './home.service';
 import { Brand } from '../model/brand';
+import { PopoverController } from '@ionic/angular';
+import { TemplatesPostsPopoverPage } from '../templates-posts-popover/templates-posts-popover.page';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,11 @@ export class HomePage {
 
   brands$: Observable<Brand[]>
 
-  constructor(private homeService: HomeService, private storage: Storage, private router: Router) { }
+  constructor(
+    private homeService: HomeService, 
+    private storage: Storage, 
+    private router: Router, 
+    private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.loadBrands()
@@ -28,9 +34,20 @@ export class HomePage {
   selectBrand(brand) {
     this.storage.set('brand', brand).then(it => {
       if (it.id_highlight == null || it.id_highlight == undefined) 
-        this.router.navigate(['templates-posts'])
+        this.templatesOrPostsPopover()
       else
         this.router.navigate(['sub-brand'])
     })
+  }
+
+  async templatesOrPostsPopover() {
+    const popover = await this.popoverController.create({
+      component: TemplatesPostsPopoverPage,
+      keyboardClose: false,
+      animated: true,
+      translucent: true,
+      mode: "md"
+    })
+    return await popover.present()
   }
 }

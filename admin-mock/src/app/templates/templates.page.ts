@@ -53,6 +53,10 @@ export class TemplatesPage implements OnInit {
       }))
   }
 
+  filters() {
+    
+  }
+
   newTemplate() {
     this.templatePopover(null)
   }

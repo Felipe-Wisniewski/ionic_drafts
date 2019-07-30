@@ -11,21 +11,19 @@ import { AlertController } from '@ionic/angular';
 export class HomeService {
 
   private url = environment.URL_API
-  // private url = 'http://www.brpostefacil.com.br/homologacao/ws/public/api/'
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
   login(user: string, psw: string) {
 
-    let httpHeaders = new HttpHeaders()
-      .set('Content-Type', 'application/json;charset=UTF-8')
-      .set('Cache-Control', 'no-cache')
-
-    let options = {
-      headers: httpHeaders
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary8RrgaZuI2h3MZqQd',
+        'Cache-Control': 'no-cache'
+      })
     }
 
-    return this.http.post(`${this.url}admin-login`, { username: user, password: psw }, options)
+    return this.http.post(`${this.url}admin-login`, { username: user, password: psw }, httpOptions)
       .pipe(
         catchError((e) => {
           this.alertPopup("Erro ao realizar login")

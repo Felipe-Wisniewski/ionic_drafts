@@ -17,7 +17,6 @@ import { EditorIconsPopoverPage } from './editor-icons-popover/editor-icons-popo
 import { EditorIconsModalPage } from './editor-icons-modal/editor-icons-modal.page';
 import { EditorBackgroundPopoverPage } from './editor-background-popover/editor-background-popover.page';
 import { EditorTextPopoverPage } from './editor-text-popover/editor-text-popover.page';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-editor-template',
@@ -94,13 +93,7 @@ export class EditorTemplatePage implements OnInit {
       },
       'selection:cleared': () => {
         this.objectSelected = null
-      }/* ,
-      'object:added': (obj) => {
-        console.log(`object:added:`, obj)
-      },
-      'object:removed': (obj) => {
-        console.log(`object:removed:`, obj)
-      } */
+      }
     })
   }
 
@@ -115,7 +108,6 @@ export class EditorTemplatePage implements OnInit {
   async setTemplateOnCanvas() {
 
     this.template.json.objects.forEach((obj) => {
-
       obj.scaleX = (obj.scaleX / 100) * this.canvas.getWidth()
       obj.scaleY = (obj.scaleY / 100) * this.canvas.getHeight()
       obj.top = (obj.top / 100) * this.canvas.getHeight()
@@ -124,15 +116,6 @@ export class EditorTemplatePage implements OnInit {
       obj.lastGoodTop = obj.top
 
       if (!obj.selectable) obj.evented = false
-
-      if (obj.type == 'text') {
-        // this.controls.text = true
-        // this.textTemplate = obj.text
-        // TODO
-        // let font = new FontFaceObserver(obj.fontFamily)
-        // fonts.push(font.load().catch(() => obj.fontFamily = 'Roboto'))
-      }
-      console.log(obj)
     })
     return await this.canvas.loadFromJSON(this.template.json, this.canvas.renderAll.bind(this.canvas))
   }
@@ -243,10 +226,10 @@ export class EditorTemplatePage implements OnInit {
   }
 
   saveTemplate() {
-    console.log(this.template)
     this.template.json = JSON.stringify(this.canvas)
     this.template.thumbnail = this.canvas.toDataURL({ format: 'png', quality: 0.3 })
-    this.editorTemplateService.saveTemplate(this.template)
+
+   this.subscription$.push(this.editorTemplateService.saveTemplate(this.template).subscribe(r => console.log(r)))
   }
 
   deleteObjectOnCanvas() {

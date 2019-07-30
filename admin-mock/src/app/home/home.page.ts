@@ -34,14 +34,14 @@ export class HomePage {
       } else {
         this.messageUser = ''
       }
-      
+
       if (this.pwd === '') {
         this.errorPwd = true
         this.messagePwd = '* Senha inválida!'
       } else {
         this.messagePwd = ''
       }
-      
+
     } else {
       this.errorUser = false
       this.errorPwd = false
@@ -57,5 +57,3 @@ export class HomePage {
       }) */
   }
 }
-
-//  Unimed#2019
