@@ -14,7 +14,7 @@
     </ion-row>
 
     <ion-row>
-      <ion-item-divider no-padding mode="md">
+      <ion-item-divider mode="md">
         <ion-label slot="start">Marca</ion-label>
         <ion-select slot="end" interface="popover" [(ngModel)]="brand" name="brand.brand"
           (ionChange)="setBrandChange()">
@@ -24,7 +24,7 @@
     </ion-row>
 
     <ion-row *ngIf="isSubdivision">
-      <ion-item-divider no-padding mode="md">
+      <ion-item-divider mode="md">
         <ion-label slot="start">Sub Marca</ion-label>
         <ion-select slot="end" interface="popover" [(ngModel)]="subdivision" name="subdivision.subdivision">
           <ion-select-option *ngFor="let sub of subs" [value]="sub">{{ sub.subdivision }}</ion-select-option>
@@ -33,7 +33,7 @@
     </ion-row>
 
     <ion-row>
-      <ion-item-divider no-padding mode="md">
+      <ion-item-divider mode="md">
         <ion-label slot="start">Idioma</ion-label>
         <ion-select slot="end" interface="popover" [(ngModel)]="language" name="language.lang">
           <ion-select-option *ngFor="let lang of languages" [value]="lang">{{ lang.lang }}</ion-select-option>
@@ -41,18 +41,30 @@
       </ion-item-divider>
     </ion-row>
 
-    <ion-row *ngIf="isNewTemplate">
-      <ion-item-divider no-padding mode="md">
+    <!-- <ion-row *ngIf="isNewTemplate">
+      <ion-item-divider mode="md">
         <ion-label slot="start">Layout</ion-label>
         <ion-select slot="end" interface="popover" [(ngModel)]="layout">
           <ion-select-option *ngFor="let layout of layouts">{{ layout }}</ion-select-option>
         </ion-select>
       </ion-item-divider>
-    </ion-row>
+    </ion-row> -->
 
+    <ion-row *ngIf="isNewTemplate">
+      <ion-item-divider mode="md">
+        <ion-label slot="start">Layout</ion-label>
+        <div class="div-status">
+          <ion-checkbox class="checkbox-status" value="post" [(ngModel)]="layout"></ion-checkbox>
+          <ion-label>Post</ion-label>
+          <ion-checkbox class="checkbox-status" value="story" [(ngModel)]="layout"></ion-checkbox>
+          <ion-label>Story</ion-label>
+        </div>
+      </ion-item-divider>
+    </ion-row>
+    
     <ion-radio-group [(ngModel)]="maxProducts">
       <ion-row>
-        <ion-item-divider no-padding mode="md">
+        <ion-item-divider mode="md">
           <ion-col size="6">
             <ion-label>Nº Produtos</ion-label>
           </ion-col>
@@ -68,20 +80,21 @@
       </ion-row>
     </ion-radio-group>
 
+
     <ion-row>
-      <ion-item-divider no-padding mode="md">
+      <ion-item-divider mode="md">
         <ion-label slot="start">Validade</ion-label>
         <ion-toggle slot="end" [(ngModel)]="validityDate"></ion-toggle>
       </ion-item-divider>
     </ion-row>
 
     <ion-row *ngIf="validityDate">
-      <ion-item-divider no-padding mode="md">
+      <ion-item-divider mode="md">
         <ion-label slot="start">Início</ion-label>
         <ion-datetime slot="end" display-format="D/M/YYYY" picker-format="D M YYYY" [(ngModel)]="validityStart"
           placeholder="Selecione..." min="2019" max="2060"></ion-datetime>
       </ion-item-divider>
-      <ion-item-divider no-padding mode="md">
+      <ion-item-divider mode="md">
         <ion-label slot="start">Fim</ion-label>
         <ion-datetime slot="end" display-format="D/M/YYYY" picker-format="D M YYYY" [(ngModel)]="validityEnd"
           placeholder="Selecione..." min="2019" max="2060" value="15-12-1994"></ion-datetime>
@@ -89,7 +102,9 @@
     </ion-row>
 
     <ion-row>
-      <ion-button expand="block" (click)="save()">SALVAR</ion-button>
+      <ion-item-divider mode="md">
+        <ion-button slot="end" expand="block" (click)="save()">SALVAR</ion-button>
+      </ion-item-divider>
     </ion-row>
   </ion-grid>
 </ion-content>

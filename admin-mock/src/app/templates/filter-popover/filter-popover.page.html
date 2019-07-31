@@ -1,9 +1,49 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>filter-popover</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+<ion-grid>
+  <ion-row>
+    <ion-item-divider mode="md">
+      <ion-label slot="start">Marcas</ion-label>
+      <ion-select multiple="true" okText="Ok" slot="end" [(ngModel)]="brandsFilter">
+        <ion-select-option *ngFor="let brand of brands" [value]="brand.id">
+          {{ brand.brand }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item-divider>
+  </ion-row>
+  <ion-row>
+    <ion-item-divider mode="md">
+      <ion-label slot="start">Idioma</ion-label>
+      <ion-select multiple="true" okText="Ok" slot="end" [(ngModel)]="languagesFilter">
+        <ion-select-option *ngFor="let lang of languages" [value]="lang.id">
+          {{ lang.lang }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item-divider>
+  </ion-row>
+  <ion-row>
+    <ion-item-divider mode="md">
+      <ion-label slot="start">Layout</ion-label>
+      <div class="div-status">
+        <ion-checkbox class="checkbox-status" [(ngModel)]="layouts.post"></ion-checkbox>
+        <ion-label>Post</ion-label>
+        <ion-checkbox class="checkbox-status" [(ngModel)]="layouts.story"></ion-checkbox>
+        <ion-label>Story</ion-label>
+      </div>
+    </ion-item-divider>
+  </ion-row>
+  <ion-row>
+    <ion-item-divider mode="md">
+      <ion-label slot="start">Status</ion-label>
+      <div class="div-status">
+        <ion-checkbox class="checkbox-status" [(ngModel)]="status.ativo"></ion-checkbox>
+        <ion-label>Ativo</ion-label>
+        <ion-checkbox class="checkbox-status" [(ngModel)]="status.inativo"></ion-checkbox>
+        <ion-label>Inativo</ion-label>
+      </div>
+    </ion-item-divider>
+  </ion-row>
+  <ion-row>
+    <ion-item-divider mode="md">
+      <ion-button slot="end" expand="block" (click)="filter()">OK</ion-button>
+    </ion-item-divider>
+  </ion-row>
+</ion-grid>

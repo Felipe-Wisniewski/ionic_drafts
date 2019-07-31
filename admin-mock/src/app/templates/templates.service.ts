@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { empty } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { Template } from './../model/template';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Brand } from '../model/brand';
 
 @Injectable({
@@ -14,21 +14,55 @@ import { Brand } from '../model/brand';
 export class TemplatesService {
 
   url = environment.URL_API
+
   static pages
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
-  getTemplates(page) {
-    /* return this.http.get<Template[]>(`${environment.URL_API}templates?page=${page}&size=50`)
+  getTemplates(filters, page) {
+    let url = ''
+
+    if (filters != null)
+      url = `${this.setFilters(filters)}page=${page}&size=40`
+    else
+      url = `${environment.URL_API}templates?page=${page}&size=40`
+
+    return this.http.get<Template[]>(url)
       .pipe(
         catchError((err) => {
           console.error(err)
+          this.alertPopup('Ocorreu um erro ao carregar os templates.')
           return empty()
         }),
         tap(resp => TemplatesService.pages = resp['pages']),
         map(resp => resp['templates'])
-      ) */
-    return this.http.get<Template[]>('http://localhost:3000/templates')
+      )
+  }
+
+  setFilters(filters): string {
+    let filter = ''
+
+    if (filters.brandsFilter != null) {
+      filters.brandsFilter.forEach((b) => {
+        filter += `id_brand=${b}&`
+      })
+    }
+
+    if (filters.languagesFilter != null) {
+      filters.languagesFilter.forEach((l) => {
+        filter += `id_lang=${l}&`
+      })
+    }
+
+    if (filters.layouts.post) filter += `layout=post&`
+
+    if (filters.layouts.story) filter += `layout=story&`
+
+    if (filters.status.ativo) filter += `status=A&`
+
+    if (filters.status.inativo) filter += `status=I&`
+
+    return `${environment.URL_API}templates?${filter}`
   }
 
   getTemplate(id_template) {
@@ -36,6 +70,7 @@ export class TemplatesService {
       .pipe(
         catchError((err) => {
           console.error(err)
+          this.alertPopup('Ocorreu um erro ao carregar o template.')
           return empty()
         }),
         map(resp => resp['template'])
@@ -43,17 +78,16 @@ export class TemplatesService {
   }
 
   putTemplate(template: Template) {
-
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json;charset=UTF-8',
       })
     }
-
     return this.http.put(`${this.url}templates/${template.id_template}`, template, httpOptions)
       .pipe(
         catchError((err) => {
           console.error(err)
+          this.alertPopup('Ocorreu um erro ao atualizar o template.')
           return empty()
         }),
         tap(resp => console.log(resp))
@@ -65,6 +99,7 @@ export class TemplatesService {
       .pipe(
         catchError((err) => {
           console.error(err)
+          this.alertPopup('Ocorreu um erro ao carregar as marcas.')
           return empty()
         }),
         map(resp => resp['brands'])
@@ -80,4 +115,3 @@ export class TemplatesService {
     await alert.present()
   }
 }
-

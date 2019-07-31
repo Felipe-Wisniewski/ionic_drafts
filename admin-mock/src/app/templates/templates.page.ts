@@ -8,6 +8,7 @@ import { TemplatesService } from './templates.service';
 import { Template } from '../model/template';
 import { Brand } from '../model/brand';
 import { TemplatesPopoverPage } from './templates-popover/templates-popover.page';
+import { FilterPopoverPage } from './filter-popover/filter-popover.page';
 
 @Component({
   selector: 'app-templates',
@@ -21,10 +22,11 @@ export class TemplatesPage implements OnInit {
   brands: Brand[] = []
 
   page = 1
+  filters = null
   loaded = false
 
   constructor(
-    private templatesService: TemplatesService, 
+    private templatesService: TemplatesService,
     private storage: Storage,
     private router: Router,
     private popoverController: PopoverController) { }
@@ -35,7 +37,7 @@ export class TemplatesPage implements OnInit {
   }
 
   getTemplates() {
-    this.subscription$.push(this.templatesService.getTemplates(this.page)
+    this.subscription$.push(this.templatesService.getTemplates(this.filters, this.page)
       .subscribe((_templates) => {
         _templates.forEach(temp => {
           this.templates.push(temp)
@@ -53,8 +55,25 @@ export class TemplatesPage implements OnInit {
       }))
   }
 
-  filters() {
-    
+  async addFilters() {
+    const popover = await this.popoverController.create({
+      component: FilterPopoverPage,
+      animated: true,
+      translucent: true,
+      mode: "md",
+      componentProps: {
+        brands: this.brands
+      }
+    })
+
+    popover.onDidDismiss().then((filters) => {
+      this.filters = filters.data
+      this.page = 1
+      this.loaded = false
+      this.templates = []
+      this.getTemplates()
+    })
+    return await popover.present()
   }
 
   newTemplate() {
@@ -91,14 +110,25 @@ export class TemplatesPage implements OnInit {
   }
 
   logout() {
-    
-  }
-
-  loadMore(ev) {
 
   }
 
-  loadErrorImg(ev) {
+  loadMore(event) {
+    setTimeout(() => {
+      if (this.page < TemplatesService.pages) {
+        this.page++
+        this.getTemplates()
+      }
 
+      event.target.complete()
+    }, 3500)
+  }
+
+  loadErrorImg(event) {
+    event.target.src = 'assets/img/erro-template.jpg'
+  }
+
+  ngOnDestroy() {
+    this.subscription$.forEach(s => s.unsubscribe())
   }
 }

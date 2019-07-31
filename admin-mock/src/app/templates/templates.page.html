@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <ion-title>Templates</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="filters()">
+      <ion-button (click)="addFilters()">
         <ion-icon slot="icon-only" src="assets/icon/ic_filter.svg"></ion-icon>
       </ion-button>
       <ion-button (click)="newTemplate()">
@@ -16,22 +16,17 @@
 </ion-header>
 
 <ion-content>
-
   <ion-grid class="grid-template" *ngIf="loaded ; else loading">
     <ion-row class="row-template">
       <ion-col class="col-template" size="3" *ngFor="let template of templates">
-
         <ion-img [src]="template.thumbnail_url" (ionError)="loadErrorImg($event)"></ion-img>
-
         <div class="label-name">
           <ion-label>{{ template.name | lowercase }}</ion-label>
         </div>
-
         <div class="label">
           <ion-label>{{ template.id_lang | idLang }}</ion-label>
           <ion-label>{{ template.status | uppercase }}</ion-label>
         </div>
-
         <ion-buttons class="buttons-template">
           <ion-button (click)="renameTemplate(template)">
             <ion-icon name="create"></ion-icon>
@@ -43,7 +38,6 @@
             <ion-icon name="trash"></ion-icon>
           </ion-button>
         </ion-buttons>
-
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -55,5 +49,4 @@
   <ng-template #loading>
     <ion-spinner loadingSpinner="crescent"></ion-spinner>
   </ng-template>
-
 </ion-content>
