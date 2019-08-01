@@ -41,28 +41,19 @@ export class EditorTemplateService {
 
   saveTemplate(template: Template) {
     let params = {
-      id_brand: template.id_brand,
-      id_subdivision: template.id_subdivision,
-      name: template.name,
+      id_brand: +template.id_brand,
       id_lang: template.id_lang,
-      layout: template.layout,
-      max_products: template.max_products,
-      json: template.json,
+      name: template.name,
       thumbnail: template.thumbnail,
+      layout: template.layout,
+      id_subdivision: +template.id_subdivision,
+      max_products: +template.max_products,
       validity_period_start: template.validity_period_start,
-      validity_period_end: template.validity_period_end
+      validity_period_end: template.validity_period_end,
+      json: template.json
     }
-
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary8RrgaZuI2h3MZqQd',
-        'Cache-Control': 'no-cache'
-      })
-    }
-
-    console.log(`${this.url}templates`)
-
-    return this.http.post(`${this.url}templates`, params, httpOptions)
+    console.log(params)
+    return this.http.post(`${this.url}templates`, params)
       .pipe(
         catchError(() => {
           this.alertPopup("Erro ao salvar o template.")

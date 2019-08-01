@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavParams, PopoverController, AlertController } from '@ionic/angular';
+import { NavParams, PopoverController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 import { Brand, Subdivision } from './../../model/brand';
@@ -25,18 +25,20 @@ export class TemplatesPopoverPage implements OnInit {
 
   languages = [{ lang: 'inglês', id: '1' }, { lang: 'espanhol', id: '2' }, { lang: 'português', id: '3' }]
 
-  layouts = ['post', 'story']
-
   name = null
   language = null
   layout = null
   id_subdivision = null
-  maxProducts = "1"
+  maxProducts = null
   validityStart?: string = null
   validityEnd?: string = null
 
   isNewTemplate = false
   isSubdivision = false
+  isPost: boolean = false
+  isStory: boolean = false
+  isOne: boolean = false
+  isTwo: boolean = false
   validityDate = false
 
   subscription$: Subscription[] = []
@@ -100,11 +102,46 @@ export class TemplatesPopoverPage implements OnInit {
     }
   }
 
+  setLayoutPost(value) {
+    if (!this.isPost) {
+      this.layout = value
+      this.isStory = false
+    } else {
+      this.layout = null
+    }
+  }
+
+  setLayoutStory(value) {
+    if (!this.isStory) {
+      this.layout = value
+      this.isPost = false
+    } else {
+      this.layout = null
+    }
+  }
+
+  setNumberOne(value) {
+    if (!this.isOne) {
+      this.maxProducts = value
+      this.isTwo = false
+    } else {
+      this.maxProducts = null
+    }
+  }
+
+  setNumberTwo(value) {
+    if (!this.isTwo) {
+      this.maxProducts = value
+      this.isOne = false
+    } else {
+      this.maxProducts = null
+    }
+  }
+
   save() {
     if (this.validForm()) {
 
       if (this.isNewTemplate) {
-
         this.template = {
           id_brand: this.brand.id.toString(),
           id_subdivision: this.id_subdivision,
@@ -114,8 +151,8 @@ export class TemplatesPopoverPage implements OnInit {
           layout: this.layout,
           max_products: this.maxProducts,
           json: null,
-          validity_period_start: this.validityStart.slice(0,10),
-          validity_period_end: this.validityEnd.slice(0,10),
+          validity_period_start: this.validityStart.slice(0, 10),
+          validity_period_end: this.validityEnd.slice(0, 10),
 
           status: null,
           registration_user: null,
@@ -126,35 +163,35 @@ export class TemplatesPopoverPage implements OnInit {
           thumbnail_url: null
         }
 
-        
+
         this.openEditor()
         this.closePopover()
-        
+
       } else {
         this.template.name = this.name
+        if (this.name != this.template.json.name) this.template.json.name = this.name
         this.template.id_brand = this.brand.id.toString()
         this.template.id_lang = this.language.id
         this.template.max_products = this.maxProducts
-        
+
         if (this.validityDate) {
-          this.template.validity_period_start = this.validityStart.slice(0,10)
-          this.template.validity_period_end = this.validityEnd.slice(0,10)
+          this.template.validity_period_start = this.validityStart.slice(0, 10)
+          this.template.validity_period_end = this.validityEnd.slice(0, 10)
         } else {
           this.template.validity_period_start = null
           this.template.validity_period_end = null
         }
-        
+
         this.saveEditTemplate()
         this.closePopover()
       }
-      
+
     } else {
       this.templateService.alertPopup('Preencha todos os campos para continuar.')
     }
   }
 
   saveEditTemplate() {
-    console.log('save edit')
     this.subscription$.push(this.templateService.putTemplate(this.template)
       .subscribe(r => console.log(r)))
   }
@@ -165,18 +202,14 @@ export class TemplatesPopoverPage implements OnInit {
     if (this.name == null || this.name == '') valid++
     if (this.brand == null) valid++
     if (this.language == null) valid++
+    if (this.maxProducts == null) valid++
 
-    if (this.isSubdivision) {
-      if (this.subdivision == null) {
-        valid++
-      } else {
-        this.id_subdivision = this.subdivision.id_subdivision.toString()
-      }
-    }
+    if (this.isSubdivision)
+      this.subdivision == null ? valid++ : this.id_subdivision = this.subdivision.id_subdivision.toString()
 
-    if (this.isNewTemplate) {
+    if (this.isNewTemplate)
       if (this.layout == null) valid++
-    }
+
 
     if (this.validityDate) {
       if (this.validityStart == null) valid++

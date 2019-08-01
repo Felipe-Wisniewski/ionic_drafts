@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { HomeService } from './home.service';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Subscription, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +10,7 @@ import { tap } from 'rxjs/operators';
 })
 export class HomePage {
 
-  logo = 'assets/img/logo.png'
+  // logo = 'assets/img/logo.png'
 
   user = ''
   pwd = ''
@@ -50,10 +48,11 @@ export class HomePage {
   }
 
   login() {
-    this.router.navigate(['templates'])
-    /* this.homeService.login(this.user, this.pwd)
-      .subscribe((resp) => {
-        console.log(resp)
-      }) */
+    this.homeService.login(this.user, this.pwd)
+      .subscribe((resp: any) => {
+        if (resp.status === "success") {
+          this.router.navigate(['templates'])
+        }
+      })
   }
 }

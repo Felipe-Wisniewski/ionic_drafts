@@ -1,9 +1,10 @@
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.prod';
-import { catchError, tap } from 'rxjs/operators';
-import { empty } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
+import { empty } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,9 @@ export class HomeService {
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
+  // VERIFICAR PQ O SERVIDOR NOVO NÃO FUNCIONA O LOGIN!!!
   login(user: string, psw: string) {
-
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary8RrgaZuI2h3MZqQd',
-        'Cache-Control': 'no-cache'
-      })
-    }
-
-    return this.http.post(`${this.url}admin-login`, { username: user, password: psw }, httpOptions)
+    return this.http.post(`http://www.brpostefacil.com.br/homologacao/ws/public/api/admin-login`, { username: user, password: psw })
       .pipe(
         catchError((e) => {
           this.alertPopup("Erro ao realizar login")

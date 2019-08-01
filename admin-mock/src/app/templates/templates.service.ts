@@ -78,15 +78,22 @@ export class TemplatesService {
   }
 
   putTemplate(template: Template) {
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json;charset=UTF-8',
-      })
+    let params = {
+      json: JSON.stringify(template.json),
+      id_brand: +template.id_brand,
+      id_lang: template.id_lang
     }
-    return this.http.put(`${this.url}templates/${template.id_template}`, template, httpOptions)
+
+    /* let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': undefined,
+      })
+    } */
+
+    return this.http.put(`${this.url}templates/${template.id_template}`, params)
       .pipe(
         catchError((err) => {
-          console.error(err)
+          console.log(err)
           this.alertPopup('Ocorreu um erro ao atualizar o template.')
           return empty()
         }),
