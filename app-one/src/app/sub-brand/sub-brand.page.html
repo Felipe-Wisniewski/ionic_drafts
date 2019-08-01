@@ -1,8 +1,8 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>{{ title }}</ion-title>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>{{ title | uppercase }}</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button mode="md"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/follow']">
@@ -16,15 +16,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid class="grid-sub" *ngIf="loaded ; else loading">
-    <ion-row>
-      <ion-col class="col-sub" *ngFor="let sub of subs" offset="3" size="6">
+  <div class="container">
+    <ion-grid class="grid-sub" *ngIf="loaded ; else loading">
+      <ion-row class="row-sub" *ngFor="let sub of subs">
         <ion-img [src]="sub.image_url" (click)="selectBrand(sub)"></ion-img>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      </ion-row>
+    </ion-grid>
 
-  <ng-template #loading>
-    <ion-spinner loadingSpinner="crescent"></ion-spinner>
-  </ng-template>
+    <ng-template #loading>
+      <ion-spinner loadingSpinner="crescent"></ion-spinner>
+    </ng-template>
+  </div>
 </ion-content>

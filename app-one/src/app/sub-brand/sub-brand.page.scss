@@ -1,8 +1,19 @@
-.grid-sub {
-    max-width: 800px;
-    padding: 0px;
+.container {
+    width: 100%;
+    height: 100%;
+  background-color: #e1e2e1;
 }
 
-.col-sub {
-    padding: 1px;
+.grid-sub {
+  max-width: 600px;
+  padding: 0px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // align-items: center;
+}
+
+.row-sub {
+  padding: 1px;
 }

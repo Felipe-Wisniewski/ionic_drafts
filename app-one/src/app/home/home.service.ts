@@ -13,7 +13,8 @@ import { Brand } from './brand';
 })
 export class HomeService {
 
-  private url: string =  environment.URL_API  + 'brands';
+  // private url: string =  environment.URL_API  + 'brands';
+  private url: string =  '../../assets/mocks/brands.json';
 
   constructor(private http: HttpClient, private storage: Storage, private alertController: AlertController) { }
 

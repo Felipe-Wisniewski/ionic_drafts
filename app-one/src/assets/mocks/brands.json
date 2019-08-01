@@ -130,7 +130,7 @@
         {
             "id": null,
 			"id_highlight": 3,
-            "brand": "TAL MÂE - TAL FILHA",
+            "brand": "TAL MÂE, TAL FILHA",
             "image_url": "assets/mocks/talmaetalfilha.jpg",
             "list_order": "8",
             "logo_url": "https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas_logos/99.png",            
@@ -138,19 +138,19 @@
 				{
 					"id_subdivision":"6",
 					"sub":"BEIRA RIO + MOLEKINHA",
-                    "image_url":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/subdivisao/6.jpg",
+                    "image_url":"assets/img/b800x1422.jpg",
                     "logo_url":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas_logos/3.png"
 				},
 				{
 					"id_subdivision":"7",
 					"sub":"MOLECA + MOLEKINHA",
-                    "image_url":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/subdivisao/7.jpg",
+                    "image_url":"assets/img/m800x1422.jpg",
                     "logo_url":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas_logos/16.png"
 				},
 				{
 					"id_subdivision":"8",
 					"sub":"VIZZANO + MOLEKINHA",
-                    "image_url":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas/subdivisao/8.jpg",
+                    "image_url":"assets/img/v800x1422.jpg",
                     "logo_url":"https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/marcas_logos/1.png"
 				}
 			],
