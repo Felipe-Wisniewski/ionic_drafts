@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { HomeService } from './home.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +9,6 @@ import { HomeService } from './home.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
-  // logo = 'assets/img/logo.png'
 
   user = ''
   pwd = ''
@@ -20,22 +18,21 @@ export class HomePage {
   messageUser = ''
   messagePwd = ''
 
-  constructor(private homeService: HomeService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
-  validForm() {
-
+  login() {
     if (this.user === '' || this.pwd === '') {
 
       if (this.user === '') {
         this.errorUser = true
-        this.messageUser = '* Usuário inválido!'
+        this.messageUser = '*usuário obrigatório!'
       } else {
         this.messageUser = ''
       }
 
       if (this.pwd === '') {
         this.errorPwd = true
-        this.messagePwd = '* Senha inválida!'
+        this.messagePwd = '*senha obrigatória!'
       } else {
         this.messagePwd = ''
       }
@@ -43,16 +40,12 @@ export class HomePage {
     } else {
       this.errorUser = false
       this.errorPwd = false
-      this.login()
+      this.authUser()
     }
   }
 
-  login() {
-    this.homeService.login(this.user, this.pwd)
-      .subscribe((resp: any) => {
-        if (resp.status === "success") {
-          this.router.navigate(['templates'])
-        }
-      })
+  authUser() {
+    this.auth.login(this.user, this.pwd)
+      .subscribe(() => { this.router.navigate(['templates']) })
   }
 }

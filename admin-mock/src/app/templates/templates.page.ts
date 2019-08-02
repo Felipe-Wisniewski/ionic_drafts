@@ -109,10 +109,6 @@ export class TemplatesPage implements OnInit {
     console.log(template)
   }
 
-  logout() {
-
-  }
-
   loadMore(event) {
     setTimeout(() => {
       if (this.page < TemplatesService.pages) {
@@ -129,6 +125,6 @@ export class TemplatesPage implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription$.forEach(s => s.unsubscribe())
+    this.subscription$.forEach((s) => s.unsubscribe())
   }
 }

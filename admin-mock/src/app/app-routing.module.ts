@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from './auth/auth.guard';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-  { path: 'templates', loadChildren: './templates/templates.module#TemplatesPageModule' },
-  { path: 'editor-template', loadChildren: './editor-template/editor-template.module#EditorTemplatePageModule' }
+  { path: 'templates', loadChildren: './templates/templates.module#TemplatesPageModule', canActivate: [AuthGuard] },
+  { path: 'editor-template', loadChildren: './editor-template/editor-template.module#EditorTemplatePageModule', canActivate: [AuthGuard] }
 ];
 
 @NgModule({
