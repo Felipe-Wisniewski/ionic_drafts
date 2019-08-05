@@ -229,7 +229,18 @@ export class EditorTemplatePage implements OnInit {
     this.template.json = JSON.stringify(this.canvas)
     this.template.thumbnail = this.canvas.toDataURL({ format: 'png', quality: 0.3 })
 
-   this.subscription$.push(this.editorTemplateService.saveTemplate(this.template).subscribe(r => console.log(r)))
+    if (this.template.id_template != null) {
+      this.subscription$.push(this.editorTemplateService.putTemplate(this.template)
+        .subscribe((r) => {
+          console.log(r)
+        }))
+
+    } else {
+      this.subscription$.push(this.editorTemplateService.saveTemplate(this.template)
+        .subscribe((r) => {
+          console.log(r)
+        }))
+    }
   }
 
   deleteObjectOnCanvas() {

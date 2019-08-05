@@ -15,7 +15,7 @@ export class AuthService {
   private url = environment.URL_API
   
   redirectUrl: string
-  isLoggedIn = false
+  isLoggedIn = true //RETORNAR PARA FALSE
 
   constructor(private http: HttpClient, private router: Router, private alertController: AlertController) { }
 

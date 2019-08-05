@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { empty } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -43,17 +43,41 @@ export class EditorTemplateService {
     let params = {
       id_brand: +template.id_brand,
       id_lang: template.id_lang,
-      name: template.name,
+      // name: template.name,
       thumbnail: template.thumbnail,
-      layout: template.layout,
-      id_subdivision: +template.id_subdivision,
-      max_products: +template.max_products,
-      validity_period_start: template.validity_period_start,
-      validity_period_end: template.validity_period_end,
+      // layout: template.layout,
+      // id_subdivision: +template.id_subdivision,
+      // max_products: +template.max_products,
+      // validity_period_start: template.validity_period_start,
+      // validity_period_end: template.validity_period_end,
       json: template.json
     }
-    console.log(params)
-    return this.http.post(`${this.url}templates`, params)
+    // return this.http.post(`${this.url}templates`, params)
+    return this.http.post(`http://www.brpostefacil.com.br/homologacao/ws/public/api/templates`, params)
+      .pipe(
+        catchError(() => {
+          this.alertPopup("Erro ao salvar o template.")
+          return empty()
+        }),
+        map(resp => resp['messages'])
+      )
+  }
+
+  putTemplate(template: Template) {
+    let params = {
+      id_brand: +template.id_brand,
+      id_lang: template.id_lang,
+      // name: template.name,
+      // thumbnail: template.thumbnail,
+      // layout: template.layout,
+      // id_subdivision: +template.id_subdivision,
+      // max_products: +template.max_products,
+      // validity_period_start: template.validity_period_start,
+      // validity_period_end: template.validity_period_end,
+      json: template.json
+    }
+    // return this.http.post(`${this.url}templates`, params)
+    return this.http.put(`http://www.brpostefacil.com.br/homologacao/ws/public/api/templates/${template.id_template}`, params)
       .pipe(
         catchError(() => {
           this.alertPopup("Erro ao salvar o template.")

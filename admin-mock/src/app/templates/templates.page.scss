@@ -1,36 +1,40 @@
-.container {
-    width: 100%;
-    height: 100%;
+ion-content {
+  --background: #f2f2f2;
 }
 
-.grid-template {
-    max-width: 800px;
+ion-grid {
+  max-width: 800px;
+  padding: 2px;
 }
 
-.row-template {
-    align-items: flex-start;
+ion-col {
+  padding: 4px;
+  border: 2px solid #f2f2f2;
+  background-color: white;
 }
 
-.col-template {
-    padding: 3px;
-    border: 1px solid #F2F2F2;
+.div-label-fab {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content:flex-end;
 }
 
-.label-name {
-    font-size: 12px;
-    text-align: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
+ion-label {
+  padding-top: 2px;
 }
 
-.label {
-    font-size: 10px;
-    display: flex;
-    justify-content: space-between;
+.fab-button {
+  --color: black;
+  --background: white;
+  --box-shadow: none;
 }
 
-.buttons-template {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+ion-fab {
+  width: 50px;
+  height: 50px;
+  right: 1px;
+  bottom: 1px;
 }
+

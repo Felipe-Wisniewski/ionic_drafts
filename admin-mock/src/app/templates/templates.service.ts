@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { empty } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
@@ -22,20 +22,22 @@ export class TemplatesService {
   getTemplates(filters, page) {
     let url = ''
 
-    if (filters != null)
+    /* if (filters != null)
       url = `${this.setFilters(filters)}page=${page}&size=40`
     else
-      url = `${environment.URL_API}templates?page=${page}&size=40`
+      url = `${environment.URL_API}templates?page=${page}&size=40` */
 
+
+    url = 'http://localhost:3000/templates'
     return this.http.get<Template[]>(url)
       .pipe(
         catchError((err) => {
           console.error(err)
           this.alertPopup('Ocorreu um erro ao carregar os templates.')
           return empty()
-        }),
+        })/* ,
         tap(resp => TemplatesService.pages = resp['pages']),
-        map(resp => resp['templates'])
+        map(resp => resp['templates']) */
       )
   }
 
@@ -83,13 +85,6 @@ export class TemplatesService {
       id_brand: +template.id_brand,
       id_lang: template.id_lang
     }
-
-    /* let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': undefined,
-      })
-    } */
-
     return this.http.put(`${this.url}templates/${template.id_template}`, params)
       .pipe(
         catchError((err) => {
