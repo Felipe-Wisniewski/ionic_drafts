@@ -34,20 +34,27 @@ export class HomePage {
   selectBrand(brand) {
     this.storage.set('brand', brand).then(it => {
       if (it.id_highlight == null || it.id_highlight == undefined) 
-        this.templatesOrPostsPopover()
+        this.templatesOrPostsPopover(brand)
       else
         this.router.navigate(['sub-brand'])
     })
   }
 
-  async templatesOrPostsPopover() {
+  async templatesOrPostsPopover(brand) {
     const popover = await this.popoverController.create({
       component: TemplatesPostsPopoverPage,
-      keyboardClose: false,
+      backdropDismiss: false,
+      keyboardClose: true,
       animated: true,
       translucent: true,
-      mode: "md"
+      mode: "md",
+      cssClass: 'custom-popover',
+      componentProps: {
+        brand: brand
+      }
     })
+    
+
     return await popover.present()
   }
 }

@@ -15,13 +15,13 @@ export class AuthService {
   private url = environment.URL_API
   
   redirectUrl: string
-  isLoggedIn = true //RETORNAR PARA FALSE
+  isLoggedIn = false
 
   constructor(private http: HttpClient, private router: Router, private alertController: AlertController) { }
 
   // VERIFICAR PQ O SERVIDOR NOVO NÃO FUNCIONA O LOGIN!!!
   login(user: string, psw: string) {
-    return this.http.post(`http://www.brpostefacil.com.br/homologacao/ws/public/api/admin-login`, { username: user, password: psw })
+    return this.http.post(`${this.url}admin-login`, { username: user, password: psw })
       .pipe(
         tap((resp: any) => {
           resp.status === "success" ? this.isLoggedIn = true : this.isLoggedIn = false

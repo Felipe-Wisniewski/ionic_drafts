@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { empty } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
@@ -15,29 +15,35 @@ export class TemplatesService {
 
   url = environment.URL_API
 
+  /* httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+    withCredentials: true
+  } */
+
   static pages
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
+
   getTemplates(filters, page) {
     let url = ''
 
-    /* if (filters != null)
+    if (filters != null)
       url = `${this.setFilters(filters)}page=${page}&size=40`
     else
-      url = `${environment.URL_API}templates?page=${page}&size=40` */
+      url = `${environment.URL_API}templates?page=${page}&size=40`
 
-
-    url = 'http://localhost:3000/templates'
     return this.http.get<Template[]>(url)
       .pipe(
         catchError((err) => {
           console.error(err)
           this.alertPopup('Ocorreu um erro ao carregar os templates.')
           return empty()
-        })/* ,
+        }),
         tap(resp => TemplatesService.pages = resp['pages']),
-        map(resp => resp['templates']) */
+        map(resp => resp['templates'])
       )
   }
 
@@ -79,6 +85,29 @@ export class TemplatesService {
       )
   }
 
+  saveTemplate(template: Template) {
+    let params = {
+      id_brand: +template.id_brand,
+      id_lang: template.id_lang,
+      // name: template.name,
+      thumbnail: template.thumbnail,
+      // layout: template.layout,
+      // id_subdivision: +template.id_subdivision,
+      // max_products: +template.max_products,
+      // validity_period_start: template.validity_period_start,
+      // validity_period_end: template.validity_period_end,
+      json: template.json
+    }
+    return this.http.post(`${this.url}templates`, params)
+      .pipe(
+        catchError(() => {
+          this.alertPopup("Erro ao salvar o template.")
+          return empty()
+        }),
+        map(resp => resp['messages'])
+      )
+  }
+
   putTemplate(template: Template) {
     let params = {
       json: JSON.stringify(template.json),
@@ -93,6 +122,17 @@ export class TemplatesService {
           return empty()
         }),
         tap(resp => console.log(resp))
+      )
+  }
+
+  deleteTemplate(id_template) {
+    return this.http.delete(`${this.url}templates/${id_template}`)
+      .pipe(
+        catchError((err) => {
+          console.error(err)
+          this.alertPopup('Ocorreu um erro ao deletar o template.')
+          return empty()
+        })
       )
   }
 

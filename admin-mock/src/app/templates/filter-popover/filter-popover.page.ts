@@ -10,6 +10,8 @@ import { Brand } from 'src/app/model/brand';
 })
 export class FilterPopoverPage implements OnInit {
 
+  filters = null
+
   brands: Brand[]
   brandsFilter = null
 
@@ -30,6 +32,24 @@ export class FilterPopoverPage implements OnInit {
 
   ngOnInit() {
     this.brands = this.navParams.get('brands')
+
+    this.filters = this.navParams.get('filters')
+
+    if (this.filters != null) {
+      this.brandsFilter = this.filters.brandsFilter
+      this.languagesFilter = this.filters.languagesFilter
+      this.layouts = this.filters.layouts
+      this.status = this.filters.status
+    }
+  }
+
+  clean() {
+    this.brandsFilter = null
+    this.languagesFilter = null
+    this.layouts.post = false
+    this.layouts.story = false
+    this.status.ativo = false
+    this.status.inativo = false
   }
 
   filter() {

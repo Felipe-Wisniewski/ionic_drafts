@@ -19,14 +19,11 @@
   <ion-grid *ngIf="loaded ; else loading">
     <ion-row>
       <ion-col size="3" *ngFor="let template of templates">
-
         <ion-img [src]="template.thumbnail_url" (ionError)="loadErrorImg($event)"></ion-img>
-
         <div class="div-label-fab">
-          <ion-label>{{ template.name | uppercase }}</ion-label>
-          <ion-label>{{ template.id_lang | idLang }}</ion-label>
-          <ion-label>{{ template.status | uppercase }}</ion-label>
-
+          <ion-label class="label-name">{{ template.name | uppercase }}</ion-label>
+          <ion-label class="label-lang">{{ template.id_lang | idLang }}</ion-label>
+          <ion-label class="label-status">{{ template.status | uppercase }}</ion-label>
           <ion-fab horizontal="end" vertical="bottom" slot="fixed">
             <ion-fab-button class="fab-button" size="small">
               <ion-icon name="arrow-dropup"></ion-icon>

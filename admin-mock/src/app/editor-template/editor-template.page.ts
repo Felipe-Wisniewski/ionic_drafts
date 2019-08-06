@@ -9,7 +9,7 @@ import { Template } from '../model/template';
 import { Brand } from '../model/brand';
 import { Stamp } from '../model/stamp';
 import { Icon } from '../model/icon';
-import { EditorTemplateService } from './editor-template.service';
+import { TemplatesService } from '../templates/templates.service';
 import { EditorBackgroundPage } from './editor-background/editor-background.page';
 import { EditorStampsPage } from './editor-stamps/editor-stamps.page';
 import { EditorStampsPopoverPage } from './editor-stamps-popover/editor-stamps-popover.page';
@@ -40,7 +40,7 @@ export class EditorTemplatePage implements OnInit {
 
   constructor(
     private storage: Storage,
-    private editorTemplateService: EditorTemplateService,
+    private templateService: TemplatesService,
     private modalController: ModalController,
     private popoverController: PopoverController) { }
 
@@ -98,7 +98,7 @@ export class EditorTemplatePage implements OnInit {
   }
 
   getTemplate() {
-    this.subscription$.push(this.editorTemplateService.getTemplate(this.template.id_template)
+    this.subscription$.push(this.templateService.getTemplate(this.template.id_template)
       .subscribe((_template) => {
         this.template = _template
         this.setTemplateOnCanvas()
@@ -106,7 +106,6 @@ export class EditorTemplatePage implements OnInit {
   }
 
   async setTemplateOnCanvas() {
-
     this.template.json.objects.forEach((obj) => {
       obj.scaleX = (obj.scaleX / 100) * this.canvas.getWidth()
       obj.scaleY = (obj.scaleY / 100) * this.canvas.getHeight()
@@ -163,7 +162,6 @@ export class EditorTemplatePage implements OnInit {
   }
 
   async addBackground(ev) {
-
     let objBackground = null
 
     this.canvas.forEachObject((obj: any) => {
@@ -198,7 +196,6 @@ export class EditorTemplatePage implements OnInit {
   }
 
   async addIcons(ev) {
-
     if (this.objectSelected != null && this.objectSelected.controls == 'icons') {
       const popover = await this.popoverController.create({
         component: EditorIconsPopoverPage,
@@ -230,13 +227,13 @@ export class EditorTemplatePage implements OnInit {
     this.template.thumbnail = this.canvas.toDataURL({ format: 'png', quality: 0.3 })
 
     if (this.template.id_template != null) {
-      this.subscription$.push(this.editorTemplateService.putTemplate(this.template)
+      this.subscription$.push(this.templateService.putTemplate(this.template)
         .subscribe((r) => {
           console.log(r)
         }))
 
     } else {
-      this.subscription$.push(this.editorTemplateService.saveTemplate(this.template)
+      this.subscription$.push(this.templateService.saveTemplate(this.template)
         .subscribe((r) => {
           console.log(r)
         }))

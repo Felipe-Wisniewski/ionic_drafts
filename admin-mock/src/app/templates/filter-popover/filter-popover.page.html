@@ -1,6 +1,6 @@
 <ion-grid>
   <ion-row>
-    <ion-item-divider mode="md">
+    <ion-item-divider>
       <ion-label slot="start">Marcas</ion-label>
       <ion-select multiple="true" okText="Ok" slot="end" [(ngModel)]="brandsFilter">
         <ion-select-option *ngFor="let brand of brands" [value]="brand.id">
@@ -10,7 +10,7 @@
     </ion-item-divider>
   </ion-row>
   <ion-row>
-    <ion-item-divider mode="md">
+    <ion-item-divider>
       <ion-label slot="start">Idioma</ion-label>
       <ion-select multiple="true" okText="Ok" slot="end" [(ngModel)]="languagesFilter">
         <ion-select-option *ngFor="let lang of languages" [value]="lang.id">
@@ -20,9 +20,9 @@
     </ion-item-divider>
   </ion-row>
   <ion-row>
-    <ion-item-divider mode="md">
+    <ion-item-divider>
       <ion-label slot="start">Layout</ion-label>
-      <div class="div-status">
+      <div class="div-checkbox">
         <ion-checkbox class="checkbox-status" [(ngModel)]="layouts.post"></ion-checkbox>
         <ion-label>Post</ion-label>
         <ion-checkbox class="checkbox-status" [(ngModel)]="layouts.story"></ion-checkbox>
@@ -31,9 +31,9 @@
     </ion-item-divider>
   </ion-row>
   <ion-row>
-    <ion-item-divider mode="md">
+    <ion-item-divider>
       <ion-label slot="start">Status</ion-label>
-      <div class="div-status">
+      <div class="div-checkbox">
         <ion-checkbox class="checkbox-status" [(ngModel)]="status.ativo"></ion-checkbox>
         <ion-label>Ativo</ion-label>
         <ion-checkbox class="checkbox-status" [(ngModel)]="status.inativo"></ion-checkbox>
@@ -42,8 +42,9 @@
     </ion-item-divider>
   </ion-row>
   <ion-row>
-    <ion-item-divider mode="md">
-      <ion-button slot="end" expand="block" (click)="filter()">OK</ion-button>
-    </ion-item-divider>
+    <div class="div-btn">
+      <ion-button expand="block" size="small" (click)="clean()">LIMPAR</ion-button>
+      <ion-button expand="block" size="small" (click)="filter()">OK</ion-button>
+    </div>
   </ion-row>
 </ion-grid>

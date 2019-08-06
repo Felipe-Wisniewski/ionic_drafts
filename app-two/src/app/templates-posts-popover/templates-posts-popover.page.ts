@@ -1,5 +1,6 @@
+import { Brand } from './../model/brand';
 import { Component, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-templates-posts-popover',
@@ -8,9 +9,14 @@ import { PopoverController } from '@ionic/angular';
 })
 export class TemplatesPostsPopoverPage implements OnInit {
 
-  constructor(private popoverController: PopoverController) { }
+  brand: Brand
+  logoUrl = ''
+
+  constructor(private navParams: NavParams, private popoverController: PopoverController) { }
 
   ngOnInit() {
+    this.brand = this.navParams.get('brand')
+    this.logoUrl = this.brand.logo_url
   }
 
   closePopover() {

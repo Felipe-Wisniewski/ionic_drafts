@@ -18,11 +18,23 @@ ion-col {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  align-content:flex-end;
+  align-content: flex-end;
 }
 
 ion-label {
   padding-top: 2px;
+}
+
+.label-name {
+  font-size: 12px;
+}
+
+.label-lang {
+  font-size: 10px;
+}
+
+.label-status {
+  font-size: 14px;
 }
 
 .fab-button {
@@ -37,4 +49,3 @@ ion-fab {
   right: 1px;
   bottom: 1px;
 }
-

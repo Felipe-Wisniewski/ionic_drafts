@@ -45,9 +45,7 @@ export class HomePage {
   }
 
   authUser() {
-    this.router.navigate(['templates'])
-
-    /* this.auth.login(this.user, this.pwd)
-      .subscribe(() => { this.router.navigate(['templates']) }) */
+    this.auth.login(this.user, this.pwd)
+      .subscribe(() => { this.router.navigate(['templates']) })
   }
 }

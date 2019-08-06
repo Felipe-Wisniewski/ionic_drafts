@@ -62,7 +62,8 @@ export class TemplatesPage implements OnInit {
       translucent: true,
       mode: "md",
       componentProps: {
-        brands: this.brands
+        brands: this.brands,
+        filters: this.filters
       }
     })
 
@@ -105,8 +106,8 @@ export class TemplatesPage implements OnInit {
   }
 
   deleteTemplate(template) {
-    // TEMPLATE STATUS INATIVE
-    console.log(template)
+    this.templatesService.deleteTemplate(template.id_template)
+      .subscribe((r) => console.log(r))
   }
 
   loadMore(event) {
