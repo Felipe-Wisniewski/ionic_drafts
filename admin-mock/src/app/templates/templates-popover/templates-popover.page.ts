@@ -7,6 +7,7 @@ import { Brand, Subdivision } from './../../model/brand';
 import { Template } from './../../model/template';
 import { TemplatesService } from '../templates.service';
 import { Subscription } from 'rxjs';
+import { LanguageService } from 'src/app/shared/language.service';
 
 @Component({
   selector: 'app-templates-popover',
@@ -16,14 +17,13 @@ import { Subscription } from 'rxjs';
 export class TemplatesPopoverPage implements OnInit {
 
   title = ''
+  languages = null
 
   template: Template
   brands: Brand[] = []
   brand: Brand = null
   subs: Subdivision[] = []
   subdivision: Subdivision = null
-
-  languages = [{ lang: 'inglês', id: '1' }, { lang: 'espanhol', id: '2' }, { lang: 'português', id: '3' }]
 
   name = null
   language = null
@@ -45,6 +45,7 @@ export class TemplatesPopoverPage implements OnInit {
 
   constructor(
     private navParams: NavParams,
+    private lang: LanguageService,
     private storage: Storage,
     private router: Router,
     private templateService: TemplatesService,
@@ -59,6 +60,7 @@ export class TemplatesPopoverPage implements OnInit {
   async getParams() {
     this.brands = await this.navParams.get('brands')
     this.template = await this.navParams.get('templateEditor')
+    this.languages = await this.lang.getLanguages()
   }
 
   setParams() {
@@ -162,8 +164,6 @@ export class TemplatesPopoverPage implements OnInit {
           id_template: null,
           thumbnail_url: null
         }
-
-
         this.openEditor()
         this.closePopover()
 

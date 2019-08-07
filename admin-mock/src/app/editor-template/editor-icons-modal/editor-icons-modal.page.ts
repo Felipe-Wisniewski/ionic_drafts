@@ -21,10 +21,7 @@ export class EditorIconsModalPage implements OnInit {
 
   subscription$: Subscription
 
-  constructor(
-    private navParams: NavParams,
-    private iconsService: EditorIconsModalService,
-    private modalController: ModalController) { }
+  constructor(private navParams: NavParams, private iconsService: EditorIconsModalService, private modalController: ModalController) { }
 
   ngOnInit() {
     this.getParams().finally(() => {
@@ -38,14 +35,13 @@ export class EditorIconsModalPage implements OnInit {
   }
 
   getIcons() {
-    this.subscription$ = this.iconsService.getIcons(this.template.id_brand, 'pt')
+    this.subscription$ = this.iconsService.getIcons(this.template)
       .subscribe(icons => {
         icons.forEach(ic => this.icons.push(ic))
       })
   }
 
   addIcon(icon) {
-
     fabric.loadSVGFromURL(icon.image_url, (objects, options) => {
       var obj = fabric.util.groupSVGElements(objects, { crossOrigin: 'Anonymous' })
 

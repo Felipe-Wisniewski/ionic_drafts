@@ -4,9 +4,9 @@ import { Subscription } from 'rxjs';
 import { fabric } from 'fabric';
 import { Canvas } from 'fabric/fabric-impl';
 
-import { EditorStampsService } from './editor-stamps.service';
 import { Template } from 'src/app/model/template';
 import { Stamp } from 'src/app/model/stamp';
+import { EditorStampsService } from './editor-stamps.service';
 
 @Component({
   selector: 'app-editor-stamps',
@@ -21,10 +21,7 @@ export class EditorStampsPage implements OnInit {
 
   subscription$: Subscription
 
-  constructor(
-    private navParams: NavParams,
-    private stampsService: EditorStampsService,
-    private modalController: ModalController) { }
+  constructor(private navParams: NavParams, private stampsService: EditorStampsService, private modalController: ModalController) { }
 
   ngOnInit() {
     this.getParams().finally(() => {
@@ -38,14 +35,13 @@ export class EditorStampsPage implements OnInit {
   }
 
   getStamps() {
-    this.subscription$ = this.stampsService.getStamps(this.template.id_brand, 'pt')
+    this.subscription$ = this.stampsService.getStamps(this.template)
       .subscribe(stamps => {
         stamps.forEach(s => this.stamps.push(s))
       })
   }
 
   addStamp(stamp) {
-    
     fabric.Image.fromURL(stamp.image_url, (img) => {
       img.scaleToWidth(this.canvas.getWidth() / 4)
       img.top = 10

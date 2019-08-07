@@ -15,12 +15,12 @@ export class TemplatesService {
 
   url = environment.URL_API
 
-  /* httpOptions = {
+  httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
     withCredentials: true
-  } */
+  }
 
   static pages
 
@@ -89,13 +89,13 @@ export class TemplatesService {
     let params = {
       id_brand: +template.id_brand,
       id_lang: template.id_lang,
-      // name: template.name,
+      name: template.name,
       thumbnail: template.thumbnail,
-      // layout: template.layout,
-      // id_subdivision: +template.id_subdivision,
-      // max_products: +template.max_products,
-      // validity_period_start: template.validity_period_start,
-      // validity_period_end: template.validity_period_end,
+      layout: template.layout,
+      id_subdivision: +template.id_subdivision,
+      max_products: +template.max_products,
+      validity_period_start: template.validity_period_start,
+      validity_period_end: template.validity_period_end,
       json: template.json
     }
     return this.http.post(`${this.url}templates`, params)
@@ -125,16 +125,22 @@ export class TemplatesService {
       )
   }
 
-  deleteTemplate(id_template) {
-    return this.http.delete(`${this.url}templates/${id_template}`)
+  disableTemplate(template: Template) {
+    console.log(template)
+    return this.http.delete(`${this.url}templates/${template.id_template}`)
       .pipe(
         catchError((err) => {
           console.error(err)
           this.alertPopup('Ocorreu um erro ao deletar o template.')
           return empty()
-        })
+        }),
+        tap((r) => console.log(r))
       )
   }
+
+  /* enableTemplate(template: Template) {
+    console.log(template)
+  } */
 
   getBrands() {
     return this.http.get<Brand[]>(`${this.url}brands`)

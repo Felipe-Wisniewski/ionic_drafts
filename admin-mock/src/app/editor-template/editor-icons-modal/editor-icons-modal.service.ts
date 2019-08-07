@@ -5,6 +5,7 @@ import { empty } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment.prod';
+import { Template } from 'src/app/model/template';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class EditorIconsModalService {
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
-  getIcons(id_brand, lang) {
-    return this.http.get<any[]>(`${this.url}icons?id_brand=${id_brand};98&lang=${lang}`)
+  getIcons(template: Template) {
+    return this.http.get<any[]>(`${this.url}icons?id_brand=${template.id_brand};98`) //&lang=${this.lang.getLanguageById(template.id_lang)}
       .pipe(
         catchError(() => {
           this.alertPopup("Erro ao carregar os ícones.")

@@ -40,7 +40,6 @@ export class EditorBackgroundPage implements OnInit {
     this.canvas = await this.navParams.get('canvas')
     this.template = await this.navParams.get('template')
 
-
     this.canvas.forEachObject((obj: any) => {
       if (obj.controls == "background") {
         this.objBackground = obj
@@ -49,30 +48,14 @@ export class EditorBackgroundPage implements OnInit {
   }
 
   getBackgrounds() {
-    if (this.template.id_subdivision == null)
-      this.loadBackgrounds()
-    else
-      this.loadBackgroundsSubdvision()
-  }
-
-  loadBackgrounds() {
-    this.subscription$.push(this.editorBackgroundService.getBackGroundImages(this.template.id_brand, this.template.layout, this.page)
+    this.subscription$.push(this.editorBackgroundService.getBackGroundImages(this.template, this.page)
       .subscribe((_backGrounds) => {
         _backGrounds.forEach((bg) => this.backgrounds.push(bg))
         this.loaded = true
       }))
   }
 
-  loadBackgroundsSubdvision() {
-    this.subscription$.push(this.editorBackgroundService.getBackGroundImagesSubdvision(this.template.id_subdivision, this.template.layout, this.page)
-      .subscribe((_backGrounds) => {
-        this.backgrounds.push(_backGrounds)
-        this.loaded = true
-      }))
-  }
-
   changeBackground(background) {
-    
     fabric.Image.fromURL(background.image_url, (img) => {
       let size = img.getOriginalSize()
       size.height > size.width ? img.scaleToHeight(this.canvas.getHeight()) : img.scaleToWidth(this.canvas.getWidth())
@@ -83,7 +66,7 @@ export class EditorBackgroundPage implements OnInit {
       img.setOptions({ controls: 'background' })
       img.setOptions({ removable: true })
       img.center()
-      
+
       if (this.objBackground) this.canvas.remove(this.objBackground)
       this.canvas.add(img).sendToBack(img)
       this.canvas.renderAll()
@@ -96,12 +79,7 @@ export class EditorBackgroundPage implements OnInit {
     setTimeout(() => {
       if (this.page < EditorBackgroundService.pages) {
         this.page++
-
-        if (this.template.id_subdivision == null) {
-          this.loadBackgrounds()
-        } else {
-          this.loadBackgroundsSubdvision()
-        }
+        this.getBackgrounds()
       }
       iScroll.target.complete()
     }, 3500)

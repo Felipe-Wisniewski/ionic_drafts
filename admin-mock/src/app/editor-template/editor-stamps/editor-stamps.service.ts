@@ -5,6 +5,8 @@ import { empty } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment.prod';
+import { Template } from 'src/app/model/template';
+import { LanguageService } from 'src/app/shared/language.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +16,10 @@ export class EditorStampsService {
   private url = environment.URL_API
   static pages
 
-  constructor(private http: HttpClient, private alertController: AlertController) { }
+  constructor(private http: HttpClient, private lang: LanguageService, private alertController: AlertController) { }
 
-  getStamps(id_brand, lang) {
-    return this.http.get<any[]>(`${this.url}stamps?id_brand=${id_brand}&lang=pt`)
+  getStamps(template: Template) {
+    return this.http.get<any[]>(`${this.url}stamps?id_brand=${template.id_brand}&lang=${this.lang.getInitialsById(template.id_lang)}`)
       .pipe(
         catchError(() => {
           this.alertPopup("Erro ao carregar as estampas.")

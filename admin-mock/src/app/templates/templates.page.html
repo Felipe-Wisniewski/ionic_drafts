@@ -29,14 +29,17 @@
               <ion-icon name="arrow-dropup"></ion-icon>
             </ion-fab-button>
             <ion-fab-list side="top">
-              <ion-fab-button color="light" (click)="renameTemplate(template)">
+              <ion-fab-button color="light" (click)="renameTemplate(template)" *ngIf="template.status == 'A'">
                 <ion-icon name="create"></ion-icon>
               </ion-fab-button>
-              <ion-fab-button color="light" (click)="editTemplate(template)">
+              <ion-fab-button color="light" (click)="editTemplate(template)" *ngIf="template.status == 'A'">
                 <ion-icon name="construct"></ion-icon>
               </ion-fab-button>
-              <ion-fab-button color="light" (click)="deleteTemplate(template)">
-                <ion-icon name="trash"></ion-icon>
+              <ion-fab-button color="light" (click)="disableTemplate(template)" *ngIf="template.status == 'A'">
+                <ion-icon name="close"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button color="light" (click)="enableTemplate(template)" *ngIf="template.status == 'I'">
+                <ion-icon name="checkmark"></ion-icon>
               </ion-fab-button>
             </ion-fab-list>
           </ion-fab>

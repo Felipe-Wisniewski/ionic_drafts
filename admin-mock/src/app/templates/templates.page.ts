@@ -105,8 +105,13 @@ export class TemplatesPage implements OnInit {
     })
   }
 
-  deleteTemplate(template) {
-    this.templatesService.deleteTemplate(template.id_template)
+  disableTemplate(template) {
+    this.templatesService.disableTemplate(template)
+      .subscribe((r) => console.log(r))
+  }
+
+  enableTemplate(template) {
+    this.templatesService.putTemplate(template)
       .subscribe((r) => console.log(r))
   }
 

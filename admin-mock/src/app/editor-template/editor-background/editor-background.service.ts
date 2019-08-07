@@ -5,6 +5,8 @@ import { empty } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
+import { Template } from 'src/app/model/template';
+import { LanguageService } from 'src/app/shared/language.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,25 +15,19 @@ export class EditorBackgroundService {
 
   private url = environment.URL_API
   static pages
-  lang = 'pt'
 
-  constructor(private http: HttpClient, private alertController: AlertController) { }
+  constructor(private http: HttpClient, private lang: LanguageService, private alertController: AlertController) { }
 
-  // TODO LAYOUT
-  getBackGroundImages(id_brand, layout, page) {
-    return this.http.get(`${this.url}background-images?id_brand=${id_brand}&lang=${this.lang}&size=30&page=${page}`)
-      .pipe(
-        catchError(() => {
-          this.alertPopup("Erro ao carregar as imagens!")
-          return empty()
-        }),
-        tap(resp => EditorBackgroundService.pages = resp['pages']),
-        map(resp => resp['backgroundimages'])
-      )
-  }
+  // -------- TODO LAYOUT - &layout=story ---------
+  getBackGroundImages(template: Template, page: number) {
+    let urlBg
 
-  getBackGroundImagesSubdvision(id_subdivision, layout, page) {
-    return this.http.get(`${this.url}background-images?id_brand=${id_subdivision}&lang=${this.lang}&size=30&page=${page}`)
+    if (template.id_subdivision == null)
+      urlBg = `${this.url}background-images?id_brand=${template.id_brand}&lang=${this.lang.getInitialsById(template.id_lang)}&size=30&page=${page}`
+    else
+      urlBg = `${this.url}background-images?id_brand=${template.id_subdivision}&lang=${this.lang.getInitialsById(template.id_lang)}&size=30&page=${page}`
+
+    return this.http.get(urlBg)
       .pipe(
         catchError(() => {
           this.alertPopup("Erro ao carregar as imagens!")
