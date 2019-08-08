@@ -2,7 +2,7 @@
   <ion-row>
     <ion-item-divider>
       <ion-label slot="start">Marcas</ion-label>
-      <ion-select multiple="true" okText="Ok" slot="end" [(ngModel)]="brandsFilter">
+      <ion-select slot="end" multiple="true" okText="Ok" [(ngModel)]="brandsFilter">
         <ion-select-option *ngFor="let brand of brands" [value]="brand.id">
           {{ brand.brand }}
         </ion-select-option>

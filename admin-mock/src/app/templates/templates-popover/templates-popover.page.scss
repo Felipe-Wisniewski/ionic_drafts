@@ -1,5 +1,4 @@
 .div-status {
-  //   width: 100px;
   height: 100%;
   display: flex;
   justify-content: flex-end;
@@ -9,4 +8,9 @@
 .checkbox-status {
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.div-btn {
+  width: 100%;
+  display: flexbox;
 }

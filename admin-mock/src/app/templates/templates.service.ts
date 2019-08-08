@@ -138,9 +138,9 @@ export class TemplatesService {
       )
   }
 
-  /* enableTemplate(template: Template) {
+  enableTemplate(template: Template) {
     console.log(template)
-  } */
+  }
 
   getBrands() {
     return this.http.get<Brand[]>(`${this.url}brands`)

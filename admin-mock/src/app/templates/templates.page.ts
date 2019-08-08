@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Subscription } from 'rxjs';
 
@@ -29,7 +29,8 @@ export class TemplatesPage implements OnInit {
     private templatesService: TemplatesService,
     private storage: Storage,
     private router: Router,
-    private popoverController: PopoverController) { }
+    private popoverController: PopoverController,
+    private alertController: AlertController) { }
 
   ngOnInit() {
     this.getTemplates()
@@ -105,14 +106,42 @@ export class TemplatesPage implements OnInit {
     })
   }
 
+  async disableTemplateAlert(template) {
+    const alert = await this.alertController.create({
+      header: 'Desativado',
+      message: 'O template será desativado. Você deseja continuar?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+
+          }
+        }, {
+          text: 'Continuar',
+          handler: () => {
+            this.disableTemplate(template)
+          }
+        }
+      ]
+    })
+    await alert.present();
+  }
+
   disableTemplate(template) {
     this.templatesService.disableTemplate(template)
       .subscribe((r) => console.log(r))
   }
 
   enableTemplate(template) {
-    this.templatesService.putTemplate(template)
-      .subscribe((r) => console.log(r))
+    this.templatesService.getTemplate(template.id_template)
+      .subscribe((temp) => {
+        this.templatesService.putTemplate(temp)
+          .subscribe((resp) => {
+            console.log(resp)
+          })
+      })
   }
 
   loadMore(event) {

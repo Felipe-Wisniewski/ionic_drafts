@@ -35,7 +35,7 @@
               <ion-fab-button color="light" (click)="editTemplate(template)" *ngIf="template.status == 'A'">
                 <ion-icon name="construct"></ion-icon>
               </ion-fab-button>
-              <ion-fab-button color="light" (click)="disableTemplate(template)" *ngIf="template.status == 'A'">
+              <ion-fab-button color="light" (click)="disableTemplateAlert(template)" *ngIf="template.status == 'A'">
                 <ion-icon name="close"></ion-icon>
               </ion-fab-button>
               <ion-fab-button color="light" (click)="enableTemplate(template)" *ngIf="template.status == 'I'">
