@@ -12,8 +12,6 @@ import { FontsPopoverPage } from '../fonts-popover/fonts-popover.page';
 })
 export class EditorTextPopoverPage implements OnInit {
 
-  @ViewChild('textInput') textInput
-
   canvas: Canvas
   objFabric: any
   objText: any
@@ -45,15 +43,7 @@ export class EditorTextPopoverPage implements OnInit {
     this.setTextSettings()
   }
 
-  ionViewDidLoad(){
-    console.log("ionViewDidLoad")
-    setTimeout(() => {
-      this.textInput.setFocus()
-    }, 500)
-  }
-
   setTextSettings() {
-
     if (this.objFabric == null || this.objFabric.type != 'text') {
 
       this.objText = new fabric.Text('', {
@@ -64,8 +54,6 @@ export class EditorTextPopoverPage implements OnInit {
         cornerSize: 20,
         cornerStyle: "circle",
         lockUniScaling: true,
-        lockScalingX: true,
-        lockScalingY: true,
         lockMovementX: this.lockMovement,
         lockMovementY: this.lockMovement,
         fillRule: "nonzero",
@@ -129,8 +117,6 @@ export class EditorTextPopoverPage implements OnInit {
   }
 
   async setFontFamily() {
-    // this.objText.set("fontFamily", this.textFont)
-    // this.canvas.renderAll()
     const popover = await this.popoverController.create({
       component: FontsPopoverPage,
       animated: true,

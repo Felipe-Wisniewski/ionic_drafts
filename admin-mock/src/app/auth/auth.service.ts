@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { empty } from 'rxjs';
@@ -13,18 +13,31 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
   private url = environment.URL_API
-  
+
   redirectUrl: string
-  isLoggedIn = true // ++++ alterar para false
+  isLoggedIn = true // TROCAR PARA FALSE !!!!!!!
 
   constructor(private http: HttpClient, private router: Router, private alertController: AlertController) { }
 
-  // VERIFICAR PQ O SERVIDOR NOVO NÃO FUNCIONA O LOGIN!!!
   login(user: string, psw: string) {
-    return this.http.post(`http://www.brpostefacil.com.br/homologacao/ws/public/api/admin-login`, { username: user, password: psw })
+    let params = { username: user, password: psw }
+
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      }), withCredentials: true
+    }
+    return this.http.post(`${this.url}admin-login`, params, httpOptions)
       .pipe(
         tap((resp: any) => {
-          resp.status === "success" ? this.isLoggedIn = true : this.isLoggedIn = false
+          
+          if (resp.status === "success") {
+            this.isLoggedIn = true
+            localStorage.setItem('id_token', resp.data)
+          } else {
+            this.isLoggedIn = false
+            localStorage.setItem('id_token', '')
+          }
         }),
         catchError(() => {
           this.alertPopup(`Ocorreu um erro ao realizar o login, verifique se o seu usuário ou senha estão corretos.`)

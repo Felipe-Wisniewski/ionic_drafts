@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -23,6 +23,7 @@ import { EditorBackgroundPopoverPageModule } from './editor-template/editor-back
 import { EditorTextPopoverPageModule } from './editor-template/editor-text-popover/editor-text-popover.module';
 import { ColorsPopoverPageModule } from './editor-template/colors-popover/colors-popover.module';
 import { FontsPopoverPageModule } from './editor-template/fonts-popover/fonts-popover.module';
+import { AdminInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { FontsPopoverPageModule } from './editor-template/fonts-popover/fonts-po
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: AdminInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

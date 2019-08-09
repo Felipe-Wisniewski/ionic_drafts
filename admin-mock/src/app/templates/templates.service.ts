@@ -17,7 +17,7 @@ export class TemplatesService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     }),
     withCredentials: true
   }
@@ -114,7 +114,7 @@ export class TemplatesService {
       id_brand: +template.id_brand,
       id_lang: template.id_lang
     }
-    return this.http.put(`${this.url}templates/${template.id_template}`, params)
+    return this.http.put(`${this.url}templates/${template.id_template}`, params, this.httpOptions)
       .pipe(
         catchError((err) => {
           console.log(err)
@@ -127,7 +127,7 @@ export class TemplatesService {
 
   disableTemplate(template: Template) {
     console.log(template)
-    return this.http.delete(`${this.url}templates/${template.id_template}`)
+    return this.http.delete(`${this.url}templates/${template.id_template}`, this.httpOptions)
       .pipe(
         catchError((err) => {
           console.error(err)
