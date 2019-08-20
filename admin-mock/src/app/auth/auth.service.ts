@@ -15,7 +15,7 @@ export class AuthService {
   private url = environment.URL_API
 
   redirectUrl: string
-  isLoggedIn = true // TROCAR PARA FALSE !!!!!!!
+  isLoggedIn = false
 
   constructor(private http: HttpClient, private router: Router, private alertController: AlertController) { }
 
@@ -30,14 +30,12 @@ export class AuthService {
     return this.http.post(`${this.url}admin-login`, params, httpOptions)
       .pipe(
         tap((resp: any) => {
-          
-          if (resp.status === "success") {
+
+          if (resp.status === "success")
             this.isLoggedIn = true
-            localStorage.setItem('id_token', resp.data)
-          } else {
+          else
             this.isLoggedIn = false
-            localStorage.setItem('id_token', '')
-          }
+
         }),
         catchError(() => {
           this.alertPopup(`Ocorreu um erro ao realizar o login, verifique se o seu usuário ou senha estão corretos.`)
@@ -46,10 +44,10 @@ export class AuthService {
       )
   }
 
-  /* logout() {
+  logout() {
     this.isLoggedIn = false
     this.router.navigate([''])
-  } */
+  }
 
   async alertPopup(message: string) {
     const alert = await this.alertController.create({

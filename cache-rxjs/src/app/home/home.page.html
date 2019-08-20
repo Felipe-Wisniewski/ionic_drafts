@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      ...
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="ionRefresh($event)">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="grid-products">
+    <ion-row>
+      <ion-col *ngFor="let product of prod$ | async" size="4">
+        <ion-ripple-effect></ion-ripple-effect>
+        <div class="div-img" (click)="selectProduct(product)">
+          <ion-img [src]="product.image_url" (ionError)="loadErrorImg($event)"></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

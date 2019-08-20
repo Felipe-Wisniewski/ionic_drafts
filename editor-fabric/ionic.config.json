@@ -1,7 +1,0 @@
-{
-  "name": "br-poste-facil",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}

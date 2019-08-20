@@ -1,0 +1,7 @@
+{
+  "name": "file-plugin",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

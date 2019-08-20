@@ -1,0 +1,7 @@
+{
+  "name": "cache-rxjs",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

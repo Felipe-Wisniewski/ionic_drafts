@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { HomeService } from './home.service';
 import { Brand } from '../model/brand';
 import { PopoverController } from '@ionic/angular';
-import { TemplatesPostsPopoverPage } from '../templates-posts-popover/templates-posts-popover.page';
+import { CustomPopoverPage } from '../custom-popover/custom-popover.page';
 
 @Component({
   selector: 'app-home',
@@ -42,7 +42,7 @@ export class HomePage {
 
   async templatesOrPostsPopover(brand) {
     const popover = await this.popoverController.create({
-      component: TemplatesPostsPopoverPage,
+      component: CustomPopoverPage,
       backdropDismiss: false,
       keyboardClose: true,
       animated: true,

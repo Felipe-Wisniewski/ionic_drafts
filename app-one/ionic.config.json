@@ -1,7 +1,0 @@
-{
-  "name": "BR Poste Fácil",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}

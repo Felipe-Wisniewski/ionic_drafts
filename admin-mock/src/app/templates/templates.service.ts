@@ -18,8 +18,7 @@ export class TemplatesService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
-    }),
-    withCredentials: true
+    }), withCredentials: true
   }
 
   static pages
@@ -98,7 +97,7 @@ export class TemplatesService {
       validity_period_end: template.validity_period_end,
       json: template.json
     }
-    return this.http.post(`${this.url}templates`, params)
+    return this.http.post(`${this.url}templates`, params, this.httpOptions)
       .pipe(
         catchError(() => {
           this.alertPopup("Erro ao salvar o template.")

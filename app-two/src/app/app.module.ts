@@ -11,11 +11,19 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TemplatesPostsPopoverPageModule } from './templates-posts-popover/templates-posts-popover.module';
+import { CustomPopoverPageModule } from './custom-popover/custom-popover.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, TemplatesPostsPopoverPageModule],
+  imports: [
+    BrowserModule, 
+    HttpClientModule, 
+    IonicModule.forRoot(), 
+    IonicStorageModule.forRoot(), 
+    AppRoutingModule, 
+    TemplatesPostsPopoverPageModule,
+    CustomPopoverPageModule],
   providers: [
     StatusBar,
     SplashScreen,
