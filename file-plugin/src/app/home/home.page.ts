@@ -13,32 +13,24 @@ export class HomePage {
 
   constructor(private platform: Platform, private file: File) { }
 
-  readFile(file: any) {
-    const reader = new FileReader()
-    reader.onloadend = () => {
-      const formData = new FormData()
-      const imgBlob = new Blob([reader.result], {
-        type: file.type
-      })
-      formData.append('file', imgBlob, file.name)
-      // this.uploadImageData(formData);
-      console.log(formData)
-    }
-    reader.readAsArrayBuffer(file)
-  }
+  onClick() {
+    console.log(this.platform.ready())
+    console.log(this.platform.is('android'))
+    console.log(this.file.applicationDirectory)
+    console.log(this.file.applicationStorageDirectory)
+    console.log(this.file.cacheDirectory)
+    console.log(this.file.)
+    
 
-  /*
-    if (this.platform.is('android')) {
- 
-      if (this.platform.ready()) {
-        this.file.checkDir(this.file.applicationDirectory, 'android')
-      }
-      console.log()
-    }
-            this.file.checkDir(this.file.dataDirectory, 'Documents').then((it) => {
-          console.log('Directory exists', it)
-        }).catch(err => {
-          console.log('Directory doesnt exist', err)
-        }) 
-        */
+    this.file.resolveLocalFilesystemUrl(this.file.applicationStorageDirectory).then((d) => {
+      d.getParent((ds) => {
+        ds.getFile(this.file.applicationStorageDirectory, { create: true }, (it) => {
+          console.log(it)
+          
+        })
+      })
+    }).catch((err) => {
+      console.log('err', err)
+    })
+  }
 }
