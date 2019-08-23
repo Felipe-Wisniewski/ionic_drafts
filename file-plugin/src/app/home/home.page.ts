@@ -19,7 +19,7 @@ export class HomePage {
     console.log(this.file.applicationDirectory)
     console.log(this.file.applicationStorageDirectory)
     console.log(this.file.cacheDirectory)
-    console.log(this.file.)
+    // console.log(this.file.)
     
 
     this.file.resolveLocalFilesystemUrl(this.file.applicationStorageDirectory).then((d) => {
