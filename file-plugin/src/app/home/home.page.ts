@@ -100,7 +100,7 @@ export class HomePage implements OnInit {
   readFile() {
 
   }
-}
+
 /* 
 console.log(this.file.applicationDirectory) //file:///android_asset/
 console.log(this.file.applicationStorageDirectory) //file:///data/user/0/io.ionic.starter/
