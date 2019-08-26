@@ -3,6 +3,7 @@ import { File } from '@ionic-native/file/ngx';
 import { Platform } from '@ionic/angular';
 import { fabric } from 'fabric';
 import { Canvas } from 'fabric/fabric-impl';
+import { UtilsService } from '../shared/utils';
 
 @Component({
   selector: 'app-home',
@@ -14,12 +15,10 @@ export class HomePage implements OnInit {
   canvas: Canvas
   fileBase64 = null
 
-  constructor(private platform: Platform, private file: File) { }
+  constructor(private platform: Platform, private file: File, private utilsService: UtilsService) { }
 
   ngOnInit() {
-    this.getFileBase64().then((img) => {
-      this.fileBase64 = this.base64toBlob(img, 'image/jpeg')
-    })
+    this.createCanvas()
   }
 
   putImage() {
@@ -27,67 +26,34 @@ export class HomePage implements OnInit {
   }
 
   writeFile() {
+    let dataBlock = this.fileBase64.split(";")
+    let contentType = dataBlock[0].split(":")[1]
+    let base64 = dataBlock[1].split(",")[1]
+    let fileBlob = this.utilsService.base64toBlob(base64, contentType, 512)
+
     let fileName = `${Math.floor(Math.random() * 1000) + 1}.jpeg`
 
-    this.file.checkDir(this.file.externalRootDirectory, 'BeiraRio').then(() => {
+    this.file.checkDir(this.file.externalRootDirectory, 'Beira Rio').then(
+      () => {
+        this.file.writeFile(`${this.file.externalRootDirectory}Beira Rio`, fileName, fileBlob, { replace: false }).then((ok) => {
+          console.log('isD arquivo criado', ok)
+        },
+          (err) => { console.log('isD arquivo existe', err) })
 
-      this.file.writeFile(`${this.file.externalRootDirectory}BeiraRio`, fileName, this.fileBase64, { replace: false }).then((ok) => {
-        console.log('isD arquivo criado', ok)
-      }, (err) => { console.log('isD arquivo existe', err) })
+      }).catch(
+        () => {
+          this.file.createDir(this.file.externalRootDirectory, 'Beira Rio', false).then(
+            () => {
+              console.log('name', fileName)
+              console.log(this.fileBase64)
 
-    }).catch(() => {
+              this.file.writeFile(`${this.file.externalRootDirectory}Beira Rio`, fileName, fileBlob, { replace: true }).then(
+                (ok) => { console.log('!isD arquivo criado', ok) },
+                (err) => { console.log('!isD arquivo existe', err) })
 
-      this.file.createDir(this.file.externalRootDirectory, 'BeiraRio', false).then(() => {
-        console.log('name', fileName)
-        console.log(this.fileBase64)
-        this.file.writeFile(`${this.file.externalRootDirectory}BeiraRio`, fileName, this.fileBase64, { replace: true }).then((ok) => {
-          console.log('!isD arquivo criado', ok)
-        }, (err) => { console.log('!isD arquivo existe', err) })
-      }, (err) => { console.log('erro criar diretorio', err) })
-    })
-  }
-
-  async getFileBase64() {
-    let url = 'https://statig0.akamaized.net/bancodeimagens/92/9r/06/929r06k6yv535ne5nfdzdspr3.jpg'
-    let imgUrl = url.replace(/^https:\/\//i, 'http://')
-
-    this.canvas = new fabric.Canvas('canvas')
-    this.canvas.backgroundColor = '#FFFFFF'
-    this.canvas.setDimensions({ width: 300, height: 200 })
-    this.canvas.on({
-      'touch:gesture': (obj) => {
-        console.log(obj)
-      }
-    })
-
-    await fabric.Image.fromURL(imgUrl, (img) => {
-      img.scaleToHeight(this.canvas.getHeight())
-      this.canvas.setBackgroundImage(img, this.canvas.renderAll.bind(this.canvas))
-    }, { crossOrigin: 'Anonymous' })
-
-    return await this.canvas.toDataURL({ format: 'jpeg', quality: 1 })
-  }
-
-  private base64toBlob(base64, type) {
-    let sliceSize = 512
-    
-    let byteCharacters = atob(base64.split(',')[1])
-    let byteArrays = []
-
-    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      let slice = byteCharacters.slice(offset, offset + sliceSize)
-
-      let byteNumbers = new Array(slice.length)
-
-      for (let i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i)
-      }
-
-      let byteArray = new Uint8Array(byteNumbers)
-      byteArrays.push(byteArray)
-    }
-
-    return new Blob(byteArrays, { type: type })
+            },
+            (err) => { console.log('erro criar diretorio', err) })
+        })
   }
 
   getLogo() {
@@ -101,7 +67,34 @@ export class HomePage implements OnInit {
 
   }
 
-/* 
+  createCanvas() {
+    let url = 'https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/6283-3039-5881-29452.jpg'
+    let imgUrl = url.replace(/^https:\/\//i, 'http://')
+
+    this.canvas = new fabric.Canvas('canvas')
+    this.canvas.backgroundColor = '#FFFFFF'
+
+    let header = 56
+    let footer = 56
+    let heightScreen = parent.innerHeight - (header + footer)
+    let width = (800 / 545) * heightScreen
+    this.canvas.setDimensions({ width: width, height: heightScreen })
+
+    this.canvas.on({
+      'touch:gesture': (obj) => {
+        console.log(obj)
+      }
+    })
+
+    fabric.Image.fromURL(imgUrl, (img) => {
+      img.scaleToHeight(this.canvas.getHeight())
+      this.canvas.setBackgroundImage(img, this.canvas.renderAll.bind(this.canvas))
+    }, { crossOrigin: 'Anonymous' })
+
+    this.fileBase64 = this.canvas.toDataURL({ format: 'jpeg', quality: 1 })
+  }
+}
+/*
 console.log(this.file.applicationDirectory) //file:///android_asset/
 console.log(this.file.applicationStorageDirectory) //file:///data/user/0/io.ionic.starter/
 console.log(this.file.cacheDirectory) //file:///data/user/0/io.ionic.starter/cache/
