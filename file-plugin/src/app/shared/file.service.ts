@@ -10,16 +10,13 @@ export class FileService {
   constructor(private platform: Platform, private file: File) { }
 
   async readFile(file) {
-    let fileBlob
-
     let reader = new FileReader()
 
     reader.onloadend = (fileReader) => {
-      fileBlob = fileReader.target
+      return fileReader.target
     }
 
     await reader.readAsDataURL(file)
-    return fileBlob
   }
 
   async checkDirectory(directoryName) {
@@ -53,7 +50,7 @@ export class FileService {
   }
 
   getRootDirectory() {
-    if (this.platform.is("ios")) return ''
+    if (this.platform.is("ios")) return this.file.documentsDirectory
     if (this.platform.is("android")) return this.file.externalRootDirectory
     if (this.platform.is("desktop")) return ''
     return ''
@@ -72,5 +69,18 @@ export class FileService {
     console.log(this.file.sharedDirectory) // null
     console.log(this.file.syncedDataDirectory) // null
     console.log(this.file.tempDirectory) // null
+
+// [Log] file:///var/containers/Bundle/Application/164D66D3-F3ED-44E8-9CE2-8675DCC3D3A6/MyApp.app/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+// [Log] file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+// [Log] file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/Library/Caches/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+// [Log] file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/Library/NoCloud/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+// [Log] file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/Documents/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+// [Log] null (cordova.98fc7fcb7c020c1504f6.js, line 1)
+// [Log] null (cordova.98fc7fcb7c020c1504f6.js, line 1)
+// [Log] null (cordova.98fc7fcb7c020c1504f6.js, line 1)
+// [Log] null (cordova.98fc7fcb7c020c1504f6.js, line 1)
+// [Log] null (cordova.98fc7fcb7c020c1504f6.js, line 1)
+// [Log] file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/Library/Cloud/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+// [Log] file:///private/var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/tmp/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
   }
 }
