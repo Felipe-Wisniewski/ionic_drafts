@@ -22,6 +22,7 @@ import { File } from '@ionic-native/file/ngx';
   providers: [
     StatusBar,
     File,
+    // FileReader,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
