@@ -28,6 +28,7 @@
     "@types/fabric": "^3.0.1",
     "cordova-android": "8.0.0",
     "cordova-ios": "^5.0.1",
+    "cordova-plugin-camera-roll": "^1.0.8",
     "cordova-plugin-file": "^6.0.2",
     "core-js": "^2.5.4",
     "fabric": "^3.4.0",

@@ -28,25 +28,43 @@ export class HomePage implements OnInit {
   putImage() {
     this.fileBase64 = this.canvas.toDataURL({ format: 'png', multiplier: 2 })
     let fileName = `${Math.floor(Math.random() * 1000) + 1}.jpeg`
+    console.log(this.fileService.getRootDirectory())
 
     this.platform.ready().then(() => {
 
       this.fileService.base64toBlob(this.fileBase64).then((blob) => {
 
-        this.fileService.checkDirectory('Beira Rio').then(() => {
+        this.fileService.checkDirectory('BeiraRio').then((dir) => {
+          console.log("checkDir ok", dir)
 
           this.fileService.writeFile(fileName, blob)
-            .then(() => { this.util.alertToast('Imagem salva com sucesso !') })
-            .catch(() => { this.util.alertToast('Ocorreu um erro ao salvar no aparelho.') })
+            .then((file) => { 
+              console.log("write ok1", file)
+              this.util.alertToast('Imagem armazenada com sucesso !') 
+            })
+            .catch((err) => { 
+              console.log("write bad1", err)
+              this.util.alertToast('Ocorreu um erro ao salvar no aparelho.') 
+            })
 
         }).catch((err) => {
-          this.fileService.createDirectory('Beira Rio').then(() => {
+          console.log("checkDir bad", err)
+
+          this.fileService.createDirectory('BeiraRio').then((dir) => {
+            console.log("create dir ok", dir)
 
             this.fileService.writeFile(fileName, blob)
-              .then(() => { this.util.alertToast('Imagem salva com sucesso !') })
-              .catch(() => { this.util.alertToast('Ocorreu um erro ao salvar no aparelho.') })
+              .then((file) => { 
+                console.log("write ok2", file)
+                this.util.alertToast('Imagem salva com sucesso !') 
+              })
+              .catch((err) => { 
+                console.log("write bad2", err)
+                this.util.alertToast('Ocorreu um erro ao salvar no aparelho.') 
+              })
 
-          }).catch(() => {
+          }).catch((err) => {
+            console.log("create dir bad", err)
             this.util.alertToast('Ocorreu um erro ao salvar no aparelho.')
           })
         })
@@ -55,15 +73,11 @@ export class HomePage implements OnInit {
   }
 
   inputLogo(event) {
-    this.fileService.readFile(event.target.files[0]).then((fileInput) => {
-      console.log(fileInput)
-    }).catch((err) => {
-      console.log(err)
-    })
+    this.fileService.readFile(event.target.files[0])
   }
 
   getLogo() {
-    
+
   }
 
   listDir() {

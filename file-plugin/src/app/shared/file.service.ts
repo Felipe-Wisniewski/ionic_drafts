@@ -9,14 +9,16 @@ export class FileService {
 
   constructor(private platform: Platform, private file: File) { }
 
-  async readFile(file) {
+  readFile(file) {
     let reader = new FileReader()
-
-    reader.onloadend = (fileReader) => {
-      return fileReader.target
+    reader.onloadend = (fileReader) => { 
+      if (fileReader.returnValue) this.setLogoStorage(fileReader.target) 
     }
+    reader.readAsDataURL(file)
+  }
 
-    await reader.readAsDataURL(file)
+  setLogoStorage(logo) {
+    console.log(logo)
   }
 
   async checkDirectory(directoryName) {
@@ -28,7 +30,7 @@ export class FileService {
   }
 
   async writeFile(fileName, fileBlob) {
-    return await this.file.writeFile(`${this.getRootDirectory()}Beira Rio`, fileName, fileBlob, { replace: false })
+    return await this.file.writeFile(`${this.getRootDirectory()}BeiraRio`, fileName, fileBlob, { replace: true })
   }
 
   async base64toBlob(fileBase64) {
@@ -50,7 +52,7 @@ export class FileService {
   }
 
   getRootDirectory() {
-    if (this.platform.is("ios")) return this.file.documentsDirectory
+    if (this.platform.is("ios")) { return "file:///private/var/mobile/Media/DCIM/" } 
     if (this.platform.is("android")) return this.file.externalRootDirectory
     if (this.platform.is("desktop")) return ''
     return ''
@@ -70,17 +72,17 @@ export class FileService {
     console.log(this.file.syncedDataDirectory) // null
     console.log(this.file.tempDirectory) // null
 
-// [Log] file:///var/containers/Bundle/Application/164D66D3-F3ED-44E8-9CE2-8675DCC3D3A6/MyApp.app/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
-// [Log] file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
-// [Log] file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/Library/Caches/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
-// [Log] file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/Library/NoCloud/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
-// [Log] file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/Documents/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
-// [Log] null (cordova.98fc7fcb7c020c1504f6.js, line 1)
-// [Log] null (cordova.98fc7fcb7c020c1504f6.js, line 1)
-// [Log] null (cordova.98fc7fcb7c020c1504f6.js, line 1)
-// [Log] null (cordova.98fc7fcb7c020c1504f6.js, line 1)
-// [Log] null (cordova.98fc7fcb7c020c1504f6.js, line 1)
-// [Log] file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/Library/Cloud/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
-// [Log] file:///private/var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/tmp/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+    // file:///var/containers/Bundle/Application/164D66D3-F3ED-44E8-9CE2-8675DCC3D3A6/MyApp.app/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+    // file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+    // file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/Library/Caches/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+    // file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/Library/NoCloud/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+    // file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/Documents/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+    // null (cordova.98fc7fcb7c020c1504f6.js, line 1)
+    // null (cordova.98fc7fcb7c020c1504f6.js, line 1)
+    // null (cordova.98fc7fcb7c020c1504f6.js, line 1)
+    // null (cordova.98fc7fcb7c020c1504f6.js, line 1)
+    // null (cordova.98fc7fcb7c020c1504f6.js, line 1)
+    // file:///var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/Library/Cloud/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
+    // file:///private/var/mobile/Containers/Data/Application/E35A82F5-EF4D-4F81-8767-59C4A054E213/tmp/ (cordova.98fc7fcb7c020c1504f6.js, line 1)
   }
 }
