@@ -73,6 +73,7 @@ export class HomePage implements OnInit {
   }
 
   inputLogo(event) {
+    console.log(event)
     this.fileService.readFile(event.target.files[0])
   }
 
