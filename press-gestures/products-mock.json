@@ -1,0 +1,404 @@
+{
+    "products": [
+        {
+            "id_brand": 3,
+            "id_ref": "205",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8369-205-13488-15745.jpg",
+            "id": "320513488157458369",
+            "ref": "8369-205-13488-15745"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "303",
+            "ref_text": "SAPATILHA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4217-303-18023-17577.jpg",
+            "id": "330318023175774217",
+            "ref": "4217-303-18023-17577"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "113",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8328-113-17699-12720.jpg",
+            "id": "311317699127208328",
+            "ref": "8328-113-17699-12720"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "113",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8328-113-17699-13397.jpg",
+            "id": "311317699133978328",
+            "ref": "8328-113-17699-13397"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "113",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8328-113-17728-66014.jpg",
+            "id": "311317728660148328",
+            "ref": "8328-113-17728-66014"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "208",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8290-208-13972-15745.jpg",
+            "id": "320813972157458290",
+            "ref": "8290-208-13972-15745"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "306",
+            "ref_text": "SAPATILHA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4217-306-10289-54317.jpg",
+            "id": "330610289543174217",
+            "ref": "4217-306-10289-54317"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "208",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8290-208-13972-29452.jpg",
+            "id": "320813972294528290",
+            "ref": "8290-208-13972-29452"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "103",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8371-103-13488-16072.jpg",
+            "id": "310313488160728371",
+            "ref": "8371-103-13488-16072"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "205",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8369-205-13488-53252.jpg",
+            "id": "320513488532528369",
+            "ref": "8369-205-13488-53252"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "205",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8369-205-18195-12325.jpg",
+            "id": "320518195123258369",
+            "ref": "8369-205-18195-12325"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "400",
+            "ref_text": "TAMANCO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8354-400-12638-17131.jpg",
+            "id": "340012638171318354",
+            "ref": "8354-400-12638-17131"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "206",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8369-206-13488-61372.jpg",
+            "id": "320613488613728369",
+            "ref": "8369-206-13488-61372"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "400",
+            "ref_text": "TAMANCO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8354-400-12638-55156.jpg",
+            "id": "340012638551568354",
+            "ref": "8354-400-12638-55156"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "150",
+            "ref_text": "SAPATO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4076-150-5881-33330.jpg",
+            "id": "31505881333304076",
+            "ref": "4076-150-5881-33330"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "100",
+            "ref_text": "SAPATO CASUAL FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4220-100-17873-54126.jpg",
+            "id": "310017873541264220",
+            "ref": "4220-100-17873-54126"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "210",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8379-210-13488-29452.jpg",
+            "id": "321013488294528379",
+            "ref": "8379-210-13488-29452"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "113",
+            "ref_text": "SAPATILHA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4205-113-17368-60474.jpg",
+            "id": "311317368604744205",
+            "ref": "4205-113-17368-60474"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "204",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8379-204-13488-61614.jpg",
+            "id": "320413488616148379",
+            "ref": "8379-204-13488-61614"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "109",
+            "ref_text": "SAPATO CASUAL FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4145-109-12242-46181.jpg",
+            "id": "310912242461814145",
+            "ref": "4145-109-12242-46181"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "109",
+            "ref_text": "SAPATO CASUAL FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4145-109-12242-46194.jpg",
+            "id": "310912242461944145",
+            "ref": "4145-109-12242-46194"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "109",
+            "ref_text": "SAPATO CASUAL FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4145-109-12242-46195.jpg",
+            "id": "310912242461954145",
+            "ref": "4145-109-12242-46195"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "109",
+            "ref_text": "SAPATO CASUAL FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4145-109-12242-46247.jpg",
+            "id": "310912242462474145",
+            "ref": "4145-109-12242-46247"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "211",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8379-211-18637-62689.jpg",
+            "id": "321118637626898379",
+            "ref": "8379-211-18637-62689"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "212",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8379-212-13488-52531.jpg",
+            "id": "321213488525318379",
+            "ref": "8379-212-13488-52531"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "213",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8379-213-10641-61372.jpg",
+            "id": "321310641613728379",
+            "ref": "8379-213-10641-61372"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "109",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8371-109-10054-61464.jpg",
+            "id": "310910054614648371",
+            "ref": "8371-109-10054-61464"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "157",
+            "ref_text": "SAPATILHA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4136-157-13488-61338.jpg",
+            "id": "315713488613384136",
+            "ref": "4136-157-13488-61338"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "304",
+            "ref_text": "BOTA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/9054-304-13967-15745.jpg",
+            "id": "330413967157459054",
+            "ref": "9054-304-13967-15745"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "109",
+            "ref_text": "SAPATO CASUAL FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4145-109-12242-15745.jpg",
+            "id": "310912242157454145",
+            "ref": "4145-109-12242-15745"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "109",
+            "ref_text": "SAPATO CASUAL FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4145-109-12242-45810.jpg",
+            "id": "310912242458104145",
+            "ref": "4145-109-12242-45810"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "109",
+            "ref_text": "SAPATO CASUAL FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4145-109-12242-46175.jpg",
+            "id": "310912242461754145",
+            "ref": "4145-109-12242-46175"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "109",
+            "ref_text": "SAPATO CASUAL FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4145-109-12242-50580.jpg",
+            "id": "310912242505804145",
+            "ref": "4145-109-12242-50580"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "101",
+            "ref_text": "SAPATO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4221-101-5881-33300.jpg",
+            "id": "31015881333004221",
+            "ref": "4221-101-5881-33300"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "101",
+            "ref_text": "SAPATO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4221-101-5881-15745.jpg",
+            "id": "31015881157454221",
+            "ref": "4221-101-5881-15745"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "101",
+            "ref_text": "SAPATO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4221-101-5881-46175.jpg",
+            "id": "31015881461754221",
+            "ref": "4221-101-5881-46175"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "203",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8379-203-9569-61338.jpg",
+            "id": "32039569613388379",
+            "ref": "8379-203-9569-61338"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "150",
+            "ref_text": "SAPATO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4076-150-9569-35312.jpg",
+            "id": "31509569353124076",
+            "ref": "4076-150-9569-35312"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "150",
+            "ref_text": "SAPATO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4076-150-6400-46193.jpg",
+            "id": "31506400461934076",
+            "ref": "4076-150-6400-46193"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "102",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8399-102-9569-65439.jpg",
+            "id": "31029569654398399",
+            "ref": "8399-102-9569-65439"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "102",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8399-102-13967-15745.jpg",
+            "id": "310213967157458399",
+            "ref": "8399-102-13967-15745"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "102",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8399-102-13967-29452.jpg",
+            "id": "310213967294528399",
+            "ref": "8399-102-13967-29452"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "150",
+            "ref_text": "SAPATO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4076-150-6400-46178.jpg",
+            "id": "31506400461784076",
+            "ref": "4076-150-6400-46178"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "150",
+            "ref_text": "SAPATO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4076-150-6400-45810.jpg",
+            "id": "31506400458104076",
+            "ref": "4076-150-6400-45810"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "500",
+            "ref_text": "TAMANCO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8321-500-13488-15787.jpg",
+            "id": "350013488157878321",
+            "ref": "8321-500-13488-15787"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "700",
+            "ref_text": "TAMANCO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8321-700-18277-34503.jpg",
+            "id": "370018277345038321",
+            "ref": "8321-700-18277-34503"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "725",
+            "ref_text": "TAMANCO FEMININO",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8321-725-9913-53284.jpg",
+            "id": "37259913532848321",
+            "ref": "8321-725-9913-53284"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "215",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8367-215-13488-16072.jpg",
+            "id": "321513488160728367",
+            "ref": "8367-215-13488-16072"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "163",
+            "ref_text": "SAPATILHA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/4136-163-5881-15745.jpg",
+            "id": "31635881157454136",
+            "ref": "4136-163-5881-15745"
+        },
+        {
+            "id_brand": 3,
+            "id_ref": "319",
+            "ref_text": "SANDALIA FEMININA",
+            "image_url": "https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/8367-319-13488-29452.jpg",
+            "id": "331913488294528367",
+            "ref": "8367-319-13488-29452"
+        }
+    ]
+}

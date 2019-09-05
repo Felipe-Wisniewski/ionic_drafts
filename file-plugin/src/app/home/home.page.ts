@@ -73,7 +73,16 @@ export class HomePage implements OnInit {
       })
     })
   }
+<<<<<<< HEAD
   
+=======
+
+  inputLogo(event) {
+    console.log(event)
+    this.fileService.readFile(event.target.files[0])
+  }
+
+>>>>>>> 726bee6fa8dccb152ca12fbb03180002eac5edf8
   getLogo() {
     let input = document.createElement("input")
     input.setAttribute("type", "file")

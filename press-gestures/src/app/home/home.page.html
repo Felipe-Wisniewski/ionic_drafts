@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="!isPress">Press</ion-title>
+    <ion-buttons slot="start" *ngIf="isPress">
+      <ion-button (click)="clearSelected()">
+        <ion-icon slot="start" name="close"></ion-icon>
+        {{ productsPress.length }}
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="isPress">
+      <ion-button (click)="delete()">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let product of products; let idx = index" size="4">
+        <ion-ripple-effect></ion-ripple-effect>
+        <div #divimage (press)="press(product, idx)" (tap)="tap(product, idx)">
+          <ion-img [src]="product.image_url" (ionError)="loadErrorImg($event)"></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
