@@ -1,24 +1,28 @@
 import { Injectable } from '@angular/core';
 import { File } from '@ionic-native/file/ngx';
 import { Platform } from '@ionic/angular';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
 
-  constructor(private platform: Platform, private file: File) { }
+  constructor(private platform: Platform, private file: File, private utils: UtilsService) { }
 
-  readFile(file) {
+  readFile(file, callback) {
     let reader = new FileReader()
-    reader.onloadend = (fileReader) => { 
-      if (fileReader.returnValue) this.setLogoStorage(fileReader.target) 
-    }
+    reader.onload = callback
+    
+    console.log(file)
+    console.log(callback)
+
     reader.readAsDataURL(file)
   }
 
   setLogoStorage(logo) {
     console.log(logo)
+    this.utils.alertPopup('setLogoStorage')
   }
 
   async checkDirectory(directoryName) {

@@ -8,13 +8,7 @@
 
 <ion-content>
   <canvas id="canvas"></canvas>
-
-  <ion-input type="file" accept="image/*" [(ngModel)]="fileLogo" (change)="inputLogo($event)"></ion-input>
-
-  <ion-button (click)="getLogo()">logo</ion-button>
-  
+  <ion-button (click)="getLogo()">logo</ion-button>  
   <ion-button (click)="putImage()">salvar</ion-button>
-
   <ion-button (click)="listDir()">diretorios</ion-button>
-
 </ion-content>

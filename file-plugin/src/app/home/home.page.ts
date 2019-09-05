@@ -13,6 +13,7 @@ import { UtilsService } from '../shared/utils.service';
 })
 export class HomePage implements OnInit {
   canvas: Canvas
+  urlImage = 'https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/6283-3039-5881-29452.jpg'
   fileLogo = null
   fileBase64 = null
 
@@ -23,6 +24,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.createCanvas()
+    this.imageToCanvas()
   }
 
   putImage() {
@@ -71,13 +73,24 @@ export class HomePage implements OnInit {
       })
     })
   }
-
-  inputLogo(event) {
-    this.fileService.readFile(event.target.files[0])
-  }
-
+  
   getLogo() {
-
+    let input = document.createElement("input")
+    input.setAttribute("type", "file")
+    input.accept = "image/*"
+  
+    input.addEventListener('input', () => {
+  
+      console.log(input.files[0])
+  
+      this.fileService.readFile(input.files[0], (callback) => {
+  
+        console.log(callback)
+  
+        this.fileService.setLogoStorage(callback.target.result)
+      })
+    })
+    input.click()
   }
 
   listDir() {
@@ -95,10 +108,11 @@ export class HomePage implements OnInit {
       'touch:gesture': (obj) => {
         console.log(obj)
       }
-    })
+    })    
+  }
 
-    let url = 'https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/6283-3039-5881-29452.jpg'
-    let imgUrl = url.replace(/^https:\/\//i, 'http://')
+  imageToCanvas() {
+    let imgUrl = this.urlImage.replace(/^https:\/\//i, 'http://')
 
     fabric.Image.fromURL(imgUrl, (img) => {
       img.scaleToHeight(this.canvas.getHeight())
