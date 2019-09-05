@@ -1,0 +1,7 @@
+{
+  "name": "camera-plugin",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
