@@ -3,6 +3,8 @@ import { File } from '@ionic-native/file/ngx';
 import { Platform } from '@ionic/angular';
 import { UtilsService } from './utils.service';
 
+declare let window: any;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,19 +12,68 @@ export class FileService {
 
   constructor(private platform: Platform, private file: File, private utils: UtilsService) { }
 
-  readFile(file, callback) {
-    let reader = new FileReader()
-    reader.onload = callback
-    
-    console.log(file)
-    console.log(callback)
+  saveToDevice(blob, fileName) {
 
-    reader.readAsDataURL(file)
+    this.platform.ready().then(() => {
+
+      window.requestFileSystem(LocalFileSystem.PERSISTENT, (fileEntry) => {
+
+        console.log(fileEntry)
+
+        fileEntry.file((file) => {
+          // _playNow(file.localURL);
+
+        }, (error) => {
+          console.log(error)
+        })
+
+      }, (error) => {
+        console.log(error)
+      })
+
+      /* window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, (fs) => {
+
+        console.log('file system open: ' + fs.name)
+
+        fs.root.getFile(fs.root, { create: true, exclusive: false }, (fileEntry) => {
+
+          console.log("fileEntry is file?" + fileEntry.isFile.toString())
+          // fileEntry.name == 'someFile.txt'
+          // fileEntry.fullPath == '/someFile.txt'
+          // writeFile(fileEntry, null)
+
+        }, (onErrorCreateFile) => {
+          console.log(onErrorCreateFile)
+
+        })
+
+      }, (onErrorLoadFs) => {
+        console.log(onErrorLoadFs)
+
+      })*/
+    })
   }
 
-  setLogoStorage(logo) {
-    console.log(logo)
-    this.utils.alertPopup('setLogoStorage')
+  createToDevice(dirEntry, blob, fileName) {
+
+    dirEntry.getFile(fileName, { create: true, exclusive: false }, (fileEntry) => {
+
+      fileEntry.createWriter((fileWriter) => {
+
+        fileWriter.onwriteend = () => {
+          console.log("Successful file write...")
+          console.log(fileEntry)
+        }
+
+        fileWriter.onerror = (e) => { console.log("Failed file write: " + e.toString()) }
+
+        fileWriter.write(blob)
+
+      }, (onErrorCreateFile) => {
+        console.log(onErrorCreateFile)
+
+      })
+    })
   }
 
   async checkDirectory(directoryName) {
@@ -33,9 +84,9 @@ export class FileService {
     return await this.file.createDir(this.getRootDirectory(), directoryName, false)
   }
 
-  async writeFile(fileName, fileBlob) {
+  /* async writeFile(fileName, fileBlob) {
     return await this.file.writeFile(`${this.getRootDirectory()}BeiraRio`, fileName, fileBlob, { replace: true })
-  }
+  } */
 
   async base64toBlob(fileBase64) {
     let dataBlock = fileBase64.split(";")
@@ -56,7 +107,7 @@ export class FileService {
   }
 
   getRootDirectory() {
-    if (this.platform.is("ios")) { return "file:///private/var/mobile/Media/DCIM/" } 
+    if (this.platform.is("ios")) { return this.file.dataDirectory }
     if (this.platform.is("android")) return this.file.externalRootDirectory
     if (this.platform.is("desktop")) return ''
     return ''
