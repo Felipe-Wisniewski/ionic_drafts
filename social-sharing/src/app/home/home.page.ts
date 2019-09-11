@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { Canvas } from 'fabric/fabric-impl';
+import { fabric } from 'fabric';
+
+import { ShareService } from './share.service';
 
 @Component({
   selector: 'app-home',
@@ -8,37 +11,67 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 })
 export class HomePage {
 
-  imgSrc = 'https://s3-sa-east-1.amazonaws.com/bancoimagens.com.br/posts/8246-355-11079-29452.jpg'
+  canvas: Canvas
+  urlImage = 'https://s3-sa-east-1.amazonaws.com/imagens.catalogobeirario.com.br/grandes/6283-3039-5881-29452.jpg'
+  fileBase64 = null
 
-  constructor(private socialSharing: SocialSharing) { }
+  constructor(private shareService: ShareService) { }
 
-  share() {
-    // this.socialSharing.shareViaFacebook('Sharing Facebook', null, this.imgSrc, () => { console.log('share ok') }, () => { console.log('error share') })
-    this.socialSharing.shareViaFacebook('Sharing Facebook', null, this.imgSrc)
+  ngOnInit() {
+    this.createCanvas()
+    this.imageToCanvas()
   }
 
+  share() {
+    this.fileBase64 = this.canvas.toDataURL({ format: 'png', multiplier: 2 })
+    let fileName = `${Math.floor(Math.random() * 1000) + 1}.jpeg`
 
+    this.base64toBlob(this.fileBase64).then((blob) => {
+      this.shareService.shareImage(blob)
+    })
+  }
 
-  // Twitter
-  // <!-- unlike most apps Twitter doesn't like it when you use an array to pass multiple files as the second param -->
-  // shareViaTwitter('Message via Twitter')">message via Twitter</button>
-  // shareViaTwitter('Message and link via Twitter', null /* img */, 'http://www.x-services.nl')">msg and link via Twitter</button>
-
-  // Facebook
-  // shareViaFacebook('Message via Facebook', null /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})">msg via Facebook (with errcallback)</button>
-  // shareViaFacebookWithPasteMessageHint('Message via Facebook', null /* img */, null /* url */, 'Paste it dude!', function() {console.log('share ok')}, function(errormsg){alert(errormsg)})">msg via Facebook (with errcallback)</button>
   
-  // Whitelisting Facebook in your app's .plist:
-  // <key>LSApplicationQueriesSchemes</key>
-  // <array>
-  //   <string>fb</string>
-  // </array>
+  createCanvas() {
+    this.canvas = new fabric.Canvas('canvas')
+    this.canvas.backgroundColor = '#FFFFFF'
+    let widthScreen = parent.innerWidth
+    let height = (545 / 800) * widthScreen
+    this.canvas.setDimensions({ width: widthScreen, height: height })
 
-  // Instagram
-  // shareViaInstagram('Message via Instagram', 'https://www.google.nl/images/srpr/logo4w.png', function() {console.log('share ok')}, function(errormsg){alert(errormsg)})">msg via Instagram</button>
+    this.canvas.on({
+      'touch:gesture': (obj) => {
+        console.log(obj)
+      }
+    })
+  }
 
-  // Whatsapp
-  // shareViaWhatsApp('Message via WhatsApp', null /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})">msg via WhatsApp (with errcallback)</button>
+  imageToCanvas() {
+    let imgUrl = this.urlImage.replace(/^https:\/\//i, 'http://')
+
+    fabric.Image.fromURL(imgUrl, (img) => {
+      img.scaleToHeight(this.canvas.getHeight())
+      this.canvas.setBackgroundImage(img, this.canvas.renderAll.bind(this.canvas))
+    }, { crossOrigin: 'Anonymous' })
+  }
+
+  async base64toBlob(fileBase64) {
+    let dataBlock = fileBase64.split(";")
+    let contentType = dataBlock[0].split(":")[1]
+    let base64 = dataBlock[1].split(",")[1]
+
+    const bytes = atob(base64)
+    const byteNumbers = new Array(bytes.length)
+
+    for (let i = 0; i < bytes.length; i++)
+      byteNumbers[i] = bytes.charCodeAt(i)
+
+    const byteArray = new Uint8Array(byteNumbers)
+
+    const blob = await new Blob([byteArray], { type: contentType })
+
+    return blob;
+  }
 }
 
 

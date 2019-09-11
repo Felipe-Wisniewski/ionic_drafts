@@ -7,17 +7,6 @@
 </ion-header>
 
 <ion-content>
-  <div>
-    <ion-img [src]="imgSrc"></ion-img>
-  </div>
+  <canvas id="canvas"></canvas>
+  <ion-button (click)="share()">select image</ion-button>  
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar color="dark" mode="md">
-    <ion-buttons>
-      <ion-button (click)="share()">
-        <ion-icon slot="icon-only" size="large" name="share"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
