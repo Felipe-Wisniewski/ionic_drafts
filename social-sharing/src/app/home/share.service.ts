@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -7,31 +8,36 @@ export class ShareService {
 
   constructor(private share: SocialSharing) { }
 
-  shareImage(blob) {
+  shareImage(base64) {
 
     var options = {
-      message: 'share this', // not supported on some apps (Facebook, Instagram)
-      subject: 'the subject', // fi. for email
-      files: [blob], // an array of filenames either locally or remotely
+      // message: null, // not supported on some apps (Facebook, Instagram)
+      // subject: null, // fi. for email
+      files: [base64], // an array of filenames either locally or remotely
       // url: 'https://www.website.com/foo/#bar?a=b',
-      chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title
-      appPackageName: 'com.apple.social.facebook' // Android only, you can provide id of the App you want to share with
-    };
+      chooserTitle: 'Share via...' // Android only, you can override the default share sheet title
+      // appPackageName: 'com.instagram.android' // Android only, you can provide id of the App you want to share with
+    }
 
-    var onSuccess = function (result) {
+    this.share.shareWithOptions(options).then((result) => {
+      console.log("Result", result)
       console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
       console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
-    };
 
-    var onError = function (msg) {
-      console.log("Sharing failed with message: " + msg);
-    };
+    }).catch((err) => {
+      console.log("Sharing failed with message: " + err);
 
-    window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+    })
 
   }
-
 }
+// 'com.google.android.apps.photos',
+// 'com.facebook.katana',
+// 'com.facebook.orca',
+// 'com.instagram.android',
+// 'com.twitter.android' 
+// 'com.google.android.apps.messaging',
+
   // Twitter
   // <!-- unlike most apps Twitter doesn't like it when you use an array to pass multiple files as the second param -->
   // shareViaTwitter('Message via Twitter')">message via Twitter</button>
