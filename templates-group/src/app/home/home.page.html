@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>{{ title | uppercase }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="openMenu($event)">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-segment style="padding-top: 5px" [(ngModel)]="layout" (ionChange)="selectPostStory()">
+  <ion-segment-button value="post">
+    <ion-label>POST</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="story">
+    <ion-label>STORY</ion-label>
+  </ion-segment-button>
+</ion-segment>
+
+<p class="p-choose">ESCOLHA UM TEMPLATE:</p>
+
+<ion-content>
+  <ion-grid class="grid-template" *ngIf="loaded ; else loading">
+
+    <ion-row *ngIf="layout == 'post'">
+      <ion-col class="ion-activatable" *ngFor="let template of templatesPost; let idx = index" size="4">
+        <ion-ripple-effect></ion-ripple-effect>
+        <div class="div-img" (click)="selectTemplate(template, idx)"
+          [ngClass]="{'selected': idx == index && isSelected}">
+          <ion-img [src]="template.thumbnail_url" (ionError)="loadErrorImg($event)"></ion-img>
+          <p class="name-template">{{ template.name | lowercase }}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="layout == 'story'">
+      <ion-col *ngFor="let tempArray of templatesStory; let idx = index" size="6">
+        <ion-slides mode="md" pager="true" scrollbar="md">
+          <ion-slide *ngFor="let temps of tempArray">
+              <ion-img [src]="temps.thumbnail_url" (ionError)="loadErrorImg($event)"></ion-img>
+              <!-- <label>{{ temps.name | lowercase }}</label> -->
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-infinite-scroll threshold="50%" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ng-template #loading>
+    <ion-spinner loadingSpinner="crescent"></ion-spinner>
+  </ng-template>
+</ion-content>
+
+<ion-fab color="primary" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="openProducts()" activated="{{ !isSelected }}">
+    <ion-icon name="arrow-forward"></ion-icon>
+  </ion-fab-button>

@@ -1,36 +1,71 @@
 import { Injectable } from '@angular/core';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { Platform, PopoverController } from '@ionic/angular';
+import { WebSharePage } from '../web-share/web-share.page';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShareService {
 
-  constructor(private share: SocialSharing) { }
+  constructor(
+    private platform: Platform,
+    private popover: PopoverController,
+    private share: SocialSharing
+  ) { }
 
-  shareImage(base64) {
+  async shareImage(base64) {
+    if (this.platform.is('desktop')) {
+      const popover = await this.popover.create({
+        component: WebSharePage,
+        animated: true,
+        translucent: true,
+        mode: "md",
+        componentProps: {
+          base64: base64,
+          blob: this.base64toBlob(base64)
+        }
+      })
+      return await popover.present()
 
-    var options = {
-      // message: null, // not supported on some apps (Facebook, Instagram)
-      // subject: null, // fi. for email
-      files: [base64], // an array of filenames either locally or remotely
-      // url: 'https://www.website.com/foo/#bar?a=b',
-      chooserTitle: 'Share via...' // Android only, you can override the default share sheet title
-      // appPackageName: 'com.instagram.android' // Android only, you can provide id of the App you want to share with
+    } else {
+      var options = {
+        // message: null, // not supported on some apps (Facebook, Instagram)
+        // subject: null, // fi. for email
+        files: [base64], // an array of filenames either locally or remotely
+        // url: 'https://www.website.com/foo/#bar?a=b',
+        chooserTitle: 'Share via...' // Android only, you can override the default share sheet title
+        // appPackageName: 'com.instagram.android' // Android only, you can provide id of the App you want to share with
+      }
+
+      this.share.shareWithOptions(options).then((result) => {
+        console.log("Result", result)
+        console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
+        console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+
+      }).catch((err) => {
+        console.log("Sharing failed with message: " + err);
+      })
     }
+  }
 
-    this.share.shareWithOptions(options).then((result) => {
-      console.log("Result", result)
-      console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
-      console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+  private async base64toBlob(fileBase64) {
+    let dataBlock = fileBase64.split(";")
+    let contentType = dataBlock[0].split(":")[1]
+    let base64 = dataBlock[1].split(",")[1]
 
-    }).catch((err) => {
-      console.log("Sharing failed with message: " + err);
+    const bytes = atob(base64)
+    const byteNumbers = new Array(bytes.length)
 
-    })
+    for (let i = 0; i < bytes.length; i++)
+      byteNumbers[i] = bytes.charCodeAt(i)
 
+    const byteArray = new Uint8Array(byteNumbers)
+    const blob = await new Blob([byteArray], { type: contentType })
+    return blob;
   }
 }
+
 // 'com.google.android.apps.photos',
 // 'com.facebook.katana',
 // 'com.facebook.orca',

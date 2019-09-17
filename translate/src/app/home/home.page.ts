@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { literalMap } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +7,8 @@ import { literalMap } from '@angular/compiler';
 })
 export class HomePage implements OnInit {
 
-  lang = window.navigator.language
-
   constructor() {}
 
   ngOnInit() {
-    console.log(window.navigator.language)
   }
 }

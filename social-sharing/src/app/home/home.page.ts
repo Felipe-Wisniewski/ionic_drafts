@@ -24,12 +24,8 @@ export class HomePage {
 
   share() {
     this.fileBase64 = this.canvas.toDataURL({ format: 'png', multiplier: 2 })
-    let fileName = `${Math.floor(Math.random() * 1000) + 1}.jpeg`
 
     this.shareService.shareImage(this.fileBase64)
-    /* this.base64toBlob(this.fileBase64).then((blob) => {
-      this.shareService.shareImage(blob)
-    }) */
   }
 
   
