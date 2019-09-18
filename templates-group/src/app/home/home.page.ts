@@ -26,6 +26,12 @@ export class HomePage {
   templatesStory: any[] = []
   selectedTemplate: any
 
+  slideOpts = {
+    slidesPerView: 3,
+    spaceBetween: 15
+    // centeredSlides: true
+  }
+
   constructor(
     private homeService: HomeService) { }
 
@@ -98,6 +104,9 @@ export class HomePage {
   }
 
   selectTemplate(template, index) {
+    console.log(index)
+    console.log(template)
+
     this.selectedTemplate = template
 
     if (this.index == index) {

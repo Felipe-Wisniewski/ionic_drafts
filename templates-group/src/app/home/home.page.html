@@ -24,28 +24,37 @@
 <p class="p-choose">ESCOLHA UM TEMPLATE:</p>
 
 <ion-content>
-  <ion-grid class="grid-template" *ngIf="loaded ; else loading">
+  <ion-grid *ngIf="loaded ; else loading">
 
     <ion-row *ngIf="layout == 'post'">
-      <ion-col class="ion-activatable" *ngFor="let template of templatesPost; let idx = index" size="4">
+      <ion-col class="ion-activatable" *ngFor="let template of templatesPost; let idx = index" size-xs="4" size-md="3">
         <ion-ripple-effect></ion-ripple-effect>
-        <div class="div-img" (click)="selectTemplate(template, idx)"
-          [ngClass]="{'selected': idx == index && isSelected}">
-          <ion-img [src]="template.thumbnail_url" (ionError)="loadErrorImg($event)"></ion-img>
-          <p class="name-template">{{ template.name | lowercase }}</p>
-        </div>
+        <ion-img [src]="template.thumbnail_url" (click)="selectTemplate(template, idx)"
+          [ngClass]="{'selected': idx == index && isSelected}" (ionError)="loadErrorImg($event)"></ion-img>
+        <p class="name-temp-post">{{ template.name | lowercase }}</p>
       </ion-col>
     </ion-row>
 
     <ion-row *ngIf="layout == 'story'">
-      <ion-col *ngFor="let tempArray of templatesStory; let idx = index" size="6">
-        <ion-slides mode="md" pager="true" scrollbar="md">
-          <ion-slide *ngFor="let temps of tempArray">
-              <ion-img [src]="temps.thumbnail_url" (ionError)="loadErrorImg($event)"></ion-img>
-              <!-- <label>{{ temps.name | lowercase }}</label> -->
+      <ion-col *ngFor="let tempArray of templatesStory; let idx = index" size="12">
+
+        <ion-slides mode="md" pager="{{ tempArray.length > 1 }}" [options]="slideOpts">
+
+          <ion-slide *ngFor="let temps of tempArray" (click)="selectTemplate(temps, idx)">
+
+            <ion-img [src]="temps.thumbnail_url" [ngClass]="{'selected': idx == index && isSelected}"
+              (ionError)="loadErrorImg($event)"></ion-img>
+            
+              <p class="name-temp-story" *ngIf="tempArray.length == 1">{{ temps.name | lowercase }}</p>
+
           </ion-slide>
+          
         </ion-slides>
+
+        <p class="name-temp-story" *ngIf="tempArray.length > 1">{{ tempArray[0].group_name | lowercase }}</p>
+
       </ion-col>
+
     </ion-row>
 
   </ion-grid>

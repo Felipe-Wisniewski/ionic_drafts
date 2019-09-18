@@ -1,45 +1,64 @@
-ion-content {
-    background-color: #f2f2f2;
-  }
-  
-  .p-choose {
-    font-size: 16px;
-    margin: 0px;
-    padding-top: 8px;
-    padding-bottom: 4px;
-    text-align: center;
-  }
-  
-  .grid-template {
-    max-width: 800px;
-    height: 100%;
-    padding: 0px;
-    background-color: #f2f2f2;
-  }
-    
-  .div-img {
-    padding: 3px;
-  }
-  
-  .name-template {
-    font-size: 13px;
-    margin: 0px;
-    padding-left: 2px;
-    padding-top: 4px;
-    padding-right: 2px;
-    padding-bottom: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
-    background-color: white;
-  }
-  
-  ion-infinite-scroll {
-    background-color: #f2f2f2;
-  }
-  
-  .selected {
-    background-color: #b12025;
-  }
-  
+.p-choose {
+  font-size: 16px;
+  margin: 0px;
+  padding-top: 8px;
+  padding-bottom: 4px;
+  text-align: center;
+}
+
+// ion-content {
+//   background-color: #f2f2f2;
+// }
+
+ion-grid {
+  max-width: 800px;
+  // height: 100%;
+  padding: 0px;
+  background-color: #f2f2f2;
+}
+
+.name-temp-post {
+  font-size: 13px;
+  margin: 0px;
+  padding-left: 2px;
+  padding-top: 4px;
+  padding-right: 2px;
+  padding-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  background-color: white;
+}
+
+ion-slides {
+  --bullet-background-active: #b12025;
+  --bullet-background: #383a3e;
+}
+
+ion-slide {
+  flex-direction: column;
+}
+
+.name-temp-story {
+  width: 100%;
+  font-size: 13px;
+  margin: 0px;
+  padding-left: 2px;
+  padding-top: 4px;
+  padding-right: 2px;
+  padding-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  background-color: white;
+}
+
+ion-infinite-scroll {
+  background-color: #f2f2f2;
+}
+
+.selected {
+  background-color: #b12025;
+}
