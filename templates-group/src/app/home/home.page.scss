@@ -17,6 +17,10 @@ ion-grid {
   background-color: #f2f2f2;
 }
 
+ion-col {
+  padding: 2px;
+}
+
 .name-temp-post {
   font-size: 13px;
   margin: 0px;
@@ -48,10 +52,19 @@ ion-slide {
   padding-top: 4px;
   padding-right: 2px;
   padding-bottom: 6px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
+  text-align: center; 
+  background-color: white;
+}
+
+.name-group-story {
+  width: 100%;
+  font-size: 13px;
+  margin: 0px;
+  padding-left: 2px;
+  padding-top: 4px;
+  padding-right: 2px;
+  padding-bottom: 6px;
+  text-align: center; 
   background-color: white;
 }
 

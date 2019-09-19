@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { HomeService } from './home.service';
 import { Subscription } from 'rxjs';
+
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
 
   title: string
   id_brand: any
@@ -22,14 +22,15 @@ export class HomePage {
   loaded = false
 
   subscription$: Subscription[] = []
+
   templatesPost: any[] = []
+  templatesStoryOne: any[] = []
   templatesStory: any[] = []
   selectedTemplate: any
 
   slideOpts = {
     slidesPerView: 3,
-    spaceBetween: 15
-    // centeredSlides: true
+    spaceBetween: 5
   }
 
   constructor(
@@ -38,13 +39,13 @@ export class HomePage {
   ngOnInit() {
     this.getBrandId()
   }
-
+  
   getBrandId() {
     this.title = "templates"
     this.id_brand = "16"
     this.id_subdivision = null
     this.templatesPost.push(this.getTemplateBlanckPost())
-    this.templatesStory.push(this.getTemplateBlankStory())
+    this.templatesStoryOne.push(this.getTemplateBlankStory())
 
     this.getTemplates()
   }
@@ -61,12 +62,17 @@ export class HomePage {
     )
 
     this.subscription$.push(this.homeService.getTemplates(this.id_brand, this.id_subdivision, 'story', this.page)
-      .subscribe(_templates => {
+      .subscribe((_templates) => {
         _templates.forEach(temp => {
-          this.templatesStory.push(temp)
+          temp[0].id_group == null ? this.templatesStoryOne.push(temp[0]) : this.templatesStory.push(temp)
         })
         console.log('s', this.templatesStory)
+
         this.loaded = true
+      }, (e) => {
+        console.log(e)
+      }, () => {
+        this.templatesStory.unshift(this.templatesStoryOne)
       })
     )
   }
@@ -80,7 +86,7 @@ export class HomePage {
         // this.index = -1
         this.layout = "post"
         // this.loaded = false
-        // this.isSelected = false
+        this.isSelected = false
         // this.getTemplates()
         break
       }
@@ -92,7 +98,7 @@ export class HomePage {
         // this.index = -1
         this.layout = "story"
         // this.loaded = false
-        // this.isSelected = false
+        this.isSelected = false
         // this.getTemplates()
         break
       }
@@ -168,18 +174,16 @@ export class HomePage {
   }
 
   getTemplateBlankStory() {
-    return [
-      {
-        id_brand: this.id_brand,
-        id_template: "0",
-        json: null,
-        name: "blank",
-        thumbnail_url: "assets/img/templateWhiteStory.jpg",
-        id_subdivision: this.id_subdivision,
-        max_products: "2",
-        layout: "story"
-      }
-    ]
+    return {
+      id_brand: this.id_brand,
+      id_template: "0",
+      json: null,
+      name: "blank",
+      thumbnail_url: "assets/img/templateWhiteStory.jpg",
+      id_subdivision: this.id_subdivision,
+      max_products: "2",
+      layout: "story"
+    }
   }
 
   loadErrorImg(event) {
