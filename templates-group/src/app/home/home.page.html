@@ -27,34 +27,26 @@
   <ion-grid *ngIf="loaded ; else loading">
 
     <ion-row *ngIf="layout == 'post'">
-      <ion-col class="ion-activatable" *ngFor="let template of templatesPost; let idx = index"
+      <ion-col class="ion-activatable col-post" *ngFor="let template of templatesPost; let idx = index"
         [ngClass]="{'selected': idx == index && isSelected}" size-xs="4" size-md="3">
         <ion-ripple-effect></ion-ripple-effect>
-        <ion-img [src]="template.thumbnail_url" (click)="selectTemplate(template, idx)"
+        <ion-img [src]="template.thumbnail_url" (click)="selectTemplatePost(template, idx)"
           (ionError)="loadErrorImg($event)"></ion-img>
         <p class="name-temp-post">{{ template.name | lowercase }}</p>
       </ion-col>
     </ion-row>
 
     <ion-row *ngIf="layout == 'story'">
-
-      <ion-col *ngFor="let tempArray of templatesStory" size="12">
-
-        <ion-slides mode="md" pager="{{ tempArray.length > 3 }}" [options]="slideOpts">
-
-          <ion-slide *ngFor="let temps of tempArray; let idx = index" (click)="selectTemplate(temps, idx)">
-
-            <ion-img [src]="temps.thumbnail_url" [ngClass]="{'selected': idx == index && isSelected}"
-              (ionError)="loadErrorImg($event)"></ion-img>
-
-            <p class="name-temp-story" *ngIf="temps.id_group == null">{{ temps.name | lowercase }}</p>
-
+      <ion-col *ngFor="let templates of templatesStory; let idx_a = index" size="12">
+        <p class="name-group-story" *ngIf="templates[0].id_group != null">{{ templates[0].group_name | lowercase }}</p>
+        <ion-slides mode="md" pager="{{ templates.length > 3 }}" [options]="slideOpts">
+          <ion-slide *ngFor="let template of templates; let idx_b = index"
+            [ngClass]="{'selected': idx_a == index_a && idx_b == index_b && isSelected}"
+            (click)="selectTemplateStory(template, idx_a, idx_b)">
+            <ion-img [src]="template.thumbnail_url" (ionError)="loadErrorImg($event)"></ion-img>
+            <p class="name-temp-story">{{ template.name | lowercase }}</p>
           </ion-slide>
-
         </ion-slides>
-
-        <p class="name-group-story" *ngIf="tempArray[0].id_group != null">{{ tempArray[0].group_name | lowercase }}</p>
-
       </ion-col>
     </ion-row>
   </ion-grid>

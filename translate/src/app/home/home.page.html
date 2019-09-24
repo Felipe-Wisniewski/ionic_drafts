@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      {{ 'APP_NAME' | translate }}
+      {{ 'APP_NAME' | appTranslate }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <h1>{{ 'TITLE_ONE' | translate }}</h1>
-  <h2>{{ 'DESCRIPTION' | translate }}</h2>
-  <p>{{ 'DATA.NAME' | translate }}</p>
+  <h1>{{ title_one | appTranslate }}</h1>
+  <h2>{{ description | appTranslate }}</h2>
+  <p>{{ name | appTranslate }}</p>
 </ion-content>

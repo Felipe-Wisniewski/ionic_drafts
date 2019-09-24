@@ -18,6 +18,8 @@ export class HomePage {
   page = 1
 
   index = -1
+  index_a = -1
+  index_b = -1
   isSelected = false
   loaded = false
 
@@ -29,8 +31,7 @@ export class HomePage {
   selectedTemplate: any
 
   slideOpts = {
-    slidesPerView: 3,
-    spaceBetween: 5
+    slidesPerView: 3
   }
 
   constructor(
@@ -39,7 +40,7 @@ export class HomePage {
   ngOnInit() {
     this.getBrandId()
   }
-  
+
   getBrandId() {
     this.title = "templates"
     this.id_brand = "16"
@@ -67,7 +68,6 @@ export class HomePage {
           temp[0].id_group == null ? this.templatesStoryOne.push(temp[0]) : this.templatesStory.push(temp)
         })
         console.log('s', this.templatesStory)
-
         this.loaded = true
       }, (e) => {
         console.log(e)
@@ -109,18 +109,30 @@ export class HomePage {
     }
   }
 
-  selectTemplate(template, index) {
-    console.log(index)
-    console.log(template)
-
+  selectTemplatePost(template, idx) {
     this.selectedTemplate = template
 
-    if (this.index == index) {
+    if (this.index == idx) {
       this.index = -1
       this.isSelected = false
 
     } else {
-      this.index = index
+      this.index = idx
+      this.isSelected = true
+    }
+  }
+
+  selectTemplateStory(template, index_a, index_b) {
+    this.selectedTemplate = template
+
+    if (this.index_a == index_a && this.index_b == index_b) {
+      this.index_a = -1
+      this.index_b = -1
+      this.isSelected = false
+
+    } else {
+      this.index_a = index_a
+      this.index_b = index_b
       this.isSelected = true
     }
   }
@@ -177,6 +189,7 @@ export class HomePage {
     return {
       id_brand: this.id_brand,
       id_template: "0",
+      id_group: null,
       json: null,
       name: "blank",
       thumbnail_url: "assets/img/templateWhiteStory.jpg",
