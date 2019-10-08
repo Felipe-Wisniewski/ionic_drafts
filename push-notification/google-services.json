@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "819028747233",
+    "firebase_url": "https://push-notification-ionic-88320.firebaseio.com",
+    "project_id": "push-notification-ionic-88320",
+    "storage_bucket": "push-notification-ionic-88320.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819028747233:android:b3cb15616291f9606d28a0",
+        "android_client_info": {
+          "package_name": "com.push.wisniewski"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819028747233-somqaugcjd28mdsib83deccr95c61epb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfIl0345N7OmClujePQdswPQoMojFaIfQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819028747233-somqaugcjd28mdsib83deccr95c61epb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
