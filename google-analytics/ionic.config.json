@@ -1,0 +1,7 @@
+{
+  "name": "google-analytics",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
