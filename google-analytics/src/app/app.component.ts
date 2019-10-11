@@ -50,7 +50,7 @@ export class AppComponent {
 
         } else {
           console.log('cordova')
-          this.analytics.startTracker('UA-86682297-1').then(() => {
+          this.analytics.startTracker('UA-XXXX-1').then(() => {
             this.analytics.trackPage(event.url, title)
           })
         }
